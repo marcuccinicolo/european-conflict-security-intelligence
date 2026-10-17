@@ -41,7 +41,7 @@ with st.sidebar:
     st.caption(
         "Data last processed: "
         + max(str(x) for x in reg["processed_at_utc"])[:16].replace("T", " ")
-        + " UTC"
+        + f" UTC · code {U.code_version()}"
     )
 
 pages.run()
