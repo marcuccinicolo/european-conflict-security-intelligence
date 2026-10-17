@@ -250,6 +250,79 @@ some national budget lines and differs from NATO's.
     return md, facts
 
 
+# ---------------------------------------------------------------- research part
+
+
+def research_section(con) -> str:
+    from src import research as R
+
+    if not R.available(con):
+        return ""
+    r = R.run(con)
+    R.save(r)
+    f = R.as_frames(r)
+    from src.ui.page_research import LABELS
+
+    p1 = _save(V.distance_scatter(f["raw"], LABELS), "research_distance_scatter", height=460)
+    p2 = _save(V.event_study_chart(f["event_study"], "Gradient (pp of GDP per 1,000 km)",
+                                   "Event study: gradient by year relative to 2013 (95% CI)"), "research_event_study")  # fmt: skip
+    m, pt, lo, plc = r["main"], r["pretrend"], r["leave_one_out"], r["placebo_2009"]
+    rob = f["robustness"].set_index("specification")
+    cau = rob.loc["Including South Caucasus"]
+    pv = lambda p: "< 0.001" if p < 0.001 else f"{p:.3f}"  # noqa: E731
+    rows = "\n".join(
+        f"| {k} | {v.post2014:+.3f} ({v.se_post2014:.3f}) | {pv(v.p_boot_post2014)} | "
+        f"{v.post2022:+.3f} ({v.se_post2022:.3f}) | {pv(v.p_boot_post2022)} | {v.countries} |"
+        for k, v in rob.iterrows()
+    )
+    return f"""
+## 5. Research extension: does proximity to Russia predict military burden?
+
+Design fixed in writing before estimation: [`docs/RESEARCH_DESIGN.md`](../docs/RESEARCH_DESIGN.md).
+Two-way fixed-effects event study, {r['sample']['n_countries']} European countries, 2005–2025
+({r['sample']['n_obs']} country-years). Exposure: distance from the capital to Russia's
+internationally recognised territory, in 1,000 km. Russia, Ukraine, Belarus and Iceland are excluded,
+and the South Caucasus is excluded from the main sample. Inference: cluster-robust by country and a
+wild cluster bootstrap (9,999 draws, null imposed).
+
+![Raw change by distance]({p1})
+
+**Main estimates** (pp of GDP per 1,000 km farther from Russia; negative = closer countries rose more):
+
+- After 2014: **{m['post2014']:+.2f}** (95% CI {m['ci_post2014'][0]:.2f} to {m['ci_post2014'][1]:.2f};
+  bootstrap p {pv(m['p_boot_post2014'])}).
+- Additional after 2022: **{m['post2022']:+.2f}** (95% CI {m['ci_post2022'][0]:.2f} to
+  {m['ci_post2022'][1]:.2f}; bootstrap p {pv(m['p_boot_post2022'])}).
+- Combined since 2022, a country 1,000 km closer to Russia raised its burden by about
+  **{abs(m['post2014'] + m['post2022']):.1f} pp of GDP more**, relative to its own 2005–2013 level.
+
+![Event study]({p2})
+
+**Pre-trends.** The joint test that the 2005–2012 coefficients are zero
+{'**rejects** at 5%' if pt['p'] < 0.05 else 'does not reject'} (F({pt['df1']}, {pt['df2']}) =
+{pt['F']:.2f}, p = {pt['p']:.3f}). The pre-period coefficients are small (largest absolute value
+{max(abs(x) for x in f['event_study'].query('year < 2013')['coef']):.2f}) next to the post-2022 ones,
+but the post-2014 estimate should not be read as a clean break.
+
+**Robustness** (coefficient (s.e.), bootstrap p):
+
+| Specification | After 2014 | p | Extra after 2022 | p | Countries |
+|---|---|---|---|---|---|
+{rows}
+
+Leave-one-out range for the post-2022 estimate: {lo['post2022_min']:+.2f} to {lo['post2022_max']:+.2f}
+(most influential country: {lo['most_influential_2022']}). Placebo treatment in 2009:
+{plc['coef']:+.3f}, bootstrap p {pv(plc['p_boot'])}.
+
+**Interpretation.** The post-2022 gradient is the robust finding: it holds in levels and in shares,
+with either exposure measure, with a NATO control, and without the Baltic states. The post-2014
+gradient is weaker. Including the South Caucasus moves it to {cau['post2014']:+.2f} (p
+{pv(cau['p_boot_post2014'])}), and the pre-trend test is not clean. None of this identifies *why*
+closer countries spent more: distance is bundled with history, alliance position and threat
+perception, and the estimate is a gradient in observed budgets, not the effect of moving a country.
+"""
+
+
 # -------------------------------------------------------------------- assembly
 
 
@@ -276,7 +349,11 @@ def build_report() -> list[Path]:
     if {"ucdp_ged", "sipri_milex"} <= real:
         c_md, _ = conflict_section(con, False, "ucdp_ged")
         d_md, _ = defence_section(con, False, "sipri_milex")
-        body = _real_brief(reg, c_md, d_md, now)
+        body = _real_brief(reg[reg["domain"].isin(["conflict", "defence"])], c_md, d_md, now)
+        body = body.replace("## 5. Data-quality and reporting limitations", research_section(con)
+                            + "\n## 6. Data-quality and reporting limitations")
+        body = body.replace("## 6. What can and cannot reasonably be concluded", "## 7. What can and cannot reasonably be concluded")
+        body = body.replace("## 7. Ideas for further research", "## 8. Ideas for further research")
         path = REPORTS_DIR / "RESEARCH_BRIEF.md"
     else:
         body = _demo_brief(con, now)
@@ -352,9 +429,9 @@ de-escalation.
    counts for Ukraine *as a measurement exercise* (where and why they diverge), not to pool them.
 2. **UCDP Candidate Events** (monthly releases) to cover the months after the annual GED cut-off,
    with explicit flags for provisional data.
-3. **Event-study design for defence budgets.** Use announced budget decisions, threat-distance
-   measures (e.g. distance to the front line) and fiscal controls to test the "proximity" hypothesis
-   suggested by the eastern-flank pattern, with pre-trend checks.
+3. **Sharpen the proximity design (section 5).** Use budget *announcements* rather than outturns to
+   date the response, try synthetic-control comparisons for the most exposed countries, and test
+   mechanisms (threat perception surveys, NATO capability targets).
 4. **Composition of spending.** NATO and EDA data on equipment versus personnel shares to see
    *what* the increases buy.
 5. **Uncertainty propagation.** Carry UCDP low/high bands and SIPRI estimate flags into every

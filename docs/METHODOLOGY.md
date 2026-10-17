@@ -91,8 +91,14 @@ Each adapter produces a JSON report (`reports/data_quality/<source>.json`) and w
 
 **SIPRI estimates.** Recent values for several countries, especially those at war, are SIPRI estimates and highly uncertain. SIPRI's figures include items that national budgets classify differently, so they can differ from national or NATO figures.
 
-## 7. What can and cannot be concluded
+## 7. Research extension
+
+The proximity event study (dashboard *Research* page, brief section 5) follows its own written
+design in [RESEARCH_DESIGN.md](RESEARCH_DESIGN.md). Gradients are in percentage points of GDP per
+1,000 km. Negative values mean that countries closer to Russia increased their burden more.
+
+## 8. What can and cannot be concluded
 
 **Can:** describe how recorded events and estimated fatalities in a source are distributed over time, space and type; describe changes in real military expenditure and in its share of GDP; identify where data are incomplete.
 
-**Cannot:** infer total real-world violence; compare event counts across sources; attribute changes in spending to conflict (or the reverse); predict future events; locate individuals or support operational decisions.
+**Cannot:** infer total real-world violence; read the proximity gradient as the causal effect of distance; compare event counts across sources; attribute changes in spending to conflict (or the reverse); predict future events; locate individuals or support operational decisions.

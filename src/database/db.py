@@ -65,6 +65,7 @@ def build_database(
     registry: list[dict],
     checks: list[dict],
     path: Path = DB_PATH,
+    extra_tables: dict[str, pd.DataFrame] | None = None,
 ) -> Path:
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -90,6 +91,9 @@ def build_database(
         if checks:
             con.register("qc_df", pd.DataFrame(checks))
             con.execute("INSERT INTO quality_checks BY NAME SELECT * FROM qc_df")
+        for name, frame in (extra_tables or {}).items():
+            con.register(f"{name}_df", frame)
+            con.execute(f"CREATE TABLE {name} AS SELECT * FROM {name}_df")
         con.execute("CREATE INDEX idx_ev_source ON conflict_events(source, event_date)")
         con.execute("CREATE INDEX idx_mx ON milex(source, indicator, iso3)")
     finally:

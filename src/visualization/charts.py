@@ -210,3 +210,50 @@ def threshold_counts(df: pd.DataFrame, threshold: float, synthetic: bool) -> go.
     fig.update_layout(barmode="overlay", title=f"European countries with military expenditure ≥ {threshold:g}% of GDP",
                       yaxis_title="Number of countries", bargap=0.2)  # fmt: skip
     return _finish(fig, synthetic, height=360)
+
+
+# ------------------------------------------------------------- research charts
+
+
+def event_study_chart(es: pd.DataFrame, y_title: str, title: str) -> go.Figure:
+    """Year-by-year gradient with 95% CIs; base year at zero by construction."""
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(
+        x=es["year"], y=es["coef"], mode="lines+markers", name="Estimate",
+        line=dict(width=2, color=SERIES[0]), marker=dict(size=8, color=SERIES[0]),
+        error_y=dict(type="data", symmetric=False, array=es["hi"] - es["coef"],
+                     arrayminus=es["coef"] - es["lo"], color=SERIES[0], thickness=1.2, width=0),
+        customdata=es[["lo", "hi"]],
+        hovertemplate="%{x}: %{y:.3f}<br>95% CI %{customdata[0]:.3f} to %{customdata[1]:.3f}<extra></extra>",
+    ))  # fmt: skip
+    fig.add_hline(y=0, line=dict(color=MUTED, width=1))
+    for x, label in [(2014, "Crimea annexed"), (2022, "Full-scale invasion")]:
+        fig.add_vline(x=x - 0.5, line=dict(color=MUTED, width=1, dash="dot"))
+        fig.add_annotation(x=x - 0.5, y=1, yref="paper", text=label, showarrow=False, xanchor="left",
+                           font=dict(size=11, color=INK_2), xshift=4)  # fmt: skip
+    fig.update_layout(title=title, yaxis_title=y_title, hovermode="closest", showlegend=False)
+    return _finish(fig, False, height=420)
+
+
+# Hand-placed label positions where neighbouring points would collide.
+LABEL_POS = {"LVA": "middle left", "POL": "middle right", "LTU": "bottom right", "EST": "middle right",
+             "FIN": "middle right", "GBR": "middle right", "FRA": "top center",
+             "DEU": "bottom center"}  # fmt: skip
+
+
+def distance_scatter(raw: pd.DataFrame, label_iso: set[str]) -> go.Figure:
+    """Raw change in % of GDP 2013-2025 against distance; a few points labelled."""
+    lab = raw["iso3"].isin(label_iso)
+    fig = go.Figure(go.Scatter(
+        x=raw["dist"] * 1000, y=raw["change_pp"], mode="markers+text",
+        text=raw["country"].where(lab, ""), textfont=dict(size=11, color=INK_2),
+        textposition=[LABEL_POS.get(i, "top center") for i in raw["iso3"]],
+        marker=dict(size=10, color=SERIES[0], line=dict(color="white", width=2)),
+        customdata=raw["country"],
+        hovertemplate="%{customdata}<br>%{x:,.0f} km from Russia<br>%{y:+.2f} pp<extra></extra>",
+    ))  # fmt: skip
+    fig.add_hline(y=0, line=dict(color=MUTED, width=1))
+    fig.update_layout(title="Change in military expenditure, % of GDP, 2013–2025",
+                      xaxis_title="Distance from capital to Russia (km, Crimea excluded)",
+                      yaxis_title="Change (percentage points)", hovermode="closest")  # fmt: skip
+    return _finish(fig, False, height=440)

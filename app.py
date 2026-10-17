@@ -9,7 +9,7 @@ import streamlit as st
 
 from src.config import ROOT
 from src.ui import common as U
-from src.ui import page_conflict, page_defence, page_overview, page_quality
+from src.ui import page_conflict, page_defence, page_overview, page_quality, page_research
 
 st.set_page_config(
     page_title="European Conflict & Security Intelligence",
@@ -30,6 +30,7 @@ pages = st.navigation(
         st.Page(page_overview.render, title="Overview", icon=":material/dashboard:", url_path="overview", default=True),
         st.Page(page_conflict.render, title="Conflict patterns", icon=":material/location_on:", url_path="conflict"),
         st.Page(page_defence.render, title="Defence trends", icon=":material/account_balance:", url_path="defence"),
+        st.Page(page_research.render, title="Research", icon=":material/science:", url_path="research"),
         st.Page(page_quality.render, title="Data quality", icon=":material/fact_check:", url_path="quality"),
         st.Page(methodology, title="Methodology", icon=":material/menu_book:", url_path="methodology"),
     ]
