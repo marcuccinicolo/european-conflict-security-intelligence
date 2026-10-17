@@ -15,6 +15,7 @@ DATA_DIR = ROOT / "data"
 RAW_DIR = DATA_DIR / "raw"
 PROCESSED_DIR = DATA_DIR / "processed"
 SAMPLE_DIR = DATA_DIR / "sample"
+PUBLIC_DIR = DATA_DIR / "public"  # committed derived data whose licence permits it
 REPORTS_DIR = ROOT / "reports"
 QUALITY_DIR = REPORTS_DIR / "data_quality"
 FIGURES_DIR = REPORTS_DIR / "figures"
@@ -24,6 +25,10 @@ DB_PATH = Path(os.getenv("ECSI_DB_PATH", PROCESSED_DIR / "security.duckdb"))
 # Sample (synthetic) files shipped with the repository.
 SYNTHETIC_EVENTS_CSV = SAMPLE_DIR / "SYNTHETIC_demo_events_acled_format.csv"
 SYNTHETIC_MILEX_CSV = SAMPLE_DIR / "SYNTHETIC_demo_milex.csv"
+
+# Validated European UCDP subset (CC BY 4.0), committed so deployments start with real data.
+UCDP_PUBLIC_PARQUET = PUBLIC_DIR / "ucdp_ged_europe.parquet"
+UCDP_PUBLIC_META = PUBLIC_DIR / "ucdp_ged_europe.meta.json"
 
 # Natural Earth admin-0 boundaries (public domain) used for coordinate checks.
 BOUNDARIES_ZIP = RAW_DIR / "naturalearth" / "ne_50m_admin_0_countries.zip"

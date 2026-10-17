@@ -17,9 +17,9 @@ documented transformation, and a stated denominator.**
 
 ![Overview](docs/img/dashboard_overview.jpg)
 
-| Conflict map (UCDP GED, 2014–2025) | Country comparison (SIPRI, 2025) |
+| Conflict patterns (UCDP GED, 2014–2025) | Defence trends (SIPRI, constant 2024 US$) |
 |---|---|
-| ![Map](docs/img/dashboard_conflict_map.jpg) | ![Defence](docs/img/dashboard_defence_comparison.jpg) |
+| ![Conflict](docs/img/dashboard_conflict.jpg) | ![Defence](docs/img/dashboard_defence.jpg) |
 
 ---
 
@@ -34,8 +34,11 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
-The app starts immediately with the **bundled synthetic demo data**, clearly labelled as such. To
-load the real public datasets (~41 MB of downloads, no account needed):
+On first launch the app builds its database from what ships with the repository: the
+**validated European UCDP subset** in `data/public/` (CC BY 4.0 permits redistribution), and the
+**synthetic demo data**, clearly labelled. It also downloads the **SIPRI workbook (~1 MB)** from
+sipri.org, because SIPRI's terms do not allow committing it. Set `ECSI_AUTO_FETCH=0` to skip the
+download. To rebuild everything from the original raw files (~41 MB, no account needed):
 
 ```bash
 python -m src.pipeline fetch    # UCDP GED 26.1, SIPRI Milex 2025 v1.2, Natural Earth borders
@@ -53,10 +56,17 @@ covered in [docs/DATA_ACQUISITION.md](docs/DATA_ACQUISITION.md).
 pytest
 ```
 
-52 tests: validation primitives, each source adapter, aggregation logic, SQL-versus-pandas
+53 tests: validation primitives, each source adapter, aggregation logic, SQL-versus-pandas
 consistency, SQL injection safety, synthetic-defect detection, the mocked ACLED API client, and a
-headless render of every dashboard page. With only the synthetic data present, 51 pass and the
-boundary-dependent test is skipped.
+headless render of every dashboard page. Without the Natural Earth file, the boundary-dependent
+test is skipped. GitHub Actions runs the suite on every push (`.github/workflows/tests.yml`).
+
+### Deploying (Streamlit Community Cloud)
+
+1. Push the repository to GitHub.
+2. On <https://share.streamlit.io>, choose **Create app** → this repository, branch `main`,
+   file `app.py`, and **Python 3.12** under *Advanced settings*.
+3. The first visit builds the database (UCDP from `data/public/`, SIPRI downloaded once).
 
 ---
 
@@ -117,6 +127,7 @@ src/
   ui/                       one module per page + shared helpers
 scripts/generate_synthetic_data.py   seeded demo data with deliberately injected defects
 data/sample/                SYNTHETIC demo CSVs (committed)
+data/public/                validated UCDP Europe subset + lineage/quality sidecar (committed, CC BY)
 data/raw/ data/processed/   git-ignored (licences + size)
 reports/                    RESEARCH_BRIEF.md, figures/, data_quality/*.json
 docs/                       methodology, sources & licences, acquisition, data dictionary
@@ -191,8 +202,8 @@ domain. See [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md).
 - **Analytical communication:** a reproducible research brief that separates findings,
   limitations and non-conclusions, and an accessible dashboard design (CVD-validated palette,
   units always visible, no dual axes).
-- **Software practice:** modular architecture, 52 automated tests (including UI smoke tests), and
-  secrets kept in environment variables only.
+- **Software practice:** modular architecture, 53 automated tests (including UI smoke tests) run in
+  CI, and secrets kept in environment variables only.
 
 ## Licence
 

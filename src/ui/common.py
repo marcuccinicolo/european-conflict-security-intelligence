@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 from datetime import date
 
 import pandas as pd
@@ -17,7 +18,17 @@ def db_version() -> float:
     if not DB_PATH.exists():
         from src.pipeline import cmd_build
 
-        with st.spinner("First run: building the analytical database from the bundled data..."):
+        if os.getenv("ECSI_AUTO_FETCH", "1") == "1":
+            # SIPRI may not be redistributed, so a fresh deployment downloads the
+            # official workbook (~1 MB) itself. Failure falls back to synthetic data.
+            from src.data.fetch import fetch_sipri
+
+            with st.spinner("First run: downloading the SIPRI workbook from sipri.org..."):
+                try:
+                    fetch_sipri()
+                except Exception as exc:  # network down, URL moved, ...
+                    st.warning(f"Could not download SIPRI data ({exc}); using synthetic expenditure data.")
+        with st.spinner("First run: building the analytical database..."):
             cmd_build()
     return DB_PATH.stat().st_mtime
 
