@@ -100,6 +100,7 @@ def diagnostics() -> dict:
         "sipri_raw_present": any(SOURCES["sipri_milex"].raw_dir.glob("SIPRI-Milex-data-*.xlsx")),
         "processed_dir": sorted(p.name for p in PROCESSED_DIR.iterdir()) if PROCESSED_DIR.exists() else [],
     }
+    out["rebuild_log"] = list(U.rebuild_log())
     if DB_PATH.exists():
         out["db_modified_utc"] = datetime.fromtimestamp(DB_PATH.stat().st_mtime, timezone.utc).isoformat(timespec="seconds")
         out["tables"] = sorted(r[0] for r in U.cursor().execute("SHOW TABLES").fetchall())
