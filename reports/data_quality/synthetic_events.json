@@ -1,0 +1,169 @@
+{
+  "source": "synthetic_events",
+  "input_file": "SYNTHETIC_demo_events_acled_format.csv",
+  "rows_in": 4030,
+  "rows_out": 3985,
+  "checks": [
+    {
+      "name": "required_columns",
+      "status": "pass",
+      "affected_rows": 0,
+      "total_rows": 8,
+      "detail": "All 8 required columns present.",
+      "action": "none",
+      "share": 0.0
+    },
+    {
+      "name": "date_parse",
+      "status": "fail",
+      "affected_rows": 10,
+      "total_rows": 4030,
+      "detail": "Formats used: {'%Y-%m-%d': 3935, '%d %B %Y': 60, '%d/%m/%Y': 25}. Unparseable or empty dates: 10.",
+      "action": "rows with unparseable dates dropped",
+      "share": 0.002481
+    },
+    {
+      "name": "date_format_consistency",
+      "status": "warn",
+      "affected_rows": 85,
+      "total_rows": 4030,
+      "detail": "85 dates were not in the primary format '%Y-%m-%d' and were parsed with an explicit secondary format.",
+      "action": "none",
+      "share": 0.021092
+    },
+    {
+      "name": "fatalities_non_negative",
+      "status": "fail",
+      "affected_rows": 3,
+      "total_rows": 4030,
+      "detail": "Negative fatality values set to missing.",
+      "action": "none",
+      "share": 0.000744
+    },
+    {
+      "name": "duplicate_event_ids",
+      "status": "warn",
+      "affected_rows": 30,
+      "total_rows": 4030,
+      "detail": "30 rows repeat an event id already seen.",
+      "action": "later duplicates dropped (first occurrence kept)",
+      "share": 0.007444
+    },
+    {
+      "name": "date_range",
+      "status": "pass",
+      "affected_rows": 0,
+      "total_rows": 3990,
+      "detail": "Expected 1997-01-01 to 2026-10-17.",
+      "action": "none",
+      "share": 0.0
+    },
+    {
+      "name": "country_harmonisation",
+      "status": "warn",
+      "affected_rows": 5,
+      "total_rows": 3990,
+      "detail": "Unmapped country names: ['Atlantis (synthetic)']",
+      "action": "unmapped rows dropped (outside European scope)",
+      "share": 0.001253
+    },
+    {
+      "name": "coordinates_missing",
+      "status": "warn",
+      "affected_rows": 40,
+      "total_rows": 3985,
+      "detail": "40 rows with status 'missing'.",
+      "action": "coordinates set to null; event kept for counts, excluded from map",
+      "share": 0.010038
+    },
+    {
+      "name": "coordinates_out_of_range",
+      "status": "warn",
+      "affected_rows": 10,
+      "total_rows": 3985,
+      "detail": "10 rows with status 'out_of_range'.",
+      "action": "coordinates set to null; event kept for counts, excluded from map",
+      "share": 0.002509
+    },
+    {
+      "name": "coordinates_null_island",
+      "status": "warn",
+      "affected_rows": 5,
+      "total_rows": 3985,
+      "detail": "5 rows with status 'null_island'.",
+      "action": "coordinates set to null; event kept for counts, excluded from map",
+      "share": 0.001255
+    },
+    {
+      "name": "coordinates_inside_stated_country",
+      "status": "warn",
+      "affected_rows": 108,
+      "total_rows": 3930,
+      "detail": "108 points fall more than 10 km outside the stated country (Natural Earth 1:50m, present-day borders). Top stated countries: {'Ukraine': 57, 'Azerbaijan': 30, 'Italy': 13, 'Armenia': 4, 'Kosovo': 3}. Expected where the source codes the state that existed at the time (UCDP: 'Serbia (Yugoslavia)' for 1991-99 events in Croatia, Bosnia and Kosovo; 'Russia (Soviet Union)' for 1989-91 events in the Caucasus) and in contested areas (Natural Earth draws Crimea as Russia; UCDP codes it Ukraine).",
+      "action": "flagged only; coordinates kept",
+      "share": 0.027481
+    },
+    {
+      "name": "possible_duplicate_events",
+      "status": "info",
+      "affected_rows": 0,
+      "total_rows": 3985,
+      "detail": "0 rows share ['event_date', 'latitude', 'longitude', 'event_type'] with at least one other row under a different id. Not removed: same-day events at the same coordinates can be distinct.",
+      "action": "none",
+      "share": 0.0
+    },
+    {
+      "name": "missing_fatalities",
+      "status": "warn",
+      "affected_rows": 83,
+      "total_rows": 3985,
+      "detail": "83 null values in 'fatalities'. Nulls are kept as missing, never filled with 0.",
+      "action": "none",
+      "share": 0.020828
+    },
+    {
+      "name": "missing_admin1",
+      "status": "pass",
+      "affected_rows": 0,
+      "total_rows": 3985,
+      "detail": "0 null values in 'admin1'. Nulls are kept as missing, never filled with 0.",
+      "action": "none",
+      "share": 0.0
+    }
+  ],
+  "transformations": [
+    "event_date parsed with explicit formats %Y-%m-%d, %d %B %Y, %d/%m/%Y.",
+    "fatalities: blank -> missing (never 0); ACLED reports conservative counts.",
+    "location_precise = geo_precision == 1; date_uncertain = time_precision > 1."
+  ],
+  "coverage": {
+    "date_min": "2019-01-01",
+    "date_max": "2025-12-31",
+    "n_countries": 14,
+    "countries": [
+      "Armenia",
+      "Azerbaijan",
+      "France",
+      "Georgia",
+      "Germany",
+      "Italy",
+      "Kosovo",
+      "Moldova",
+      "Poland",
+      "Russia",
+      "Serbia",
+      "Spain",
+      "Ukraine",
+      "United Kingdom"
+    ],
+    "events": 3985
+  },
+  "generated_at": "2026-10-17T10:45:28+00:00",
+  "summary": {
+    "pass": 3,
+    "warn": 8,
+    "fail": 2,
+    "info": 1,
+    "not_run": 0
+  }
+}

@@ -1,0 +1,17 @@
+# Tested with Python 3.12 on macOS (Apple silicon).
+pandas==3.0.6
+numpy==2.5.4
+pyarrow==26.0.0
+duckdb==1.5.6
+geopandas==1.2.0
+shapely==2.2.0
+pyogrio==0.13.0
+plotly==7.1.0
+streamlit==1.66.0
+openpyxl==3.1.5
+requests==2.34.2
+python-dotenv==1.2.4
+pytest==9.1.1
+# Optional: static PNG export of report figures (needs a local Chrome/Chromium).
+# Without it the report still writes interactive HTML figures.
+kaleido==1.5.0

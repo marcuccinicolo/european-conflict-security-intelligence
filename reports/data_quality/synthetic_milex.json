@@ -1,0 +1,40 @@
+{
+  "source": "synthetic_milex",
+  "input_file": "SYNTHETIC_demo_milex.csv",
+  "rows_in": 624,
+  "rows_out": 624,
+  "checks": [
+    {
+      "name": "required_columns",
+      "status": "pass",
+      "affected_rows": 0,
+      "total_rows": 12,
+      "detail": "All columns present.",
+      "action": "none",
+      "share": 0.0
+    },
+    {
+      "name": "known_indicators",
+      "status": "pass",
+      "affected_rows": 0,
+      "total_rows": 624,
+      "detail": "Indicators must be in the catalogue.",
+      "action": "none",
+      "share": 0.0
+    }
+  ],
+  "transformations": [],
+  "coverage": {
+    "year_min": 2000,
+    "year_max": 2025,
+    "n_entities": 8
+  },
+  "generated_at": "2026-10-17T10:45:32+00:00",
+  "summary": {
+    "pass": 2,
+    "warn": 0,
+    "fail": 0,
+    "info": 0,
+    "not_run": 0
+  }
+}

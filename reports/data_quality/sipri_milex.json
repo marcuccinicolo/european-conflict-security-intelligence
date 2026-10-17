@@ -1,0 +1,188 @@
+{
+  "source": "sipri_milex",
+  "input_file": "SIPRI-Milex-data-1949-2025_v1.2.xlsx",
+  "rows_in": 15043,
+  "rows_out": 15043,
+  "checks": [
+    {
+      "name": "sheet_present[milex_constant_usd_m]",
+      "status": "pass",
+      "affected_rows": 0,
+      "total_rows": 1,
+      "detail": "Read sheet 'Constant (2024) US$'.",
+      "action": "none",
+      "share": 0.0
+    },
+    {
+      "name": "country_harmonisation[milex_constant_usd_m]",
+      "status": "pass",
+      "affected_rows": 0,
+      "total_rows": 49,
+      "detail": "All European rows mapped.",
+      "action": "none",
+      "share": 0.0
+    },
+    {
+      "name": "sheet_present[milex_current_usd_m]",
+      "status": "pass",
+      "affected_rows": 0,
+      "total_rows": 1,
+      "detail": "Read sheet 'Current US$'.",
+      "action": "none",
+      "share": 0.0
+    },
+    {
+      "name": "country_harmonisation[milex_current_usd_m]",
+      "status": "pass",
+      "affected_rows": 0,
+      "total_rows": 49,
+      "detail": "All European rows mapped.",
+      "action": "none",
+      "share": 0.0
+    },
+    {
+      "name": "sheet_present[share_gdp_pct]",
+      "status": "pass",
+      "affected_rows": 0,
+      "total_rows": 1,
+      "detail": "Read sheet 'Share of GDP'.",
+      "action": "none",
+      "share": 0.0
+    },
+    {
+      "name": "country_harmonisation[share_gdp_pct]",
+      "status": "pass",
+      "affected_rows": 0,
+      "total_rows": 49,
+      "detail": "All European rows mapped.",
+      "action": "none",
+      "share": 0.0
+    },
+    {
+      "name": "sheet_present[per_capita_current_usd]",
+      "status": "pass",
+      "affected_rows": 0,
+      "total_rows": 1,
+      "detail": "Read sheet 'Per capita'.",
+      "action": "none",
+      "share": 0.0
+    },
+    {
+      "name": "country_harmonisation[per_capita_current_usd]",
+      "status": "pass",
+      "affected_rows": 0,
+      "total_rows": 49,
+      "detail": "All European rows mapped.",
+      "action": "none",
+      "share": 0.0
+    },
+    {
+      "name": "sheet_present[share_govt_pct]",
+      "status": "pass",
+      "affected_rows": 0,
+      "total_rows": 1,
+      "detail": "Read sheet 'Share of Govt. spending'.",
+      "action": "none",
+      "share": 0.0
+    },
+    {
+      "name": "country_harmonisation[share_govt_pct]",
+      "status": "pass",
+      "affected_rows": 0,
+      "total_rows": 49,
+      "detail": "All European rows mapped.",
+      "action": "none",
+      "share": 0.0
+    },
+    {
+      "name": "duplicate_country_year_indicator",
+      "status": "pass",
+      "affected_rows": 0,
+      "total_rows": 15043,
+      "detail": "Each (country, year, indicator) must appear once.",
+      "action": "none",
+      "share": 0.0
+    },
+    {
+      "name": "values_non_negative",
+      "status": "pass",
+      "affected_rows": 0,
+      "total_rows": 15043,
+      "detail": "Expenditure and shares cannot be negative.",
+      "action": "none",
+      "share": 0.0
+    },
+    {
+      "name": "shares_at_most_100pct",
+      "status": "pass",
+      "affected_rows": 0,
+      "total_rows": 15043,
+      "detail": "Shares above 100% indicate a unit error.",
+      "action": "none",
+      "share": 0.0
+    },
+    {
+      "name": "value_flag_unavailable",
+      "status": "info",
+      "affected_rows": 1467,
+      "total_rows": 15043,
+      "detail": "1467 cells flagged 'unavailable'.",
+      "action": "none",
+      "share": 0.09752
+    },
+    {
+      "name": "value_flag_not_independent",
+      "status": "info",
+      "affected_rows": 3799,
+      "total_rows": 15043,
+      "detail": "3799 cells flagged 'not_independent'.",
+      "action": "none",
+      "share": 0.252543
+    },
+    {
+      "name": "value_flag_estimate",
+      "status": "info",
+      "affected_rows": 1587,
+      "total_rows": 15043,
+      "detail": "1587 cells flagged 'estimate'.",
+      "action": "none",
+      "share": 0.105498
+    },
+    {
+      "name": "value_flag_highly_uncertain",
+      "status": "info",
+      "affected_rows": 0,
+      "total_rows": 15043,
+      "detail": "0 cells flagged 'highly_uncertain'.",
+      "action": "none",
+      "share": 0.0
+    }
+  ],
+  "transformations": [
+    "Selected the Europe region (Central, Eastern, Western Europe) and the EU aggregate.",
+    "Wide year columns reshaped to long format (one row per country-year-indicator).",
+    "'...' -> missing (value_flag=unavailable); 'xxx' -> missing (not_independent). Never 0.",
+    "Blue font -> value_flag=estimate; red font -> value_flag=highly_uncertain.",
+    "Share of GDP and share of government spending converted from fractions to percent (x100)."
+  ],
+  "coverage": {
+    "year_min": 1949,
+    "year_max": 2025,
+    "n_entities": 49,
+    "indicators": [
+      "milex_constant_usd_m",
+      "milex_current_usd_m",
+      "per_capita_current_usd",
+      "share_gdp_pct",
+      "share_govt_pct"
+    ]
+  },
+  "generated_at": "2026-10-17T10:45:32+00:00",
+  "summary": {
+    "pass": 13,
+    "warn": 0,
+    "fail": 0,
+    "info": 4,
+    "not_run": 0
+  }
+}

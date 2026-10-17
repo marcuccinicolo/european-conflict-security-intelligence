@@ -1,0 +1,21 @@
+# Environment
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.env
+.DS_Store
+.claude/
+
+# Raw inputs: never committed (licence terms + size). Re-create with `python -m src.pipeline fetch`.
+data/raw/**
+!data/raw/README.md
+
+# Derived data: rebuilt by `python -m src.pipeline build`.
+# SIPRI terms forbid reproducing >10% of the dataset; ACLED forbids redistribution.
+data/processed/**
+!data/processed/.gitkeep
+
+# Interactive report figures (regenerated; PNGs are committed)
+reports/figures/*.html

@@ -1,0 +1,42 @@
+{
+  "generated_at_utc": "2026-10-17T10:45:32+00:00",
+  "database": "security.duckdb",
+  "sources": {
+    "synthetic_events": {
+      "rows_out": 3985,
+      "pass": 3,
+      "warn": 8,
+      "fail": 2,
+      "info": 1,
+      "not_run": 0,
+      "report": "reports/data_quality/synthetic_events.json"
+    },
+    "ucdp_ged": {
+      "rows_out": 58016,
+      "pass": 12,
+      "warn": 3,
+      "fail": 0,
+      "info": 1,
+      "not_run": 0,
+      "report": "reports/data_quality/ucdp_ged.json"
+    },
+    "synthetic_milex": {
+      "rows_out": 624,
+      "pass": 2,
+      "warn": 0,
+      "fail": 0,
+      "info": 0,
+      "not_run": 0,
+      "report": "reports/data_quality/synthetic_milex.json"
+    },
+    "sipri_milex": {
+      "rows_out": 15043,
+      "pass": 13,
+      "warn": 0,
+      "fail": 0,
+      "info": 4,
+      "not_run": 0,
+      "report": "reports/data_quality/sipri_milex.json"
+    }
+  }
+}

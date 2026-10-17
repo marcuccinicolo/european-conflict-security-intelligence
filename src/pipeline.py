@@ -1,0 +1,186 @@
+"""Command-line pipeline: fetch -> build -> report.
+
+    python -m src.pipeline fetch              # UCDP GED, SIPRI Milex, Natural Earth
+    python -m src.pipeline fetch --acled      # also ACLED API (needs .env credentials)
+    python -m src.pipeline build              # validate every available source -> DuckDB
+    python -m src.pipeline report             # research brief + figures in reports/
+    python -m src.pipeline all                # fetch + build + report
+
+``build`` works offline with whatever is present: the synthetic demo data are
+always loaded; real sources are added when their raw files exist.
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+from datetime import datetime, timezone
+from pathlib import Path
+
+from src.config import (
+    EXPORTABLE_SOURCES,
+    QUALITY_DIR,
+    SOURCES,
+    SYNTHETIC_EVENTS_CSV,
+    SYNTHETIC_MILEX_CSV,
+)
+from src.data import fetch as fetch_mod
+from src.data.acled import acled_files, load_acled_dir, load_acled_csv
+from src.data.sipri import load_milex_csv, load_sipri
+from src.data.ucdp import load_ucdp
+from src.database.db import build_database
+
+
+def _first(directory: Path, patterns: tuple[str, ...]) -> Path | None:
+    for pat in patterns:
+        found = sorted(Path(directory).glob(pat))
+        if found:
+            return found[-1]  # latest version by name
+    return None
+
+
+def _registry_row(key: str, domain: str, data_status: str, report, files: list[Path]) -> dict:
+    spec = SOURCES[key]
+    prov = [fetch_mod.read_provenance(f) for f in files]
+    return {
+        "source": key,
+        "domain": domain,
+        "name": spec.name,
+        "publisher": spec.publisher,
+        "data_status": data_status,
+        "licence": spec.licence,
+        "licence_url": spec.licence_url,
+        "url": spec.url,
+        "citation": spec.citation,
+        "redistribution": spec.redistribution,
+        "exportable": key in EXPORTABLE_SOURCES,
+        "input_file": report.input_file,
+        "retrieved_at_utc": ", ".join(p["retrieved_at_utc"] for p in prov),
+        "retrieval_method": ", ".join(p["method"] for p in prov),
+        "sha256": ", ".join(p["sha256"][:16] for p in prov),
+        "rows_in": report.rows_in,
+        "rows_out": report.rows_out,
+        "coverage": report.coverage,
+        "transformations": report.transformations,
+        "notes": spec.notes,
+        "processed_at_utc": report.generated_at,
+    }
+
+
+def _checks(report) -> list[dict]:
+    d = report.to_dict()
+    return [
+        {
+            "source": report.source,
+            "check_name": c["name"],
+            "status": c["status"],
+            "affected_rows": c["affected_rows"],
+            "total_rows": c["total_rows"],
+            "share": c["share"],
+            "detail": c["detail"],
+            "action": c["action"],
+        }
+        for c in d["checks"]
+    ]
+
+
+def cmd_fetch(args) -> None:
+    print("Fetching official public datasets")
+    fetch_mod.fetch_ucdp(force=args.force)
+    fetch_mod.fetch_sipri(force=args.force)
+    fetch_mod.fetch_boundaries(force=args.force)
+    if args.acled:
+        print("Fetching ACLED via API")
+        print(f"  wrote {fetch_mod.fetch_acled(start=args.acled_start)}")
+
+
+def cmd_build(args=None) -> Path:
+    events, milex, registry, checks, summary = [], [], [], [], {}
+
+    def record(key, domain, status, df, report, files):
+        path = report.write(QUALITY_DIR)
+        registry.append(_registry_row(key, domain, status, report, files))
+        checks.extend(_checks(report))
+        summary[key] = {"rows_out": report.rows_out, **report.to_dict()["summary"],
+                        "report": str(path.relative_to(QUALITY_DIR.parents[1]))}  # fmt: skip
+        print(f"  {key:<17} {report.rows_out:>7} rows  {report.to_dict()['summary']}")
+
+    print("Building analytical database")
+    df, rep = load_acled_csv(SYNTHETIC_EVENTS_CSV, source="synthetic_events")
+    events.append(df)
+    record("synthetic_events", "conflict", "synthetic", df, rep, [SYNTHETIC_EVENTS_CSV])
+
+    ucdp = _first(SOURCES["ucdp_ged"].raw_dir, ("ged*-csv.zip", "GEDEvent*.csv", "*.zip"))
+    if ucdp:
+        df, rep = load_ucdp(ucdp)
+        events.append(df)
+        record("ucdp_ged", "conflict", "real", df, rep, [ucdp])
+    else:
+        print("  ucdp_ged          not found - run `python -m src.pipeline fetch`")
+
+    acled_dir = SOURCES["acled"].raw_dir
+    if acled_files(acled_dir):
+        df, rep = load_acled_dir(acled_dir)
+        events.append(df)
+        record("acled", "conflict", "real", df, rep, acled_files(acled_dir))
+    else:
+        print("  acled             not found - optional, see docs/DATA_ACQUISITION.md")
+
+    df, rep = load_milex_csv(SYNTHETIC_MILEX_CSV)
+    milex.append(df)
+    record("synthetic_milex", "defence", "synthetic", df, rep, [SYNTHETIC_MILEX_CSV])
+
+    sipri = _first(SOURCES["sipri_milex"].raw_dir, ("SIPRI-Milex-data-*.xlsx",))
+    if sipri:
+        df, rep = load_sipri(sipri)
+        milex.append(df)
+        record("sipri_milex", "defence", "real", df, rep, [sipri])
+    else:
+        print("  sipri_milex       not found - run `python -m src.pipeline fetch`")
+
+    path = build_database(events, milex, registry, checks)
+    index = {
+        "generated_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "database": path.name,
+        "sources": summary,
+    }
+    (QUALITY_DIR / "index.json").write_text(json.dumps(index, indent=2))
+    print(f"Database written to {path}")
+    return path
+
+
+def cmd_report(args=None) -> None:
+    from src.report import build_report
+
+    for p in build_report():
+        print(f"  wrote {p}")
+
+
+def main(argv: list[str] | None = None) -> int:
+    ap = argparse.ArgumentParser(prog="python -m src.pipeline", description=__doc__,
+                                 formatter_class=argparse.RawDescriptionHelpFormatter)  # fmt: skip
+    sub = ap.add_subparsers(dest="cmd", required=True)
+    for name in ("fetch", "all"):
+        p = sub.add_parser(name)
+        p.add_argument("--force", action="store_true", help="re-download existing files")
+        p.add_argument("--acled", action="store_true", help="also fetch ACLED (credentials)")
+        p.add_argument("--acled-start", default="2018-01-01")
+    sub.add_parser("build")
+    sub.add_parser("report")
+    args = ap.parse_args(argv)
+    if args.cmd == "fetch":
+        cmd_fetch(args)
+    elif args.cmd == "build":
+        cmd_build(args)
+    elif args.cmd == "report":
+        cmd_report(args)
+    elif args.cmd == "all":
+        cmd_fetch(args)
+        cmd_build(args)
+        cmd_report(args)
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
