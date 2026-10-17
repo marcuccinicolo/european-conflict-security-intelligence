@@ -74,6 +74,10 @@ test is skipped. GitHub Actions runs the suite on every push (`.github/workflows
 2. On <https://share.streamlit.io>, choose **Create app** → this repository, branch `main`,
    file `app.py`, and **Python 3.12** under *Advanced settings*.
 3. The first visit builds the database (UCDP from `data/public/`, SIPRI downloaded once).
+4. After a push that changes `requirements.txt` or modules under `src/`, use **Manage app → ⋮ →
+   Reboot app** if the change does not show. Streamlit Cloud reloads the entry script but can keep
+   already-imported modules in memory. On restart, the app compares the database's schema version
+   and rebuilds it if it is out of date.
 
 ---
 
