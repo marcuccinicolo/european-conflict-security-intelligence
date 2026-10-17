@@ -72,9 +72,34 @@ def render() -> None:
                      column_config={"share_missing": st.column_config.ProgressColumn(
                          "share missing", format="percent", min_value=0, max_value=1)})  # fmt: skip
 
+    with st.expander("Database diagnostics"):
+        st.json(diagnostics())
+
     path = QUALITY_DIR / f"{source}.json"
     if path.exists():
         st.download_button("Download machine-readable quality report (JSON)", path.read_bytes(),
                            file_name=path.name, mime="application/json")  # fmt: skip
         with st.expander("View JSON"):
             st.json(json.loads(path.read_text()), expanded=False)
+
+
+def diagnostics() -> dict:
+    """Facts about the database file the app is actually using (for maintenance)."""
+    from datetime import datetime, timezone
+
+    from src.config import DB_PATH, PROCESSED_DIR, SOURCES
+    from src.database.db import SCHEMA_VERSION, schema_version
+
+    out = {
+        "code_version": U.code_version(),
+        "db_path": str(DB_PATH),
+        "db_exists": DB_PATH.exists(),
+        "schema_version_expected": SCHEMA_VERSION,
+        "schema_version_found": schema_version(DB_PATH),
+        "sipri_raw_present": any(SOURCES["sipri_milex"].raw_dir.glob("SIPRI-Milex-data-*.xlsx")),
+        "processed_dir": sorted(p.name for p in PROCESSED_DIR.iterdir()) if PROCESSED_DIR.exists() else [],
+    }
+    if DB_PATH.exists():
+        out["db_modified_utc"] = datetime.fromtimestamp(DB_PATH.stat().st_mtime, timezone.utc).isoformat(timespec="seconds")
+        out["tables"] = sorted(r[0] for r in U.cursor().execute("SHOW TABLES").fetchall())
+    return out
