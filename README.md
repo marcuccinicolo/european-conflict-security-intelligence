@@ -2,6 +2,8 @@
 
 **A public-data analytics platform for understanding conflict patterns and European defence trends.**
 
+**Live demo:** <https://european-conflict-security-intelligence-qrkpqqct8esruqgjjjhcyr.streamlit.app> · ![tests](https://github.com/marcuccinicolo/european-conflict-security-intelligence/actions/workflows/tests.yml/badge.svg)
+
 A reproducible Python, SQL and geospatial pipeline with a Streamlit dashboard. It puts two
 separately analysed views of Europe's security environment side by side:
 
