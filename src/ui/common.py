@@ -13,6 +13,27 @@ from src.database import queries as Q
 from src.database.db import connect
 
 
+def code_version() -> str:
+    """Short git commit of the running code, read from .git without calling git."""
+    from src.config import ROOT
+
+    git = ROOT / ".git"
+    try:
+        head = (git / "HEAD").read_text().strip()
+        if not head.startswith("ref:"):
+            return head[:7]
+        ref = head.split(" ", 1)[1]
+        loose = git / ref
+        if loose.exists():
+            return loose.read_text().strip()[:7]
+        for line in (git / "packed-refs").read_text().splitlines():
+            if line.endswith(ref):
+                return line.split()[0][:7]
+    except OSError:
+        pass
+    return "unknown"
+
+
 def db_version() -> float:
     """Database file mtime - part of every cache key, so a rebuild invalidates caches."""
     from src.database.db import SCHEMA_VERSION, schema_version
