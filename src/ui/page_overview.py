@@ -53,9 +53,11 @@ responds to conflict.
 
     reg = U.registry(v)
     st.markdown("#### Datasets loaded")
-    cols = st.columns(max(1, len(reg)))
-    for col, (_, row) in zip(cols, reg.iterrows()):
-        _source_card(col, row, "Area A · conflict" if row["domain"] == "conflict" else "Area B · defence")
+    rows = list(reg.iterrows())
+    for i in range(0, len(rows), 2):  # two cards per row stay readable on narrow screens
+        cols = st.columns(2)
+        for col, (_, row) in zip(cols, rows[i:i + 2]):
+            _source_card(col, row, "Area A · conflict" if row["domain"] == "conflict" else "Area B · defence")
     if not (reg["data_status"] == "real").any():
         st.warning("Only synthetic demonstration data are loaded. Run `python -m src.pipeline fetch` "
                    "then `python -m src.pipeline build` to add UCDP and SIPRI data.")  # fmt: skip
