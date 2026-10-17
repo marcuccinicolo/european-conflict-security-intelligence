@@ -35,9 +35,10 @@ def code_version() -> str:
     return "unknown"
 
 
-def db_version() -> float:
-    """Database file mtime - part of every cache key, so a rebuild invalidates caches."""
-    from src.database.db import SCHEMA_VERSION, schema_version
+def db_version() -> str:
+    """Name of the database file in use - part of every cache key, so a rebuild
+    (which always writes a new file) invalidates every cache."""
+    from src.database.db import SCHEMA_VERSION, resolve, schema_version
 
     if schema_version(DB_PATH) != SCHEMA_VERSION:  # missing, or built by an older version
         with _build_lock():  # one rebuild at a time across sessions of this server
@@ -55,7 +56,7 @@ def db_version() -> float:
                 finally:
                     entry["finished_utc"] = _now()
                     del log[:-10]
-    return DB_PATH.stat().st_mtime
+    return resolve(DB_PATH).name
 
 
 def _now() -> str:
@@ -94,8 +95,8 @@ def _rebuild() -> None:
         cmd_build()
 
 
-@st.cache_resource
-def _connection(version: float):
+@st.cache_resource(max_entries=2)
+def _connection(version: str):
     return connect(DB_PATH, read_only=True)
 
 
@@ -104,35 +105,35 @@ def cursor():
 
 
 @st.cache_data(show_spinner=False)
-def registry(version: float) -> pd.DataFrame:
+def registry(version: str) -> pd.DataFrame:
     return Q.datasets(cursor())
 
 
 @st.cache_data(show_spinner=False)
-def checks(version: float, source: str) -> pd.DataFrame:
+def checks(version: str, source: str) -> pd.DataFrame:
     return Q.quality_checks(cursor(), source)
 
 
 @st.cache_data(show_spinner=False)
-def event_options(version: float, source: str) -> dict:
+def event_options(version: str, source: str) -> dict:
     return Q.event_filter_options(cursor(), source)
 
 
 @st.cache_data(show_spinner="Querying events...")
-def events(version: float, source: str, start: date, end: date,
+def events(version: str, source: str, start: date, end: date,
            countries: tuple, types: tuple) -> pd.DataFrame:  # fmt: skip
     return Q.events(cursor(), source, start, end, list(countries), list(types))
 
 
 @st.cache_data(show_spinner=False)
-def milex(version: float, source: str, indicator: str, iso3: tuple | None = None,
+def milex(version: str, source: str, indicator: str, iso3: tuple | None = None,
           entity_types: tuple = ("country",)) -> pd.DataFrame:  # fmt: skip
     return Q.milex(cursor(), source, indicator, list(iso3) if iso3 else None,
                    entity_types=entity_types)  # fmt: skip
 
 
 @st.cache_data(show_spinner=False)
-def milex_indicators(version: float, source: str) -> list[str]:
+def milex_indicators(version: str, source: str) -> list[str]:
     return Q.milex_indicators(cursor(), source)
 
 

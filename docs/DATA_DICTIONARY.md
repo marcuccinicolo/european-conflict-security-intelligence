@@ -1,6 +1,10 @@
 # Data dictionary
 
-Database: `data/processed/security.duckdb` (DuckDB). Schemas are defined in `src/data/schema.py`.
+Database: DuckDB, in `data/processed/`. Each build writes a new file
+(`security-<UTC timestamp>-<id>.duckdb`), and `security.current` names the one in use, because DuckDB
+caches open databases per path and a swapped file with the same name would be invisible to a running
+app. `src.database.db.connect()` resolves the pointer. The table `meta` holds `schema_version`.
+Schemas are defined in `src/data/schema.py`.
 
 ## `conflict_events`: one row per source event
 

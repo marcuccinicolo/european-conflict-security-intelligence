@@ -13,7 +13,7 @@ LABELS = {"LTU", "LVA", "POL", "EST", "FIN", "DEU", "NOR", "FRA", "GBR", "ITA", 
 
 
 @st.cache_data(show_spinner="Estimating the models (wild cluster bootstrap, 9,999 draws)...")
-def results(version: float) -> dict:
+def results(version: str) -> dict:
     return R.run(U.cursor())
 
 

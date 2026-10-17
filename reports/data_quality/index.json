@@ -1,6 +1,6 @@
 {
-  "generated_at_utc": "2026-10-17T13:24:24+00:00",
-  "database": "security.duckdb",
+  "generated_at_utc": "2026-10-17T14:01:26+00:00",
+  "database": "security-20261017T140126-36ed31bd.duckdb",
   "sources": {
     "synthetic_events": {
       "rows_out": 3985,

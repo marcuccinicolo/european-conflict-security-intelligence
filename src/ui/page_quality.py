@@ -88,20 +88,20 @@ def diagnostics() -> dict:
     from datetime import datetime, timezone
 
     from src.config import DB_PATH, PROCESSED_DIR, SOURCES
-    from src.database.db import SCHEMA_VERSION, schema_version
+    from src.database.db import SCHEMA_VERSION, resolve, schema_version
 
     out = {
         "code_version": U.code_version(),
         "modules_loaded_for": str(getattr(__import__("src"), "LOADED_FOR", "n/a"))[:7],
-        "db_path": str(DB_PATH),
-        "db_exists": DB_PATH.exists(),
+        "db_file_in_use": resolve(DB_PATH).name,
+        "db_exists": resolve(DB_PATH).exists(),
         "schema_version_expected": SCHEMA_VERSION,
         "schema_version_found": schema_version(DB_PATH),
         "sipri_raw_present": any(SOURCES["sipri_milex"].raw_dir.glob("SIPRI-Milex-data-*.xlsx")),
         "processed_dir": sorted(p.name for p in PROCESSED_DIR.iterdir()) if PROCESSED_DIR.exists() else [],
     }
     out["rebuild_log"] = list(U.rebuild_log())
-    if DB_PATH.exists():
-        out["db_modified_utc"] = datetime.fromtimestamp(DB_PATH.stat().st_mtime, timezone.utc).isoformat(timespec="seconds")
+    if resolve(DB_PATH).exists():
+        out["db_modified_utc"] = datetime.fromtimestamp(resolve(DB_PATH).stat().st_mtime, timezone.utc).isoformat(timespec="seconds")
         out["tables"] = sorted(r[0] for r in U.cursor().execute("SHOW TABLES").fetchall())
     return out
