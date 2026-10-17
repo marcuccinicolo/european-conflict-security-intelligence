@@ -36,3 +36,18 @@ def test_main_app_runs():
     at = AppTest.from_file(str(ROOT / "app.py"), default_timeout=180)
     at.run()
     assert not at.exception
+
+
+def test_stale_project_modules_are_reloaded():
+    """If the loaded modules came from another commit, the next run re-imports them."""
+    import sys
+
+    at = AppTest.from_file(str(ROOT / "app.py"), default_timeout=180)
+    at.run()
+    common = sys.modules["src.ui.common"]
+    common._stale_marker = True
+    sys.modules["src"].LOADED_FOR = "some-older-commit"
+    at.run()
+    assert not at.exception
+    assert not hasattr(sys.modules["src.ui.common"], "_stale_marker")
+    assert sys.modules["src"].LOADED_FOR != "some-older-commit"

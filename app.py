@@ -5,11 +5,46 @@
 
 from __future__ import annotations
 
+import sys
+from pathlib import Path
+
 import streamlit as st
 
-from src.config import ROOT
-from src.ui import common as U
-from src.ui import page_conflict, page_defence, page_overview, page_quality, page_research
+
+def _git_head(root: Path) -> str:
+    """Commit of the files on disk (read from .git; this file is re-executed on every run)."""
+    try:
+        head = (root / ".git" / "HEAD").read_text().strip()
+        if not head.startswith("ref:"):
+            return head
+        ref = head.split(" ", 1)[1]
+        loose = root / ".git" / ref
+        if loose.exists():
+            return loose.read_text().strip()
+        for line in (root / ".git" / "packed-refs").read_text().splitlines():
+            if line.endswith(ref):
+                return line.split()[0]
+    except OSError:
+        pass
+    return "unknown"
+
+
+# Hosting platforms can update the files of a running server while keeping the
+# project modules already imported in memory, so new code would not take effect.
+# When the commit on disk differs from the one the loaded modules came from,
+# drop every project module so the imports below re-execute the current code.
+_HEAD = _git_head(Path(__file__).resolve().parent)
+if "src" in sys.modules and getattr(sys.modules["src"], "LOADED_FOR", None) != _HEAD:
+    for _name in [m for m in sys.modules if m == "src" or m.startswith("src.")]:
+        del sys.modules[_name]
+
+import src  # noqa: E402
+
+src.LOADED_FOR = _HEAD
+
+from src.config import ROOT  # noqa: E402
+from src.ui import common as U  # noqa: E402
+from src.ui import page_conflict, page_defence, page_overview, page_quality, page_research  # noqa: E402
 
 st.set_page_config(
     page_title="European Conflict & Security Intelligence",

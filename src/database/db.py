@@ -77,6 +77,9 @@ def build_database(
     # A unique temporary file per build: two builds running at once (two app
     # sessions after a restart) must never write to the same file.
     tmp = path.with_name(f".{path.stem}.{os.getpid()}.{uuid.uuid4().hex[:8]}.building.duckdb")
+    # Leftovers of the old fixed temporary name (pre-uuid builds) are removed.
+    for stale in (path.with_suffix(".building.duckdb"), Path(f"{path.with_suffix('.building.duckdb')}.wal")):
+        stale.unlink(missing_ok=True)
     con = duckdb.connect(str(tmp))
     try:
         con.execute(DDL)
