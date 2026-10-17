@@ -92,6 +92,7 @@ def diagnostics() -> dict:
 
     out = {
         "code_version": U.code_version(),
+        "modules_loaded_for": str(getattr(__import__("src"), "LOADED_FOR", "n/a"))[:7],
         "db_path": str(DB_PATH),
         "db_exists": DB_PATH.exists(),
         "schema_version_expected": SCHEMA_VERSION,
