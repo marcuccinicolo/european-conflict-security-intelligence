@@ -6,7 +6,7 @@ Investigated on 2026-10-17. Terms change, so check the linked pages before any r
 
 | Source | Used for | Access | Format | Licence / terms | Committed to Git? | Dashboard export |
 |---|---|---|---|---|---|---|
-| **UCDP GED v26.1** | Area A (default) | Free download, no account | CSV in ZIP (39 MB → 274 MB) | **CC BY 4.0**, citation required | No (size; re-downloadable) | Yes, filtered rows + aggregates, with citation |
+| **UCDP GED v26.1** | Area A (default) | Free download, no account | CSV in ZIP (39 MB → 274 MB) | **CC BY 4.0**, citation required | Raw file no (size); the validated European subset yes (`data/public/`, with attribution and lineage) | Yes, filtered rows + aggregates, with citation |
 | **SIPRI Milex 1949–2025 v1.2** | Area B | Free download, no account | XLSX, one sheet per indicator | SIPRI T&C: free non-commercial use with attribution; reproducing >10% of a dataset needs permission | **No** | **No**: charts only, with credit line |
 | **ACLED** | Area A (optional) | myACLED account; OAuth API or export tool | CSV/JSON | ACLED EULA: non-commercial, **no redistribution of raw data**, derived outputs must be transformative | **Never** | **Never** |
 | **Natural Earth 1:50m admin-0** | Coordinate plausibility check | Free download | Shapefile in ZIP | Public domain | No (re-downloadable) | n/a |

@@ -159,3 +159,19 @@ def test_acled_fetch_paginates_and_records_provenance(monkeypatch, tmp_path):
     prov = json.loads(Path(f"{path}.provenance.json").read_text())
     assert prov["sha256"] and "ACLED API" in prov["method"]
     assert "pw" not in path.read_text() and "pw" not in json.dumps(prov)
+
+
+def test_public_ucdp_subset_round_trip(monkeypatch, tmp_path, ucdp_csv):
+    """The committed CC BY subset reloads with identical rows, checks and lineage."""
+    import src.pipeline as P
+    from src.data.ucdp import load_ucdp
+
+    monkeypatch.setattr(P, "UCDP_PUBLIC_PARQUET", tmp_path / "u.parquet")
+    monkeypatch.setattr(P, "UCDP_PUBLIC_META", tmp_path / "u.meta.json")
+    df, rep = load_ucdp(ucdp_csv)
+    P.export_public_ucdp(df, rep, ucdp_csv)
+    df2, rep2, prov = P.load_public_ucdp()
+    pd.testing.assert_frame_equal(df, df2)
+    assert [c.name for c in rep2.checks] == [c.name for c in rep.checks]
+    assert prov[0]["sha256"] == F.sha256(ucdp_csv)
+    assert "committed subset" in prov[0]["method"]

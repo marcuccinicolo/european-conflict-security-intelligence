@@ -1,0 +1,212 @@
+{
+  "description": "Validated European subset of UCDP GED, produced by `python -m src.pipeline build`.",
+  "licence": "CC BY 4.0 - Davies, Shawn, Ther\u00e9se Pettersson & Magnus \u00d6berg (2026). Organized violence 1989-2025. Journal of Peace Research; Sundberg, Ralph & Erik Melander (2013). Introducing the UCDP Georeferenced Event Dataset. Journal of Peace Research 50(4).",
+  "source_provenance": {
+    "file": "ged261-csv.zip",
+    "url": "https://ucdp.uu.se/downloads/ged/ged261-csv.zip",
+    "method": "download",
+    "retrieved_at_utc": "2026-10-17T10:45:27+00:00",
+    "bytes": 39122522,
+    "sha256": "8c941d84954e555ee2e54f40fa04d9203bf1e2f962203d0a9930966c4947c667"
+  },
+  "quality_report": {
+    "source": "ucdp_ged",
+    "input_file": "ged261-csv.zip",
+    "rows_in": 58016,
+    "rows_out": 58016,
+    "checks": [
+      {
+        "name": "required_columns",
+        "status": "pass",
+        "affected_rows": 0,
+        "total_rows": 17,
+        "detail": "All 17 required columns present.",
+        "action": "none",
+        "share": 0.0
+      },
+      {
+        "name": "date_parse",
+        "status": "pass",
+        "affected_rows": 0,
+        "total_rows": 58016,
+        "detail": "Formats used: {'%Y-%m-%d': 58016}. Unparseable or empty dates: 0.",
+        "action": "none",
+        "share": 0.0
+      },
+      {
+        "name": "date_format_consistency",
+        "status": "pass",
+        "affected_rows": 0,
+        "total_rows": 58016,
+        "detail": "0 dates were not in the primary format '%Y-%m-%d' and were parsed with an explicit secondary format.",
+        "action": "none",
+        "share": 0.0
+      },
+      {
+        "name": "date_start_before_end",
+        "status": "pass",
+        "affected_rows": 0,
+        "total_rows": 58016,
+        "detail": "date_end must not precede date_start.",
+        "action": "none",
+        "share": 0.0
+      },
+      {
+        "name": "fatality_bounds_ordered",
+        "status": "warn",
+        "affected_rows": 518,
+        "total_rows": 58016,
+        "detail": "Expected low <= best <= high for every event.",
+        "action": "none",
+        "share": 0.008929
+      },
+      {
+        "name": "year_matches_date",
+        "status": "pass",
+        "affected_rows": 0,
+        "total_rows": 58016,
+        "detail": "UCDP 'year' should equal the year of date_start.",
+        "action": "none",
+        "share": 0.0
+      },
+      {
+        "name": "duplicate_event_ids",
+        "status": "pass",
+        "affected_rows": 0,
+        "total_rows": 58016,
+        "detail": "0 rows repeat an event id already seen.",
+        "action": "none",
+        "share": 0.0
+      },
+      {
+        "name": "date_range",
+        "status": "pass",
+        "affected_rows": 0,
+        "total_rows": 58016,
+        "detail": "Expected 1989-01-01 to 2026-10-17.",
+        "action": "none",
+        "share": 0.0
+      },
+      {
+        "name": "country_harmonisation",
+        "status": "pass",
+        "affected_rows": 0,
+        "total_rows": 58016,
+        "detail": "All country names mapped to ISO3.",
+        "action": "none",
+        "share": 0.0
+      },
+      {
+        "name": "coordinates_missing",
+        "status": "pass",
+        "affected_rows": 0,
+        "total_rows": 58016,
+        "detail": "0 rows with status 'missing'.",
+        "action": "none",
+        "share": 0.0
+      },
+      {
+        "name": "coordinates_out_of_range",
+        "status": "pass",
+        "affected_rows": 0,
+        "total_rows": 58016,
+        "detail": "0 rows with status 'out_of_range'.",
+        "action": "none",
+        "share": 0.0
+      },
+      {
+        "name": "coordinates_null_island",
+        "status": "pass",
+        "affected_rows": 0,
+        "total_rows": 58016,
+        "detail": "0 rows with status 'null_island'.",
+        "action": "none",
+        "share": 0.0
+      },
+      {
+        "name": "coordinates_inside_stated_country",
+        "status": "warn",
+        "affected_rows": 1177,
+        "total_rows": 58016,
+        "detail": "1177 points fall more than 10 km outside the stated country (Natural Earth 1:50m, present-day borders). Top stated countries: {'Serbia': 1016, 'Russia': 91, 'Ukraine': 69, 'Malta': 1}. Expected where the source codes the state that existed at the time (UCDP: 'Serbia (Yugoslavia)' for 1991-99 events in Croatia, Bosnia and Kosovo; 'Russia (Soviet Union)' for 1989-91 events in the Caucasus) and in contested areas (Natural Earth draws Crimea as Russia; UCDP codes it Ukraine).",
+        "action": "flagged only; coordinates kept",
+        "share": 0.020288
+      },
+      {
+        "name": "possible_duplicate_events",
+        "status": "info",
+        "affected_rows": 10822,
+        "total_rows": 58016,
+        "detail": "10822 rows share ['event_date', 'latitude', 'longitude', 'event_type'] with at least one other row under a different id. Not removed: same-day events at the same coordinates can be distinct.",
+        "action": "none",
+        "share": 0.186535
+      },
+      {
+        "name": "missing_fatalities",
+        "status": "pass",
+        "affected_rows": 0,
+        "total_rows": 58016,
+        "detail": "0 null values in 'fatalities'. Nulls are kept as missing, never filled with 0.",
+        "action": "none",
+        "share": 0.0
+      },
+      {
+        "name": "missing_admin1",
+        "status": "warn",
+        "affected_rows": 12539,
+        "total_rows": 58016,
+        "detail": "12539 null values in 'admin1'. Nulls are kept as missing, never filled with 0.",
+        "action": "none",
+        "share": 0.21613
+      }
+    ],
+    "transformations": [
+      "Selected UCDP region containing 'Europe': 58016 of 417968 global events.",
+      "event_date = date_start (events spanning several days are dated by their start).",
+      "date_uncertain = date_prec > 1 (date known only to a range of days or wider).",
+      "location_precise = where_prec in {1, 2} (exact place or within ~25 km).",
+      "event_type = UCDP type_of_violence label; fatalities = UCDP 'best' estimate.",
+      "Country names mapped to ISO3 (e.g. 'Russia (Soviet Union)' -> RUS)."
+    ],
+    "coverage": {
+      "date_min": "1989-01-01",
+      "date_max": "2025-12-31",
+      "n_countries": 24,
+      "countries": [
+        "Albania",
+        "Armenia",
+        "Austria",
+        "Azerbaijan",
+        "Belgium",
+        "Bosnia and Herzegovina",
+        "Croatia",
+        "Cyprus",
+        "France",
+        "Georgia",
+        "Germany",
+        "Italy",
+        "Malta",
+        "Moldova",
+        "Netherlands",
+        "North Macedonia",
+        "Poland",
+        "Romania",
+        "Russia",
+        "Serbia",
+        "Spain",
+        "Sweden",
+        "Ukraine",
+        "United Kingdom"
+      ],
+      "events": 58016
+    },
+    "generated_at": "2026-10-17T13:02:10+00:00",
+    "summary": {
+      "pass": 12,
+      "warn": 3,
+      "fail": 0,
+      "info": 1,
+      "not_run": 0
+    }
+  }
+}

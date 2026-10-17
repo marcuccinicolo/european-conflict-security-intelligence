@@ -17,5 +17,7 @@ data/raw/**
 data/processed/**
 !data/processed/.gitkeep
 
+# data/public/ IS committed: validated UCDP subset (CC BY 4.0 allows redistribution).
+
 # Interactive report figures (regenerated; PNGs are committed)
 reports/figures/*.html

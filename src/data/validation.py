@@ -62,6 +62,16 @@ class QualityReport:
         }
         return d
 
+    @classmethod
+    def from_dict(cls, d: dict) -> "QualityReport":
+        keys = ("name", "status", "affected_rows", "total_rows", "detail", "action")
+        checks = [Check(**{k: c[k] for k in keys}) for c in d["checks"]]
+        return cls(
+            source=d["source"], input_file=d["input_file"], rows_in=d["rows_in"],
+            rows_out=d["rows_out"], checks=checks, transformations=list(d["transformations"]),
+            coverage=d["coverage"], generated_at=d["generated_at"],
+        )  # fmt: skip
+
     def write(self, directory: Path) -> Path:
         directory.mkdir(parents=True, exist_ok=True)
         path = directory / f"{self.source}.json"
