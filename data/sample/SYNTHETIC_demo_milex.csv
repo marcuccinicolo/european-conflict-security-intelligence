@@ -1,0 +1,625 @@
+source,data_status,country,iso3,subregion,entity_type,year,indicator,unit,price_basis,value,value_flag
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2000,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,40204.46,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2000,milex_current_usd_m,US$ million,current prices and exchange rates,24995.98,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2000,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.0,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2001,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,41036.13,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2001,milex_current_usd_m,US$ million,current prices and exchange rates,26023.31,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2001,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.09,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2002,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,43696.33,estimate
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2002,milex_current_usd_m,US$ million,current prices and exchange rates,28264.49,estimate
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2002,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.18,estimate
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2003,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,42511.29,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2003,milex_current_usd_m,US$ million,current prices and exchange rates,28047.92,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2003,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.21,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2004,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,41055.56,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2004,milex_current_usd_m,US$ million,current prices and exchange rates,27629.21,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2004,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.24,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2005,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,41684.09,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2005,milex_current_usd_m,US$ million,current prices and exchange rates,28613.24,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2005,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.27,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2006,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,40187.91,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2006,milex_current_usd_m,US$ million,current prices and exchange rates,28137.94,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2006,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.22,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2007,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,38134.08,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2007,milex_current_usd_m,US$ million,current prices and exchange rates,27233.93,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2007,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.29,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2008,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,41408.9,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2008,milex_current_usd_m,US$ million,current prices and exchange rates,30164.14,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2008,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.28,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2009,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,41553.96,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2009,milex_current_usd_m,US$ million,current prices and exchange rates,30875.21,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2009,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.23,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2010,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,42634.37,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2010,milex_current_usd_m,US$ million,current prices and exchange rates,32311.52,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2010,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.22,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2011,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,47038.23,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2011,milex_current_usd_m,US$ million,current prices and exchange rates,36362.08,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2011,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.23,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2012,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,49191.65,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2012,milex_current_usd_m,US$ million,current prices and exchange rates,38787.28,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2012,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.2,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2013,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,52772.36,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2013,milex_current_usd_m,US$ million,current prices and exchange rates,42442.86,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2013,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.23,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2014,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,51134.03,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2014,milex_current_usd_m,US$ million,current prices and exchange rates,41947.71,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2014,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.33,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2015,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,48996.67,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2015,milex_current_usd_m,US$ million,current prices and exchange rates,40998.23,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2015,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.32,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2016,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,50837.32,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2016,milex_current_usd_m,US$ million,current prices and exchange rates,43389.16,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2016,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.29,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2017,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,51546.61,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2017,milex_current_usd_m,US$ million,current prices and exchange rates,44874.42,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2017,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.25,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2018,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,49807.33,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2018,milex_current_usd_m,US$ million,current prices and exchange rates,44227.48,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2018,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.27,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2019,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,53597.63,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2019,milex_current_usd_m,US$ million,current prices and exchange rates,48545.03,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2019,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.22,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2020,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,54463.88,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2020,milex_current_usd_m,US$ million,current prices and exchange rates,50316.2,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2020,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.19,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2021,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,54952.21,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2021,milex_current_usd_m,US$ million,current prices and exchange rates,51782.7,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2021,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.22,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2022,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,59092.13,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2022,milex_current_usd_m,US$ million,current prices and exchange rates,56797.51,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2022,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.41,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2023,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,63609.4,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2023,milex_current_usd_m,US$ million,current prices and exchange rates,62362.15,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2023,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.5,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2024,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,68365.99,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2024,milex_current_usd_m,US$ million,current prices and exchange rates,68365.99,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2024,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.65,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2025,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,76621.51,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2025,milex_current_usd_m,US$ million,current prices and exchange rates,78153.94,reported
+synthetic_milex,synthetic,Germany,DEU,Western Europe,country,2025,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.75,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2000,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,46470.76,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2000,milex_current_usd_m,US$ million,current prices and exchange rates,28891.87,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2000,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.24,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2001,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,43854.26,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2001,milex_current_usd_m,US$ million,current prices and exchange rates,27810.44,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2001,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.21,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2002,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,46301.71,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2002,milex_current_usd_m,US$ million,current prices and exchange rates,29949.75,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2002,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.24,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2003,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,46015.59,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2003,milex_current_usd_m,US$ million,current prices and exchange rates,30359.97,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2003,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.29,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2004,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,44439.89,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2004,milex_current_usd_m,US$ million,current prices and exchange rates,29906.77,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2004,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.3,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2005,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,43884.98,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2005,milex_current_usd_m,US$ million,current prices and exchange rates,30124.0,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2005,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.23,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2006,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,41306.17,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2006,milex_current_usd_m,US$ million,current prices and exchange rates,28920.9,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2006,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.22,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2007,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,40657.46,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2007,milex_current_usd_m,US$ million,current prices and exchange rates,29036.04,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2007,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.28,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2008,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,41360.98,estimate
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2008,milex_current_usd_m,US$ million,current prices and exchange rates,30129.24,estimate
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2008,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.29,estimate
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2009,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,,unavailable
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2009,milex_current_usd_m,US$ million,current prices and exchange rates,,unavailable
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2009,share_gdp_pct,% of GDP,ratio (both terms in current local currency),,unavailable
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2010,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,43572.44,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2010,milex_current_usd_m,US$ million,current prices and exchange rates,33022.47,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2010,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.13,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2011,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,48332.79,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2011,milex_current_usd_m,US$ million,current prices and exchange rates,37362.82,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2011,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.19,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2012,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,47296.87,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2012,milex_current_usd_m,US$ million,current prices and exchange rates,37293.26,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2012,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.22,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2013,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,47780.7,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2013,milex_current_usd_m,US$ million,current prices and exchange rates,38428.25,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2013,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.22,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2014,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,48672.28,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2014,milex_current_usd_m,US$ million,current prices and exchange rates,39928.22,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2014,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.19,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2015,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,50205.3,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2015,milex_current_usd_m,US$ million,current prices and exchange rates,42009.55,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2015,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.17,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2016,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,52853.0,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2016,milex_current_usd_m,US$ million,current prices and exchange rates,45109.53,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2016,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.17,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2017,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,50163.94,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2017,milex_current_usd_m,US$ million,current prices and exchange rates,43670.73,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2017,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.11,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2018,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,52249.8,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2018,milex_current_usd_m,US$ million,current prices and exchange rates,46396.33,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2018,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.13,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2019,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,53949.11,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2019,milex_current_usd_m,US$ million,current prices and exchange rates,48863.37,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2019,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.06,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2020,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,52556.2,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2020,milex_current_usd_m,US$ million,current prices and exchange rates,48553.81,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2020,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.09,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2021,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,55839.65,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2021,milex_current_usd_m,US$ million,current prices and exchange rates,52618.95,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2021,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.09,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2022,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,60921.29,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2022,milex_current_usd_m,US$ million,current prices and exchange rates,58555.64,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2022,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.23,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2023,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,68477.88,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2023,milex_current_usd_m,US$ million,current prices and exchange rates,67135.17,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2023,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.28,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2024,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,72678.59,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2024,milex_current_usd_m,US$ million,current prices and exchange rates,72678.59,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2024,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.34,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2025,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,77836.19,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2025,milex_current_usd_m,US$ million,current prices and exchange rates,79392.91,reported
+synthetic_milex,synthetic,France,FRA,Western Europe,country,2025,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.51,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2000,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,32710.93,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2000,milex_current_usd_m,US$ million,current prices and exchange rates,20337.09,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2000,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.1,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2001,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,31759.07,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2001,milex_current_usd_m,US$ million,current prices and exchange rates,20140.2,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2001,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.15,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2002,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,31717.16,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2002,milex_current_usd_m,US$ million,current prices and exchange rates,20515.9,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2002,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.18,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2003,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,33424.07,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2003,milex_current_usd_m,US$ million,current prices and exchange rates,22052.39,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2003,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.08,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2004,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,34019.68,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2004,milex_current_usd_m,US$ million,current prices and exchange rates,22894.27,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2004,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.1,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2005,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,34123.09,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2005,milex_current_usd_m,US$ million,current prices and exchange rates,23423.14,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2005,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.03,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2006,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,36259.19,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2006,milex_current_usd_m,US$ million,current prices and exchange rates,25387.21,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2006,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.1,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2007,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,36881.36,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2007,milex_current_usd_m,US$ million,current prices and exchange rates,26339.29,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2007,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.17,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2008,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,36018.2,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2008,milex_current_usd_m,US$ million,current prices and exchange rates,26237.3,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2008,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.23,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2009,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,35141.89,estimate
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2009,milex_current_usd_m,US$ million,current prices and exchange rates,26110.94,estimate
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2009,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.28,estimate
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2010,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,34698.98,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2010,milex_current_usd_m,US$ million,current prices and exchange rates,26297.49,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2010,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.21,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2011,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,35414.46,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2011,milex_current_usd_m,US$ million,current prices and exchange rates,27376.53,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2011,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.19,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2012,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,35892.28,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2012,milex_current_usd_m,US$ million,current prices and exchange rates,28300.82,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2012,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.23,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2013,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,36765.52,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2013,milex_current_usd_m,US$ million,current prices and exchange rates,29569.15,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2013,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.17,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2014,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,36193.51,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2014,milex_current_usd_m,US$ million,current prices and exchange rates,29691.29,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2014,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.22,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2015,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,36152.56,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2015,milex_current_usd_m,US$ million,current prices and exchange rates,30250.85,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2015,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.23,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2016,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,36751.6,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2016,milex_current_usd_m,US$ million,current prices and exchange rates,31367.14,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2016,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.15,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2017,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,35584.02,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2017,milex_current_usd_m,US$ million,current prices and exchange rates,30978.03,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2017,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.17,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2018,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,35410.05,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2018,milex_current_usd_m,US$ million,current prices and exchange rates,31443.11,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2018,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.17,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2019,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,35205.37,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2019,milex_current_usd_m,US$ million,current prices and exchange rates,31886.59,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2019,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.16,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2020,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,33612.19,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2020,milex_current_usd_m,US$ million,current prices and exchange rates,31052.47,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2020,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.32,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2021,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,31701.01,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2021,milex_current_usd_m,US$ million,current prices and exchange rates,29872.57,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2021,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.33,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2022,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,34313.32,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2022,milex_current_usd_m,US$ million,current prices and exchange rates,32980.89,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2022,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.49,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2023,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,39864.13,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2023,milex_current_usd_m,US$ million,current prices and exchange rates,39082.48,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2023,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.59,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2024,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,44197.99,estimate
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2024,milex_current_usd_m,US$ million,current prices and exchange rates,44197.99,estimate
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2024,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.72,estimate
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2025,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,46065.04,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2025,milex_current_usd_m,US$ million,current prices and exchange rates,46986.34,reported
+synthetic_milex,synthetic,Italy,ITA,Western Europe,country,2025,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.86,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2000,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,14580.79,estimate
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2000,milex_current_usd_m,US$ million,current prices and exchange rates,9065.19,estimate
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2000,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.25,estimate
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2001,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,14383.97,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2001,milex_current_usd_m,US$ million,current prices and exchange rates,9121.68,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2001,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.08,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2002,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,14870.38,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2002,milex_current_usd_m,US$ million,current prices and exchange rates,9618.74,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2002,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.06,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2003,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,15396.9,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2003,milex_current_usd_m,US$ million,current prices and exchange rates,10158.5,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2003,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.12,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2004,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,16541.32,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2004,milex_current_usd_m,US$ million,current prices and exchange rates,11131.84,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2004,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.14,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2005,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,17837.62,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2005,milex_current_usd_m,US$ million,current prices and exchange rates,12244.29,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2005,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.06,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2006,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,18269.39,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2006,milex_current_usd_m,US$ million,current prices and exchange rates,12791.49,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2006,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.06,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2007,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,19074.37,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2007,milex_current_usd_m,US$ million,current prices and exchange rates,13622.2,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2007,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.96,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2008,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,18963.6,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2008,milex_current_usd_m,US$ million,current prices and exchange rates,13813.96,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2008,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.98,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2009,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,21235.89,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2009,milex_current_usd_m,US$ million,current prices and exchange rates,15778.58,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2009,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.97,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2010,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,20305.06,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2010,milex_current_usd_m,US$ million,current prices and exchange rates,15388.7,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2010,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.95,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2011,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,21413.44,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2011,milex_current_usd_m,US$ million,current prices and exchange rates,16553.29,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2011,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.97,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2012,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,23225.97,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2012,milex_current_usd_m,US$ million,current prices and exchange rates,18313.52,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2012,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.02,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2013,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,24376.65,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2013,milex_current_usd_m,US$ million,current prices and exchange rates,19605.24,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2013,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.01,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2014,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,24252.42,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2014,milex_current_usd_m,US$ million,current prices and exchange rates,19895.43,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2014,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.96,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2015,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,25476.14,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2015,milex_current_usd_m,US$ million,current prices and exchange rates,21317.29,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2015,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.85,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2016,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,26386.0,estimate
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2016,milex_current_usd_m,US$ million,current prices and exchange rates,22520.2,estimate
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2016,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.88,estimate
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2017,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,,unavailable
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2017,milex_current_usd_m,US$ million,current prices and exchange rates,,unavailable
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2017,share_gdp_pct,% of GDP,ratio (both terms in current local currency),,unavailable
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2018,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,29239.41,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2018,milex_current_usd_m,US$ million,current prices and exchange rates,25963.76,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2018,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.89,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2019,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,28909.8,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2019,milex_current_usd_m,US$ million,current prices and exchange rates,26184.5,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2019,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.83,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2020,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,28615.46,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2020,milex_current_usd_m,US$ million,current prices and exchange rates,26436.26,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2020,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.82,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2021,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,27660.28,estimate
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2021,milex_current_usd_m,US$ million,current prices and exchange rates,26064.9,estimate
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2021,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.92,estimate
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2022,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,,unavailable
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2022,milex_current_usd_m,US$ million,current prices and exchange rates,,unavailable
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2022,share_gdp_pct,% of GDP,ratio (both terms in current local currency),,unavailable
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2023,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,34336.77,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2023,milex_current_usd_m,US$ million,current prices and exchange rates,33663.5,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2023,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.29,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2024,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,39529.81,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2024,milex_current_usd_m,US$ million,current prices and exchange rates,39529.81,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2024,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.38,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2025,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,44715.75,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2025,milex_current_usd_m,US$ million,current prices and exchange rates,45610.06,reported
+synthetic_milex,synthetic,Spain,ESP,Western Europe,country,2025,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.46,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2000,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,53100.47,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2000,milex_current_usd_m,US$ million,current prices and exchange rates,33013.7,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2000,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.75,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2001,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,57796.69,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2001,milex_current_usd_m,US$ million,current prices and exchange rates,36652.11,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2001,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.77,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2002,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,,unavailable
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2002,milex_current_usd_m,US$ million,current prices and exchange rates,,unavailable
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2002,share_gdp_pct,% of GDP,ratio (both terms in current local currency),,unavailable
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2003,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,60720.52,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2003,milex_current_usd_m,US$ million,current prices and exchange rates,40061.93,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2003,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.84,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2004,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,57216.11,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2004,milex_current_usd_m,US$ million,current prices and exchange rates,38504.8,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2004,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.93,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2005,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,59416.77,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2005,milex_current_usd_m,US$ million,current prices and exchange rates,40785.5,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2005,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.95,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2006,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,60526.94,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2006,milex_current_usd_m,US$ million,current prices and exchange rates,42378.5,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2006,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.89,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2007,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,61842.63,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2007,milex_current_usd_m,US$ million,current prices and exchange rates,44165.69,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2007,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.9,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2008,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,61884.89,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2008,milex_current_usd_m,US$ million,current prices and exchange rates,45079.79,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2008,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.84,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2009,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,61635.75,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2009,milex_current_usd_m,US$ million,current prices and exchange rates,45796.27,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2009,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.86,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2010,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,64875.88,estimate
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2010,milex_current_usd_m,US$ million,current prices and exchange rates,49167.81,estimate
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2010,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.77,estimate
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2011,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,64348.72,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2011,milex_current_usd_m,US$ million,current prices and exchange rates,49743.65,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2011,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.87,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2012,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,64597.96,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2012,milex_current_usd_m,US$ million,current prices and exchange rates,50935.05,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2012,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.84,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2013,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,62935.6,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2013,milex_current_usd_m,US$ million,current prices and exchange rates,50616.77,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2013,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.78,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2014,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,66426.52,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2014,milex_current_usd_m,US$ million,current prices and exchange rates,54492.88,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2014,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.75,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2015,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,62223.68,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2015,milex_current_usd_m,US$ million,current prices and exchange rates,52065.99,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2015,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.69,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2016,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,65663.63,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2016,milex_current_usd_m,US$ million,current prices and exchange rates,56043.28,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2016,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.62,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2017,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,69929.2,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2017,milex_current_usd_m,US$ million,current prices and exchange rates,60877.58,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2017,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.67,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2018,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,65787.56,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2018,milex_current_usd_m,US$ million,current prices and exchange rates,58417.47,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2018,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.8,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2019,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,66103.72,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2019,milex_current_usd_m,US$ million,current prices and exchange rates,59872.18,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2019,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.78,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2020,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,68209.13,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2020,milex_current_usd_m,US$ million,current prices and exchange rates,63014.69,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2020,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.77,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2021,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,75661.04,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2021,milex_current_usd_m,US$ million,current prices and exchange rates,71297.09,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2021,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.76,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2022,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,85182.39,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2022,milex_current_usd_m,US$ million,current prices and exchange rates,81874.65,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2022,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.9,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2023,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,94896.39,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2023,milex_current_usd_m,US$ million,current prices and exchange rates,93035.68,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2023,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.12,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2024,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,104320.33,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2024,milex_current_usd_m,US$ million,current prices and exchange rates,104320.33,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2024,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.2,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2025,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,119664.4,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2025,milex_current_usd_m,US$ million,current prices and exchange rates,122057.69,reported
+synthetic_milex,synthetic,United Kingdom,GBR,Western Europe,country,2025,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.41,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2000,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,6308.19,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2000,milex_current_usd_m,US$ million,current prices and exchange rates,3921.93,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2000,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.02,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2001,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,6430.46,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2001,milex_current_usd_m,US$ million,current prices and exchange rates,4077.91,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2001,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.04,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2002,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,,unavailable
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2002,milex_current_usd_m,US$ million,current prices and exchange rates,,unavailable
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2002,share_gdp_pct,% of GDP,ratio (both terms in current local currency),,unavailable
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2003,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,6498.95,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2003,milex_current_usd_m,US$ million,current prices and exchange rates,4287.85,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2003,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.11,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2004,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,,unavailable
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2004,milex_current_usd_m,US$ million,current prices and exchange rates,,unavailable
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2004,share_gdp_pct,% of GDP,ratio (both terms in current local currency),,unavailable
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2005,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,7229.91,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2005,milex_current_usd_m,US$ million,current prices and exchange rates,4962.83,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2005,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.23,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2006,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,7197.69,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2006,milex_current_usd_m,US$ million,current prices and exchange rates,5039.53,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2006,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.24,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2007,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,7468.13,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2007,milex_current_usd_m,US$ million,current prices and exchange rates,5333.46,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2007,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.2,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2008,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,7650.19,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2008,milex_current_usd_m,US$ million,current prices and exchange rates,5572.75,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2008,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.28,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2009,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,7795.97,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2009,milex_current_usd_m,US$ million,current prices and exchange rates,5792.52,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2009,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.39,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2010,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,7364.98,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2010,milex_current_usd_m,US$ million,current prices and exchange rates,5581.73,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2010,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.41,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2011,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,7057.6,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2011,milex_current_usd_m,US$ million,current prices and exchange rates,5455.75,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2011,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.44,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2012,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,7228.55,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2012,milex_current_usd_m,US$ million,current prices and exchange rates,5699.66,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2012,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.38,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2013,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,7530.2,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2013,milex_current_usd_m,US$ million,current prices and exchange rates,6056.26,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2013,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.33,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2014,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,7521.31,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2014,milex_current_usd_m,US$ million,current prices and exchange rates,6170.09,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2014,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.37,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2015,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,7781.96,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2015,milex_current_usd_m,US$ million,current prices and exchange rates,6511.6,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2015,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.33,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2016,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,8005.13,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2016,milex_current_usd_m,US$ million,current prices and exchange rates,6832.3,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2016,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.37,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2017,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,8021.59,estimate
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2017,milex_current_usd_m,US$ million,current prices and exchange rates,6983.28,estimate
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2017,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.37,estimate
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2018,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,8300.16,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2018,milex_current_usd_m,US$ million,current prices and exchange rates,7370.3,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2018,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.33,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2019,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,8353.33,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2019,milex_current_usd_m,US$ million,current prices and exchange rates,7565.87,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2019,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.23,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2020,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,8159.49,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2020,milex_current_usd_m,US$ million,current prices and exchange rates,7538.1,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2020,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.21,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2021,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,8240.25,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2021,milex_current_usd_m,US$ million,current prices and exchange rates,7764.97,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2021,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.24,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2022,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,8550.88,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2022,milex_current_usd_m,US$ million,current prices and exchange rates,8218.84,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2022,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.36,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2023,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,9061.86,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2023,milex_current_usd_m,US$ million,current prices and exchange rates,8884.18,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2023,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.44,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2024,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,9441.29,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2024,milex_current_usd_m,US$ million,current prices and exchange rates,9441.29,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2024,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.67,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2025,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,10668.56,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2025,milex_current_usd_m,US$ million,current prices and exchange rates,10881.93,reported
+synthetic_milex,synthetic,Sweden,SWE,Western Europe,country,2025,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.77,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2000,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,8246.08,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2000,milex_current_usd_m,US$ million,current prices and exchange rates,5126.77,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2000,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.35,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2001,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,8432.5,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2001,milex_current_usd_m,US$ million,current prices and exchange rates,5347.52,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2001,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.26,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2002,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,8387.79,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2002,milex_current_usd_m,US$ million,current prices and exchange rates,5425.55,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2002,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.31,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2003,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,8995.92,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2003,milex_current_usd_m,US$ million,current prices and exchange rates,5935.29,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2003,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.27,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2004,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,8398.38,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2004,milex_current_usd_m,US$ million,current prices and exchange rates,5651.87,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2004,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.33,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2005,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,8514.22,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2005,milex_current_usd_m,US$ million,current prices and exchange rates,5844.42,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2005,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.33,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2006,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,8375.17,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2006,milex_current_usd_m,US$ million,current prices and exchange rates,5863.95,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2006,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.23,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2007,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,8150.33,estimate
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2007,milex_current_usd_m,US$ million,current prices and exchange rates,5820.66,estimate
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2007,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.17,estimate
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2008,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,8561.51,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2008,milex_current_usd_m,US$ million,current prices and exchange rates,6236.6,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2008,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.1,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2009,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,8894.65,estimate
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2009,milex_current_usd_m,US$ million,current prices and exchange rates,6608.85,estimate
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2009,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.13,estimate
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2010,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,9289.62,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2010,milex_current_usd_m,US$ million,current prices and exchange rates,7040.37,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2010,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.14,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2011,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,9712.05,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2011,milex_current_usd_m,US$ million,current prices and exchange rates,7507.73,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2011,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.07,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2012,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,9725.34,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2012,milex_current_usd_m,US$ million,current prices and exchange rates,7668.37,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2012,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.01,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2013,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,10000.33,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2013,milex_current_usd_m,US$ million,current prices and exchange rates,8042.9,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2013,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.05,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2014,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,10840.41,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2014,milex_current_usd_m,US$ million,current prices and exchange rates,8892.91,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2014,share_gdp_pct,% of GDP,ratio (both terms in current local currency),0.94,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2015,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,10561.91,estimate
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2015,milex_current_usd_m,US$ million,current prices and exchange rates,8837.73,estimate
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2015,share_gdp_pct,% of GDP,ratio (both terms in current local currency),0.91,estimate
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2016,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,10473.11,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2016,milex_current_usd_m,US$ million,current prices and exchange rates,8938.7,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2016,share_gdp_pct,% of GDP,ratio (both terms in current local currency),0.95,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2017,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,10606.97,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2017,milex_current_usd_m,US$ million,current prices and exchange rates,9234.01,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2017,share_gdp_pct,% of GDP,ratio (both terms in current local currency),0.95,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2018,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,10895.56,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2018,milex_current_usd_m,US$ million,current prices and exchange rates,9674.95,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2018,share_gdp_pct,% of GDP,ratio (both terms in current local currency),0.92,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2019,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,10485.41,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2019,milex_current_usd_m,US$ million,current prices and exchange rates,9496.96,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2019,share_gdp_pct,% of GDP,ratio (both terms in current local currency),0.99,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2020,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,10742.74,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2020,milex_current_usd_m,US$ million,current prices and exchange rates,9924.63,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2020,share_gdp_pct,% of GDP,ratio (both terms in current local currency),0.95,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2021,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,10698.9,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2021,milex_current_usd_m,US$ million,current prices and exchange rates,10081.81,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2021,share_gdp_pct,% of GDP,ratio (both terms in current local currency),0.96,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2022,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,11849.88,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2022,milex_current_usd_m,US$ million,current prices and exchange rates,11389.73,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2022,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.09,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2023,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,12263.07,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2023,milex_current_usd_m,US$ million,current prices and exchange rates,12022.62,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2023,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.16,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2024,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,13698.56,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2024,milex_current_usd_m,US$ million,current prices and exchange rates,13698.56,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2024,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.2,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2025,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,14653.98,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2025,milex_current_usd_m,US$ million,current prices and exchange rates,14947.06,reported
+synthetic_milex,synthetic,Poland,POL,Central Europe,country,2025,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.3,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2000,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,3056.21,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2000,milex_current_usd_m,US$ million,current prices and exchange rates,1900.11,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2000,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.44,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2001,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,3091.94,estimate
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2001,milex_current_usd_m,US$ million,current prices and exchange rates,1960.77,estimate
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2001,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.46,estimate
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2002,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,2938.26,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2002,milex_current_usd_m,US$ million,current prices and exchange rates,1900.58,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2002,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.47,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2003,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,3005.31,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2003,milex_current_usd_m,US$ million,current prices and exchange rates,1982.83,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2003,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.52,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2004,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,3041.16,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2004,milex_current_usd_m,US$ million,current prices and exchange rates,2046.62,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2004,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.45,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2005,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,3066.48,estimate
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2005,milex_current_usd_m,US$ million,current prices and exchange rates,2104.93,estimate
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2005,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.51,estimate
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2006,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,3271.27,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2006,milex_current_usd_m,US$ million,current prices and exchange rates,2290.41,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2006,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.5,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2007,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,3219.51,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2007,milex_current_usd_m,US$ million,current prices and exchange rates,2299.26,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2007,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.58,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2008,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,3301.0,estimate
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2008,milex_current_usd_m,US$ million,current prices and exchange rates,2404.6,estimate
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2008,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.58,estimate
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2009,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,3270.16,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2009,milex_current_usd_m,US$ million,current prices and exchange rates,2429.78,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2009,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.54,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2010,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,3203.25,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2010,milex_current_usd_m,US$ million,current prices and exchange rates,2427.66,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2010,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.46,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2011,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,3088.54,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2011,milex_current_usd_m,US$ million,current prices and exchange rates,2387.54,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2011,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.48,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2012,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,3111.72,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2012,milex_current_usd_m,US$ million,current prices and exchange rates,2453.57,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2012,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.5,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2013,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,3258.84,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2013,milex_current_usd_m,US$ million,current prices and exchange rates,2620.97,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2013,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.5,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2014,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,3060.34,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2014,milex_current_usd_m,US$ million,current prices and exchange rates,2510.55,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2014,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.6,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2015,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,3290.97,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2015,milex_current_usd_m,US$ million,current prices and exchange rates,2753.74,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2015,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.53,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2016,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,3358.31,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2016,milex_current_usd_m,US$ million,current prices and exchange rates,2866.29,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2016,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.56,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2017,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,3794.35,estimate
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2017,milex_current_usd_m,US$ million,current prices and exchange rates,3303.21,estimate
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2017,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.61,estimate
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2018,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,3721.39,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2018,milex_current_usd_m,US$ million,current prices and exchange rates,3304.49,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2018,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.62,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2019,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,3907.31,estimate
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2019,milex_current_usd_m,US$ million,current prices and exchange rates,3538.98,estimate
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2019,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.65,estimate
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2020,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,4008.95,estimate
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2020,milex_current_usd_m,US$ million,current prices and exchange rates,3703.65,estimate
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2020,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.69,estimate
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2021,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,4086.42,estimate
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2021,milex_current_usd_m,US$ million,current prices and exchange rates,3850.73,estimate
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2021,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.8,estimate
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2022,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,4668.44,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2022,milex_current_usd_m,US$ million,current prices and exchange rates,4487.16,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2022,share_gdp_pct,% of GDP,ratio (both terms in current local currency),1.94,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2023,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,5212.01,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2023,milex_current_usd_m,US$ million,current prices and exchange rates,5109.82,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2023,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.02,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2024,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,5686.47,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2024,milex_current_usd_m,US$ million,current prices and exchange rates,5686.47,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2024,share_gdp_pct,% of GDP,ratio (both terms in current local currency),2.08,reported
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2025,milex_constant_usd_m,US$ million,constant 2024 (synthetic) prices and exchange rates,,unavailable
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2025,milex_current_usd_m,US$ million,current prices and exchange rates,,unavailable
+synthetic_milex,synthetic,Ukraine,UKR,Eastern Europe,country,2025,share_gdp_pct,% of GDP,ratio (both terms in current local currency),,unavailable
