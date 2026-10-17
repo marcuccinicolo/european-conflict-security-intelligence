@@ -22,6 +22,10 @@ import pandas as pd
 
 from src.config import DB_PATH
 
+# Bump whenever the set of tables or their meaning changes: an app finding an older
+# database (e.g. a persisted file on a hosting platform) rebuilds it automatically.
+SCHEMA_VERSION = 2
+
 DDL = """
 CREATE TABLE datasets (
     source VARCHAR PRIMARY KEY,
@@ -74,6 +78,7 @@ def build_database(
     con = duckdb.connect(str(tmp))
     try:
         con.execute(DDL)
+        con.execute(f"CREATE TABLE meta AS SELECT {SCHEMA_VERSION} AS schema_version")
         ev = pd.concat(events, ignore_index=True) if events else None
         mx = pd.concat(milex, ignore_index=True) if milex else None
         con.register("ev_df", ev)
@@ -100,6 +105,20 @@ def build_database(
         con.close()
     os.replace(tmp, path)
     return path
+
+
+def schema_version(path: Path = DB_PATH) -> int | None:
+    """Schema version of an existing database file; None if absent, unreadable or pre-versioning."""
+    if not Path(path).exists():
+        return None
+    try:
+        con = duckdb.connect(str(path), read_only=True)
+        try:
+            return int(con.execute("SELECT schema_version FROM meta").fetchone()[0])
+        finally:
+            con.close()
+    except Exception:
+        return None
 
 
 def connect(path: Path = DB_PATH, read_only: bool = True) -> duckdb.DuckDBPyConnection:

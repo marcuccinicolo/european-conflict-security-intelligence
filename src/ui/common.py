@@ -15,10 +15,15 @@ from src.database.db import connect
 
 def db_version() -> float:
     """Database file mtime - part of every cache key, so a rebuild invalidates caches."""
-    if not DB_PATH.exists():
+    from src.database.db import SCHEMA_VERSION, schema_version
+
+    if schema_version(DB_PATH) != SCHEMA_VERSION:  # missing, or built by an older version
         from src.pipeline import cmd_build
 
-        if os.getenv("ECSI_AUTO_FETCH", "1") == "1":
+        from src.config import SOURCES
+
+        sipri_present = any(SOURCES["sipri_milex"].raw_dir.glob("SIPRI-Milex-data-*.xlsx"))
+        if os.getenv("ECSI_AUTO_FETCH", "1") == "1" and not sipri_present:
             # SIPRI may not be redistributed, so a fresh deployment downloads the
             # official workbook (~1 MB) itself. Failure falls back to synthetic data.
             from src.data.fetch import fetch_sipri
