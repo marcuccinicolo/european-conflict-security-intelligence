@@ -10,6 +10,9 @@ Investigated on 2026-10-17. Terms change, so check the linked pages before any r
 | **SIPRI Milex 1949–2025 v1.2** | Area B | Free download, no account | XLSX, one sheet per indicator | SIPRI T&C: free non-commercial use with attribution; reproducing >10% of a dataset needs permission | **No** | **No**: charts only, with credit line |
 | **ACLED** | Area A (optional) | myACLED account; OAuth API or export tool | CSV/JSON | ACLED EULA: non-commercial, **no redistribution of raw data**, derived outputs must be transformative | **Never** | **Never** |
 | **Natural Earth 1:50m admin-0** | Coordinate plausibility check | Free download | Shapefile in ZIP | Public domain | No (re-downloadable) | n/a |
+| **World Bank WDI** (GDP per capita) | Research robustness control | Documented API, no key | JSON | CC BY 4.0 | Derived CSV yes (`data/public/`) | Yes |
+| **Natural Earth populated places** | Capital coordinates | Free download | Shapefile in ZIP | Public domain | Derived distances yes | Yes |
+| **NATO member countries** | Accession years | nato.int page | Hand-coded CSV | Public facts | Yes (`data/reference/`) | n/a |
 | **Synthetic demo** | Runs out of the box; validation demo | Generated locally | CSV | MIT (this project) | Yes (`data/sample/`) | Yes |
 
 ## UCDP Georeferenced Event Dataset (GED)

@@ -53,6 +53,19 @@ UCDP `type_of_violence`: 1 = State-based conflict, 2 = Non-state conflict, 3 = O
 | `per_capita_current_usd` | Per capita | current US$ per person | none |
 | `share_govt_pct` | Share of Govt. spending | % of government expenditure | fraction × 100 |
 
+## `exposure`: one row per European country (research)
+
+| Column | Description |
+|---|---|
+| `iso3`, `country`, `capital`, `latitude`, `longitude` | Capital city (Natural Earth `Admin-0 capital`) |
+| `dist_russia_km` | Distance from the capital to Russia's internationally recognised territory (Crimea removed, Kaliningrad included), EPSG:3035 |
+| `dist_front_km` | Distance to the nearest precisely located UCDP Russia–Ukraine event, 2022–2025 |
+| `nato_accession_year` | Year of NATO accession; null for non-members |
+
+## `macro`: country × year (research)
+
+`iso3, year, gdp_pc_const2015_usd` (World Bank `NY.GDP.PCAP.KD`; null = not reported), `country`.
+
 ## `datasets`: registry (one row per loaded source)
 
 `source, domain, name, publisher, data_status, licence, licence_url, url, citation,

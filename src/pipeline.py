@@ -26,9 +26,13 @@ from src.config import (
     SOURCES,
     SYNTHETIC_EVENTS_CSV,
     SYNTHETIC_MILEX_CSV,
+    EXPOSURE_PUBLIC_CSV,
     UCDP_PUBLIC_META,
     UCDP_PUBLIC_PARQUET,
+    WDI_PUBLIC_CSV,
 )
+from src.data import exposure as exposure_mod
+from src.data import worldbank
 from src.data import fetch as fetch_mod
 from src.data.acled import acled_files, load_acled_dir, load_acled_csv
 from src.data.sipri import load_milex_csv, load_sipri
@@ -124,11 +128,64 @@ def load_public_ucdp():
     return df, report, [prov]
 
 
+def build_or_load_exposure(ucdp_df):
+    """Distances from raw boundary files when present; otherwise the committed CSV."""
+    from src.config import BOUNDARIES_ZIP
+
+    if exposure_mod.PLACES_ZIP.exists() and BOUNDARIES_ZIP.exists() and ucdp_df is not None:
+        ex = exposure_mod.build_exposure(ucdp_df)
+        EXPOSURE_PUBLIC_CSV.parent.mkdir(parents=True, exist_ok=True)
+        ex.to_csv(EXPOSURE_PUBLIC_CSV, index=False)
+        files, how = [exposure_mod.PLACES_ZIP, BOUNDARIES_ZIP], "computed from Natural Earth + UCDP"
+    elif EXPOSURE_PUBLIC_CSV.exists():
+        ex = pd.read_csv(EXPOSURE_PUBLIC_CSV)
+        ex["nato_accession_year"] = ex["nato_accession_year"].astype("Int64")
+        files, how = [EXPOSURE_PUBLIC_CSV], f"loaded from committed {EXPOSURE_PUBLIC_CSV.name}"
+    else:
+        print("  exposure          not available - run `python -m src.pipeline fetch`")
+        return None, None, None
+    rep = QualityReport(source="exposure", input_file=", ".join(f.name for f in files))
+    rep.rows_in = rep.rows_out = len(ex)
+    rep.add("capitals_found", "pass" if len(ex) >= 40 else "warn", len(ex), len(ex),
+            f"{len(ex)} European capitals matched (Natural Earth 'Admin-0 capital').")  # fmt: skip
+    neg = int((ex["dist_russia_km"] < 0).sum())
+    rep.add("distances_non_negative", "fail" if neg else "pass", neg, len(ex), "Distances must be >= 0.")
+    miss = int(ex["dist_front_km"].isna().sum())
+    rep.add("missing_dist_front", "warn" if miss else "pass", miss, len(ex),
+            "Distance to nearest UCDP Russia-Ukraine event (2022-2025) missing.")  # fmt: skip
+    rep.transformations += [how, "Russia polygon with the Crimea part removed before measuring distance.",
+                            "NATO accession years from data/reference/nato_accession.csv (nato.int)."]  # fmt: skip
+    rep.coverage = {"n_entities": int(len(ex))}
+    return ex, rep, files
+
+
+def build_or_load_wdi():
+    if worldbank.RAW_JSON.exists():
+        df, rep = worldbank.load_wdi(worldbank.RAW_JSON)
+        WDI_PUBLIC_CSV.parent.mkdir(parents=True, exist_ok=True)
+        df.to_csv(WDI_PUBLIC_CSV, index=False)
+        return df, rep, [worldbank.RAW_JSON]
+    if WDI_PUBLIC_CSV.exists():
+        df = pd.read_csv(WDI_PUBLIC_CSV)
+        rep = QualityReport(source="world_bank_wdi", input_file=WDI_PUBLIC_CSV.name)
+        rep.rows_in = rep.rows_out = len(df)
+        rep.add("loaded_committed_copy", "info", 0, len(df), "Raw API file absent; committed CSV used.")
+        rep.coverage = {"year_min": int(df["year"].min()), "year_max": int(df["year"].max()),
+                        "n_entities": int(df["iso3"].nunique())}  # fmt: skip
+        return df, rep, [WDI_PUBLIC_CSV]
+    print("  world_bank_wdi    not available - run `python -m src.pipeline fetch`")
+    return None, None, None
+
+
 def cmd_fetch(args) -> None:
     print("Fetching official public datasets")
     fetch_mod.fetch_ucdp(force=args.force)
     fetch_mod.fetch_sipri(force=args.force)
     fetch_mod.fetch_boundaries(force=args.force)
+    fetch_mod.download(exposure_mod.PLACES_URL, exposure_mod.PLACES_ZIP, args.force)
+    if args.force or not worldbank.RAW_JSON.exists():
+        print("  downloading World Bank WDI (API)")
+        worldbank.fetch_wdi()
     if args.acled:
         print("Fetching ACLED via API")
         print(f"  wrote {fetch_mod.fetch_acled(start=args.acled_start)}")
@@ -150,14 +207,17 @@ def cmd_build(args=None) -> Path:
     events.append(df)
     record("synthetic_events", "conflict", "synthetic", df, rep, [SYNTHETIC_EVENTS_CSV])
 
+    ucdp_df = None
     ucdp = _first(SOURCES["ucdp_ged"].raw_dir, ("ged*-csv.zip", "GEDEvent*.csv", "*.zip"))
     if ucdp:
         df, rep = load_ucdp(ucdp)
+        ucdp_df = df
         events.append(df)
         record("ucdp_ged", "conflict", "real", df, rep, [ucdp])
         export_public_ucdp(df, rep, ucdp)
     elif UCDP_PUBLIC_PARQUET.exists():
         df, rep, prov = load_public_ucdp()
+        ucdp_df = df
         events.append(df)
         record("ucdp_ged", "conflict", "real", df, rep, [], prov)
     else:
@@ -183,7 +243,17 @@ def cmd_build(args=None) -> Path:
     else:
         print("  sipri_milex       not found - run `python -m src.pipeline fetch`")
 
-    path = build_database(events, milex, registry, checks)
+    extra = {}
+    ex, ex_rep, ex_files = build_or_load_exposure(ucdp_df)
+    if ex is not None:
+        extra["exposure"] = ex
+        record("exposure", "research", "real", ex, ex_rep, ex_files)
+    wdi, wdi_rep, wdi_files = build_or_load_wdi()
+    if wdi is not None:
+        extra["macro"] = wdi
+        record("world_bank_wdi", "research", "real", wdi, wdi_rep, wdi_files)
+
+    path = build_database(events, milex, registry, checks, extra_tables=extra)
     index = {
         "generated_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "database": path.name,

@@ -29,6 +29,9 @@ SYNTHETIC_MILEX_CSV = SAMPLE_DIR / "SYNTHETIC_demo_milex.csv"
 # Validated European UCDP subset (CC BY 4.0), committed so deployments start with real data.
 UCDP_PUBLIC_PARQUET = PUBLIC_DIR / "ucdp_ged_europe.parquet"
 UCDP_PUBLIC_META = PUBLIC_DIR / "ucdp_ged_europe.meta.json"
+EXPOSURE_PUBLIC_CSV = PUBLIC_DIR / "exposure.csv"
+WDI_PUBLIC_CSV = PUBLIC_DIR / "wdi_gdp_per_capita.csv"
+RESEARCH_DIR = REPORTS_DIR / "research"
 
 # Natural Earth admin-0 boundaries (public domain) used for coordinate checks.
 BOUNDARIES_ZIP = RAW_DIR / "naturalearth" / "ne_50m_admin_0_countries.zip"
@@ -135,10 +138,36 @@ SOURCES: dict[str, SourceSpec] = {
         redistribution="Freely redistributable; contains no real observations.",
         notes=["Random-walk series with a fixed seed. Values are not SIPRI figures."],
     ),
+    "world_bank_wdi": SourceSpec(
+        key="world_bank_wdi",
+        name="World Bank WDI: GDP per capita, constant 2015 US$ (NY.GDP.PCAP.KD)",
+        publisher="World Bank",
+        url="https://data.worldbank.org/indicator/NY.GDP.PCAP.KD",
+        download_url="https://api.worldbank.org/v2/country/{codes}/indicator/NY.GDP.PCAP.KD",
+        licence="CC BY 4.0",
+        licence_url="https://datacatalog.worldbank.org/public-licenses",
+        citation="World Bank, World Development Indicators, NY.GDP.PCAP.KD.",
+        raw_dir=RAW_DIR / "worldbank",
+        redistribution="Redistribution permitted with attribution (CC BY 4.0).",
+        notes=["Used only as a robustness control in the proximity analysis."],
+    ),
+    "exposure": SourceSpec(
+        key="exposure",
+        name="Capital-city exposure distances and NATO accession (derived)",
+        publisher="This project, from Natural Earth (public domain), UCDP GED (CC BY 4.0) and nato.int",
+        url="https://www.naturalearthdata.com",
+        licence="Derived from public-domain and CC BY 4.0 data",
+        licence_url="",
+        citation="Natural Earth 1:50m admin-0 and populated places; UCDP GED v26.1; NATO member countries.",
+        raw_dir=RAW_DIR / "naturalearth_places",
+        redistribution="Freely redistributable with attribution to UCDP.",
+        notes=["Distance to Russia excludes Crimea (internationally recognised borders).",
+               "Distances are planar in EPSG:3035, from the capital city."],
+    ),
 }
 
 # Sources whose row-level data may be exported from the dashboard.
-EXPORTABLE_SOURCES = {"ucdp_ged", "synthetic_events", "synthetic_milex"}
+EXPORTABLE_SOURCES = {"ucdp_ged", "synthetic_events", "synthetic_milex", "world_bank_wdi", "exposure"}
 
 
 def acled_credentials() -> tuple[str, str] | None:

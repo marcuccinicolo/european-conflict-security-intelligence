@@ -17,7 +17,7 @@ def _page(name, root):
     importlib.import_module(f"src.ui.page_{name}").render()
 
 
-@pytest.mark.parametrize("page", ["overview", "conflict", "defence", "quality"])
+@pytest.mark.parametrize("page", ["overview", "conflict", "defence", "research", "quality"])
 def test_page_renders(page):
     at = AppTest.from_function(_page, args=(page, str(ROOT)), default_timeout=180)
     at.run()

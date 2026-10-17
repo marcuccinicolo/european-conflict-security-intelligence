@@ -1,0 +1,43 @@
+{
+  "source": "world_bank_wdi",
+  "input_file": "wdi_NY.GDP.PCAP.KD.json",
+  "rows_in": 1144,
+  "rows_out": 1144,
+  "checks": [
+    {
+      "name": "missing_gdp_pc",
+      "status": "warn",
+      "affected_rows": 8,
+      "total_rows": 1144,
+      "detail": "8 country-years without a value (kept as missing).",
+      "action": "none",
+      "share": 0.006993
+    },
+    {
+      "name": "duplicate_country_year",
+      "status": "pass",
+      "affected_rows": 0,
+      "total_rows": 1144,
+      "detail": "Each country-year must appear once.",
+      "action": "none",
+      "share": 0.0
+    }
+  ],
+  "transformations": [
+    "Indicator NY.GDP.PCAP.KD (GDP per capita, constant 2015 US$), API last updated 2026-10-08.",
+    "Null values kept as missing."
+  ],
+  "coverage": {
+    "year_min": 2000,
+    "year_max": 2025,
+    "n_entities": 44
+  },
+  "generated_at": "2026-10-17T13:24:24+00:00",
+  "summary": {
+    "pass": 1,
+    "warn": 1,
+    "fail": 0,
+    "info": 0,
+    "not_run": 0
+  }
+}

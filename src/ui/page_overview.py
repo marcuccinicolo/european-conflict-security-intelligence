@@ -52,6 +52,7 @@ responds to conflict.
     )
 
     reg = U.registry(v)
+    reg = reg[reg["domain"].isin(["conflict", "defence"])]
     st.markdown("#### Datasets loaded")
     rows = list(reg.iterrows())
     for i in range(0, len(rows), 2):  # two cards per row stay readable on narrow screens

@@ -1,0 +1,51 @@
+{
+  "source": "exposure",
+  "input_file": "ne_50m_populated_places_simple.zip, ne_50m_admin_0_countries.zip",
+  "rows_in": 44,
+  "rows_out": 44,
+  "checks": [
+    {
+      "name": "capitals_found",
+      "status": "pass",
+      "affected_rows": 44,
+      "total_rows": 44,
+      "detail": "44 European capitals matched (Natural Earth 'Admin-0 capital').",
+      "action": "none",
+      "share": 1.0
+    },
+    {
+      "name": "distances_non_negative",
+      "status": "pass",
+      "affected_rows": 0,
+      "total_rows": 44,
+      "detail": "Distances must be >= 0.",
+      "action": "none",
+      "share": 0.0
+    },
+    {
+      "name": "missing_dist_front",
+      "status": "pass",
+      "affected_rows": 0,
+      "total_rows": 44,
+      "detail": "Distance to nearest UCDP Russia-Ukraine event (2022-2025) missing.",
+      "action": "none",
+      "share": 0.0
+    }
+  ],
+  "transformations": [
+    "computed from Natural Earth + UCDP",
+    "Russia polygon with the Crimea part removed before measuring distance.",
+    "NATO accession years from data/reference/nato_accession.csv (nato.int)."
+  ],
+  "coverage": {
+    "n_entities": 44
+  },
+  "generated_at": "2026-10-17T13:24:24+00:00",
+  "summary": {
+    "pass": 3,
+    "warn": 0,
+    "fail": 0,
+    "info": 0,
+    "not_run": 0
+  }
+}

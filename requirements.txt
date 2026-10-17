@@ -11,6 +11,8 @@ streamlit==1.66.0
 openpyxl==3.1.5
 requests==2.34.2
 python-dotenv==1.2.4
+statsmodels==0.15.0
+scipy==1.18.1
 pytest==9.1.1
 # Optional: static PNG export of report figures (needs a local Chrome/Chromium).
 # Without it the report still writes interactive HTML figures.

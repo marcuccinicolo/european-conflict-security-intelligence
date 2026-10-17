@@ -1,6 +1,6 @@
 # European Conflict & Security Intelligence: research brief
 
-*Generated 2026-10-17 11:00 UTC by `python -m src.pipeline report`. Every figure in this document is
+*Generated 2026-10-17 13:29 UTC by `python -m src.pipeline report`. Every figure in this document is
 computed from the processed database; no number is typed by hand.*
 
 
@@ -128,7 +128,59 @@ some national budget lines and differs from NATO's.
 
 ![Change in share of GDP](figures/defence_gdp_change.png)
 
-## 5. Data-quality and reporting limitations
+
+## 5. Research extension: does proximity to Russia predict military burden?
+
+Design fixed in writing before estimation: [`docs/RESEARCH_DESIGN.md`](../docs/RESEARCH_DESIGN.md).
+Two-way fixed-effects event study, 37 European countries, 2005–2025
+(774 country-years). Exposure: distance from the capital to Russia's
+internationally recognised territory, in 1,000 km. Russia, Ukraine, Belarus and Iceland are excluded,
+and the South Caucasus is excluded from the main sample. Inference: cluster-robust by country and a
+wild cluster bootstrap (9,999 draws, null imposed).
+
+![Raw change by distance](figures/research_distance_scatter.png)
+
+**Main estimates** (pp of GDP per 1,000 km farther from Russia; negative = closer countries rose more):
+
+- After 2014: **-0.19** (95% CI -0.34 to -0.04;
+  bootstrap p 0.002).
+- Additional after 2022: **-0.44** (95% CI -0.64 to
+  -0.24; bootstrap p < 0.001).
+- Combined since 2022, a country 1,000 km closer to Russia raised its burden by about
+  **0.6 pp of GDP more**, relative to its own 2005–2013 level.
+
+![Event study](figures/research_event_study.png)
+
+**Pre-trends.** The joint test that the 2005–2012 coefficients are zero
+**rejects** at 5% (F(8, 36) =
+2.48, p = 0.030). The pre-period coefficients are small (largest absolute value
+0.07) next to the post-2022 ones,
+but the post-2014 estimate should not be read as a clean break.
+
+**Robustness** (coefficient (s.e.), bootstrap p):
+
+| Specification | After 2014 | p | Extra after 2022 | p | Countries |
+|---|---|---|---|---|---|
+| Main: % of GDP, distance to Russia | -0.192 (0.075) | 0.002 | -0.440 (0.100) | < 0.001 | 37 |
+| Outcome: log real expenditure | -0.170 (0.063) | 0.014 | -0.173 (0.039) | < 0.001 | 37 |
+| Including South Caucasus | -0.078 (0.206) | 0.853 | -0.375 (0.106) | 0.006 | 40 |
+| Exposure: nearest war event | -0.113 (0.059) | 0.035 | -0.296 (0.096) | 0.014 | 37 |
+| Control: NATO membership | -0.189 (0.074) | 0.002 | -0.445 (0.100) | 0.001 | 37 |
+| Excluding Baltic states | -0.096 (0.047) | 0.011 | -0.345 (0.100) | 0.006 | 34 |
+| Log real exp., GDP per capita control | -0.146 (0.056) | 0.002 | -0.196 (0.043) | < 0.001 | 37 |
+
+Leave-one-out range for the post-2022 estimate: -0.50 to -0.40
+(most influential country: Spain). Placebo treatment in 2009:
++0.064, bootstrap p 0.356.
+
+**Interpretation.** The post-2022 gradient is the robust finding: it holds in levels and in shares,
+with either exposure measure, with a NATO control, and without the Baltic states. The post-2014
+gradient is weaker. Including the South Caucasus moves it to -0.08 (p
+0.853), and the pre-trend test is not clean. None of this identifies *why*
+closer countries spent more: distance is bundled with history, alliance position and threat
+perception, and the estimate is a gradient in observed budgets, not the effect of moving a country.
+
+## 6. Data-quality and reporting limitations
 
 - **Recorded is not occurred.** UCDP relies on reports. Access, media attention and the fog of war
   shape what is recorded, especially in active war zones.
@@ -141,7 +193,7 @@ some national budget lines and differs from NATO's.
 - **Definitions.** SIPRI's military expenditure definition is not NATO's. % of GDP depends on GDP
   revisions as well as on spending.
 
-## 6. What can and cannot reasonably be concluded
+## 7. What can and cannot reasonably be concluded
 
 **Can be concluded (descriptively):** since 2022, European conflict events in UCDP are concentrated
 almost entirely in the Russia–Ukraine war. Real military expenditure across Europe rose markedly over
@@ -154,15 +206,15 @@ decisions, fiscal space), and timing alone cannot separate them. Nor can total c
 total violence be inferred from recorded events, or the 2025 drop in event counts be treated as
 de-escalation.
 
-## 7. Ideas for further research
+## 8. Ideas for further research
 
 1. **Add ACLED for sub-national, non-lethal and threshold-free coverage.** Compare UCDP and ACLED
    counts for Ukraine *as a measurement exercise* (where and why they diverge), not to pool them.
 2. **UCDP Candidate Events** (monthly releases) to cover the months after the annual GED cut-off,
    with explicit flags for provisional data.
-3. **Event-study design for defence budgets.** Use announced budget decisions, threat-distance
-   measures (e.g. distance to the front line) and fiscal controls to test the "proximity" hypothesis
-   suggested by the eastern-flank pattern, with pre-trend checks.
+3. **Sharpen the proximity design (section 5).** Use budget *announcements* rather than outturns to
+   date the response, try synthetic-control comparisons for the most exposed countries, and test
+   mechanisms (threat perception surveys, NATO capability targets).
 4. **Composition of spending.** NATO and EDA data on equipment versus personnel shares to see
    *what* the increases buy.
 5. **Uncertainty propagation.** Carry UCDP low/high bands and SIPRI estimate flags into every
