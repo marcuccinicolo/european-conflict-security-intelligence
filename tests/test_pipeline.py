@@ -175,3 +175,15 @@ def test_public_ucdp_subset_round_trip(monkeypatch, tmp_path, ucdp_csv):
     assert [c.name for c in rep2.checks] == [c.name for c in rep.checks]
     assert prov[0]["sha256"] == F.sha256(ucdp_csv)
     assert "committed subset" in prov[0]["method"]
+
+
+def test_database_records_schema_version(db, tmp_path):
+    from src.database.db import SCHEMA_VERSION, schema_version
+
+    assert db.execute("SELECT schema_version FROM meta").fetchone()[0] == SCHEMA_VERSION
+    assert schema_version(tmp_path / "missing.duckdb") is None
+    import duckdb
+
+    old = tmp_path / "old.duckdb"
+    duckdb.connect(str(old)).close()  # a pre-versioning database has no meta table
+    assert schema_version(old) is None
