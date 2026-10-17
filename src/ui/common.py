@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import os
+import threading
 from datetime import date
 
 import pandas as pd
@@ -39,24 +40,34 @@ def db_version() -> float:
     from src.database.db import SCHEMA_VERSION, schema_version
 
     if schema_version(DB_PATH) != SCHEMA_VERSION:  # missing, or built by an older version
-        from src.pipeline import cmd_build
-
-        from src.config import SOURCES
-
-        sipri_present = any(SOURCES["sipri_milex"].raw_dir.glob("SIPRI-Milex-data-*.xlsx"))
-        if os.getenv("ECSI_AUTO_FETCH", "1") == "1" and not sipri_present:
-            # SIPRI may not be redistributed, so a fresh deployment downloads the
-            # official workbook (~1 MB) itself. Failure falls back to synthetic data.
-            from src.data.fetch import fetch_sipri
-
-            with st.spinner("First run: downloading the SIPRI workbook from sipri.org..."):
-                try:
-                    fetch_sipri()
-                except Exception as exc:  # network down, URL moved, ...
-                    st.warning(f"Could not download SIPRI data ({exc}); using synthetic expenditure data.")
-        with st.spinner("First run: building the analytical database..."):
-            cmd_build()
+        with _build_lock():  # one rebuild at a time across sessions of this server
+            if schema_version(DB_PATH) != SCHEMA_VERSION:  # another session may have finished it
+                _rebuild()
     return DB_PATH.stat().st_mtime
+
+
+@st.cache_resource
+def _build_lock() -> threading.Lock:
+    return threading.Lock()
+
+
+def _rebuild() -> None:
+    from src.config import SOURCES
+    from src.pipeline import cmd_build
+
+    sipri_present = any(SOURCES["sipri_milex"].raw_dir.glob("SIPRI-Milex-data-*.xlsx"))
+    if os.getenv("ECSI_AUTO_FETCH", "1") == "1" and not sipri_present:
+        # SIPRI may not be redistributed, so a fresh deployment downloads the
+        # official workbook (~1 MB) itself. Failure falls back to synthetic data.
+        from src.data.fetch import fetch_sipri
+
+        with st.spinner("First run: downloading the SIPRI workbook from sipri.org..."):
+            try:
+                fetch_sipri()
+            except Exception as exc:  # network down, URL moved, ...
+                st.warning(f"Could not download SIPRI data ({exc}); using synthetic expenditure data.")
+    with st.spinner("First run: building the analytical database..."):
+        cmd_build()
 
 
 @st.cache_resource

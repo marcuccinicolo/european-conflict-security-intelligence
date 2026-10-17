@@ -187,3 +187,27 @@ def test_database_records_schema_version(db, tmp_path):
     old = tmp_path / "old.duckdb"
     duckdb.connect(str(old)).close()  # a pre-versioning database has no meta table
     assert schema_version(old) is None
+
+
+def test_concurrent_builds_do_not_collide(tmp_path, synthetic):
+    """Two sessions rebuilding at once must both succeed (regression: TransactionException)."""
+    import threading
+
+    ev, ev_rep, mx, _ = synthetic
+    path = tmp_path / "shared.duckdb"
+    errors = []
+
+    def build():
+        try:
+            build_database([ev], [mx], [], [], path=path)
+        except Exception as exc:  # pragma: no cover - the failure being tested
+            errors.append(exc)
+
+    threads = [threading.Thread(target=build) for _ in range(4)]
+    for t in threads:
+        t.start()
+    for t in threads:
+        t.join()
+    assert not errors, errors
+    assert connect(path).execute("SELECT count(*) FROM conflict_events").fetchone()[0] == len(ev)
+    assert not list(tmp_path.glob("*.building.duckdb*"))  # no temp files left behind

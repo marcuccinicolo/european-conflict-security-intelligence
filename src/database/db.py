@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import json
 import os
+import uuid
 from pathlib import Path
 
 import duckdb
@@ -73,8 +74,9 @@ def build_database(
 ) -> Path:
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    tmp = path.with_suffix(".building.duckdb")
-    tmp.unlink(missing_ok=True)
+    # A unique temporary file per build: two builds running at once (two app
+    # sessions after a restart) must never write to the same file.
+    tmp = path.with_name(f".{path.stem}.{os.getpid()}.{uuid.uuid4().hex[:8]}.building.duckdb")
     con = duckdb.connect(str(tmp))
     try:
         con.execute(DDL)
@@ -101,9 +103,14 @@ def build_database(
             con.execute(f"CREATE TABLE {name} AS SELECT * FROM {name}_df")
         con.execute("CREATE INDEX idx_ev_source ON conflict_events(source, event_date)")
         con.execute("CREATE INDEX idx_mx ON milex(source, indicator, iso3)")
-    finally:
+    except BaseException:
         con.close()
+        tmp.unlink(missing_ok=True)
+        Path(f"{tmp}.wal").unlink(missing_ok=True)
+        raise
+    con.close()
     os.replace(tmp, path)
+    Path(f"{tmp}.wal").unlink(missing_ok=True)
     return path
 
 
