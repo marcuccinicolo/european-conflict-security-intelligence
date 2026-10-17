@@ -41,9 +41,33 @@ def db_version() -> float:
 
     if schema_version(DB_PATH) != SCHEMA_VERSION:  # missing, or built by an older version
         with _build_lock():  # one rebuild at a time across sessions of this server
-            if schema_version(DB_PATH) != SCHEMA_VERSION:  # another session may have finished it
-                _rebuild()
+            found = schema_version(DB_PATH)
+            if found != SCHEMA_VERSION:  # another session may have finished it
+                log = rebuild_log()
+                entry = {"started_utc": _now(), "schema_found": found}
+                log.append(entry)
+                try:
+                    _rebuild()
+                    entry["result"] = f"ok, schema now {schema_version(DB_PATH)}"
+                except BaseException as exc:
+                    entry["result"] = f"error: {type(exc).__name__}: {exc}"[:500]
+                    raise
+                finally:
+                    entry["finished_utc"] = _now()
+                    del log[:-10]
     return DB_PATH.stat().st_mtime
+
+
+def _now() -> str:
+    from datetime import datetime, timezone
+
+    return datetime.now(timezone.utc).isoformat(timespec="seconds")
+
+
+@st.cache_resource
+def rebuild_log() -> list[dict]:
+    """Last rebuild attempts on this server, shown in the diagnostics panel."""
+    return []
 
 
 @st.cache_resource
