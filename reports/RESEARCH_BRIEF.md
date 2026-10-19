@@ -1,6 +1,6 @@
 # European Conflict & Security Intelligence: research brief
 
-*Generated 2026-10-19 12:20 UTC by `python -m src.pipeline report`. Every figure in this document is
+*Generated 2026-10-19 12:26 UTC by `python -m src.pipeline report`. Every figure in this document is
 computed from the processed database; no number is typed by hand.*
 
 
@@ -17,7 +17,7 @@ computed from the processed database; no number is typed by hand.*
 |---|---|---|---|---|
 | UCDP Candidate Events (provisional monthly releases) | real | 2026-01-01 – 2026-08-31 | 2026-10-19 | CC BY 4.0 |
 | UCDP Georeferenced Event Dataset (GED) Global v26.1 | real | 1989-01-01 – 2025-12-31 | 2026-10-17 | CC BY 4.0 |
-| SIPRI Military Expenditure Database 1949-2025 (v1.2) | real | 1949 – 2025 | 2026-10-17 | SIPRI Terms and Conditions (free non-commercial use with attribution) |
+| SIPRI Military Expenditure Database 1949-2025 (v1.2) | real | 1949 – 2025 | 2026-10-19 | SIPRI Terms and Conditions (free non-commercial use with attribution) |
 
 Full provenance (URLs, SHA-256 hashes, transformations) is in the dashboard's *Data quality* page
 and in `reports/data_quality/*.json`. Definitions and denominators are in `docs/METHODOLOGY.md`.

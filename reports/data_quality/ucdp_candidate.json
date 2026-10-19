@@ -77,20 +77,20 @@
       "share": 0.007337
     },
     {
-      "name": "code_status[Check deaths]",
-      "status": "info",
-      "affected_rows": 12,
-      "total_rows": 2317,
-      "detail": "12 events with code_status 'Check deaths'.",
-      "action": "none",
-      "share": 0.005179
-    },
-    {
       "name": "code_status[Check]",
       "status": "info",
       "affected_rows": 12,
       "total_rows": 2317,
       "detail": "12 events with code_status 'Check'.",
+      "action": "none",
+      "share": 0.005179
+    },
+    {
+      "name": "code_status[Check deaths]",
+      "status": "info",
+      "affected_rows": 12,
+      "total_rows": 2317,
+      "detail": "12 events with code_status 'Check deaths'.",
       "action": "none",
       "share": 0.005179
     },
@@ -274,7 +274,7 @@
     ],
     "events": 2317
   },
-  "generated_at": "2026-10-19T12:19:15+00:00",
+  "generated_at": "2026-10-19T12:26:09+00:00",
   "summary": {
     "pass": 16,
     "warn": 3,

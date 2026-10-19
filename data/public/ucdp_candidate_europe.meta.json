@@ -6,7 +6,7 @@
       "file": "GEDEvent_v26_01_26_06.csv",
       "url": "https://ucdp.uu.se/downloads/candidateged/GEDEvent_v26_01_26_06.csv",
       "method": "download",
-      "retrieved_at_utc": "2026-10-19T12:17:39+00:00",
+      "retrieved_at_utc": "2026-10-19T12:26:06+00:00",
       "bytes": 7800501,
       "sha256": "68dd3d363b8edf4808bd6bf6f5d0412c3c722ffb1db367aeb8eff48bab80589a"
     },
@@ -14,7 +14,7 @@
       "file": "GEDEvent_v26_0_7.csv",
       "url": "https://ucdp.uu.se/downloads/candidateged/GEDEvent_v26_0_7.csv",
       "method": "download",
-      "retrieved_at_utc": "2026-10-19T12:17:39+00:00",
+      "retrieved_at_utc": "2026-10-19T12:26:08+00:00",
       "bytes": 1357690,
       "sha256": "9fc2c6dd85eee91845512e8ef1055281d9fd028fb98748a6f2a27c6e8aa8c562"
     },
@@ -22,7 +22,7 @@
       "file": "GEDEvent_v26_0_8.csv",
       "url": "https://ucdp.uu.se/downloads/candidateged/GEDEvent_v26_0_8.csv",
       "method": "download",
-      "retrieved_at_utc": "2026-10-19T12:17:39+00:00",
+      "retrieved_at_utc": "2026-10-19T12:26:09+00:00",
       "bytes": 1443396,
       "sha256": "2ad6e0b2bfdbaa31873716a3455096923a8539519d69d96aeeea2d0f44a34593"
     }
@@ -106,20 +106,20 @@
         "share": 0.007337
       },
       {
-        "name": "code_status[Check deaths]",
-        "status": "info",
-        "affected_rows": 12,
-        "total_rows": 2317,
-        "detail": "12 events with code_status 'Check deaths'.",
-        "action": "none",
-        "share": 0.005179
-      },
-      {
         "name": "code_status[Check]",
         "status": "info",
         "affected_rows": 12,
         "total_rows": 2317,
         "detail": "12 events with code_status 'Check'.",
+        "action": "none",
+        "share": 0.005179
+      },
+      {
+        "name": "code_status[Check deaths]",
+        "status": "info",
+        "affected_rows": 12,
+        "total_rows": 2317,
+        "detail": "12 events with code_status 'Check deaths'.",
         "action": "none",
         "share": 0.005179
       },
@@ -303,7 +303,7 @@
       ],
       "events": 2317
     },
-    "generated_at": "2026-10-19T12:19:15+00:00",
+    "generated_at": "2026-10-19T12:26:09+00:00",
     "summary": {
       "pass": 16,
       "warn": 3,
