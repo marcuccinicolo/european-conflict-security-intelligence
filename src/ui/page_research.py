@@ -46,7 +46,8 @@ def render() -> None:
     m = r["main"]
     st.info(
         "The specification, sample, robustness checks and inference method were **fixed in writing before "
-        "estimation**: see `docs/RESEARCH_DESIGN.md`. Estimates describe whether the *timing and "
+        "estimation**: see `docs/RESEARCH_DESIGN.md`. The randomization test, synthetic control and SIPRI-estimate "
+        "checks were added after the first results, and specified in §9 before being run. Estimates describe whether the *timing and "
         "geographic gradient* of budget changes fit the threat-proximity hypothesis. They are not a causal "
         "effect of distance, and they say nothing about whether spending deters conflict.",
         icon=":material/assignment:",
