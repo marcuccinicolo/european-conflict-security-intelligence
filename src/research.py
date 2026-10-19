@@ -12,6 +12,7 @@ from datetime import datetime, timezone
 import pandas as pd
 
 from src.analysis import proximity as P
+from src.analysis import synthetic_control as SC
 from src.config import RESEARCH_DIR
 from src.database import queries as Q
 
@@ -38,6 +39,19 @@ def run(con, draws: int = 9999) -> dict:
     es_real, pretrend_real = P.event_study(main, y="log_milex_real")
     m = P.did(main, draws=draws)
     rob = P.robustness(main, cauc, draws=draws)
+    extra = []
+    for name, d in [("Excluding SIPRI-estimated country-years", P.drop_estimated_years(main)),
+                    ("Excluding countries with any SIPRI estimate", P.drop_estimated_countries(main))]:  # fmt: skip
+        f = P.did(d, draws=draws)
+        extra.append({"specification": name, "outcome": "share_gdp", "exposure": "dist",
+                      "post2014": f.coef["exp_x_post2014"], "se_post2014": f.se["exp_x_post2014"],
+                      "p_boot_post2014": f.p_boot["exp_x_post2014"],
+                      "post2022": f.coef["exp_x_post2022"], "se_post2022": f.se["exp_x_post2022"],
+                      "p_boot_post2022": f.p_boot["exp_x_post2022"],
+                      "n_obs": f.n_obs, "countries": f.n_clusters})  # fmt: skip
+    rob = pd.concat([rob, pd.DataFrame(extra)], ignore_index=True)
+    perm = P.permutation_test(main, draws=draws)
+    synth = SC.run(main)
     loo = P.leave_one_out(main)
     plc = P.placebo(main, draws=draws)
     raw = P.raw_change(main)
@@ -73,6 +87,8 @@ def run(con, draws: int = 9999) -> dict:
         "placebo_2009": {"coef": plc.coef["exp_x_fake"], "se": plc.se["exp_x_fake"],
                          "p_boot": plc.p_boot["exp_x_fake"]},  # fmt: skip
         "raw_change_2013_2025": raw.to_dict("records"),
+        "permutation": perm,
+        "synthetic_control": synth,
     }
 
 

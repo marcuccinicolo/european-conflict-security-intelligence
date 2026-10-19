@@ -344,9 +344,20 @@ def research_section(con) -> str:
     p2 = _save(V.event_study_chart(f["event_study"], "Gradient (pp of GDP per 1,000 km)",
                                    "Event study: gradient by year relative to 2013 (95% CI)"), "research_event_study")  # fmt: skip
     m, pt, lo, plc = r["main"], r["pretrend"], r["leave_one_out"], r["placebo_2009"]
+    perm, sc = r["permutation"], r["synthetic_control"]
+    p3 = _save(V.permutation_hist(perm["null_post2022"], perm["post2022"],
+                                  "Randomization inference: post-2022 gradient"), "research_permutation", height=340)  # fmt: skip
+    bal = sc["units"]["BALTIC"]
+    p4 = _save(V.synth_chart(bal["years"], bal["actual"], bal["synthetic"], bal["name"]), "research_synthetic_baltic")
+    sc_rows = "\n".join(
+        f"| {u['name']} | {u['mean_gap_2014_2021']:+.2f} | {u['mean_gap_2022_2025']:+.2f} | {u['pre_rmspe']:.2f} | "
+        f"{u['placebo_rank']}/{u['placebo_units']} | {u['placebo_p']:.3f} |" for u in sc["units"].values())
+    sc_sig = [u["name"] for k, u in sc["units"].items() if k != "BALTIC" and u["placebo_p"] <= 0.05 + 1e-9]
+    sc_nsig = [u["name"] for k, u in sc["units"].items() if k != "BALTIC" and u["placebo_p"] > 0.05 + 1e-9]
     rob = f["robustness"].set_index("specification")
     cau = rob.loc["Including South Caucasus"]
     pv = lambda p: "< 0.001" if p < 0.001 else f"{p:.3f}"  # noqa: E731
+    peq = lambda p: "p < 0.001" if p < 0.001 else f"p = {p:.3f}"  # noqa: E731
     rows = "\n".join(
         f"| {k} | {v.post2014:+.3f} ({v.se_post2014:.3f}) | {pv(v.p_boot_post2014)} | "
         f"{v.post2022:+.3f} ({v.se_post2022:.3f}) | {pv(v.p_boot_post2022)} | {v.countries} |"
@@ -355,7 +366,8 @@ def research_section(con) -> str:
     return f"""
 ## 5. Research extension: does proximity to Russia predict military burden?
 
-Design fixed in writing before estimation: [`docs/RESEARCH_DESIGN.md`](../docs/RESEARCH_DESIGN.md).
+Design fixed in writing before estimation: [`docs/RESEARCH_DESIGN.md`](../docs/RESEARCH_DESIGN.md)
+(§9 records the additional inference added after the first results, specified before it was run).
 Two-way fixed-effects event study, {r['sample']['n_countries']} European countries, 2005–2025
 ({r['sample']['n_obs']} country-years). Exposure: distance from the capital to Russia's
 internationally recognised territory, in 1,000 km. Russia, Ukraine, Belarus and Iceland are excluded,
@@ -390,6 +402,33 @@ but the post-2014 estimate should not be read as a clean break.
 Leave-one-out range for the post-2022 estimate: {lo['post2022_min']:+.2f} to {lo['post2022_max']:+.2f}
 (most influential country: {lo['most_influential_2022']}). Placebo treatment in 2009:
 {plc['coef']:+.3f}, bootstrap p {pv(plc['p_boot'])}.
+
+**Randomization inference** (distances permuted across countries, {perm['draws']:,} draws):
+{peq(perm['p_perm_post2014'])} for the post-2014 gradient and {peq(perm['p_perm_post2022'])} for the
+post-2022 gradient{' (no permutation produced a gradient as strong)' if perm['p_perm_post2022'] <= 1 / (perm['draws'] + 1) + 1e-12 else ''}. This needs no large-sample approximation, which matters with {r['sample']['n_countries']} countries.
+
+![Permutation distribution]({p3})
+
+**Synthetic control** (donors: {len(sc['donors'])} countries more than {sc['donor_min_km']:,} km from Russia;
+weights fitted on 2005–2013; inference by placebo-in-space):
+
+| Unit | Mean gap 2014–21 (pp) | Mean gap 2022–25 (pp) | Pre-fit RMSPE | Placebo rank | p |
+|---|---|---|---|---|---|
+{sc_rows}
+
+![Synthetic control, Baltic average]({p4})
+
+All exposed units spend more than their distant synthetic comparison after 2014, and the gap widens
+after 2022. Against placebos, the Baltic average and {', '.join(sc_sig) or 'no single country'} rank first
+(p = {1 / next(iter(sc['units'].values()))['placebo_units']:.3f}, the smallest attainable with these donors). {', '.join(sc_nsig)} do not. For them the
+pre-2014 fit is weaker or some placebo countries move as much, so their individual gaps cannot be
+distinguished from noise. Distant donors also raised spending after 2014 and 2022, so the gaps are
+*excess* responses over a distant comparison. Relative to a world without the war, they understate
+the effect.
+
+**SIPRI estimates.** Dropping estimated country-years leaves the post-2022 estimate at
+{rob.loc['Excluding SIPRI-estimated country-years', 'post2022']:+.2f}, and dropping every country with an estimate leaves it at
+{rob.loc['Excluding countries with any SIPRI estimate', 'post2022']:+.2f} (main: {m['post2022']:+.2f}).
 
 **Interpretation.** The post-2022 gradient is the robust finding: it holds in levels and in shares,
 with either exposure measure, with a NATO control, and without the Baltic states. The post-2014

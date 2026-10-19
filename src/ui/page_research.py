@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import numpy as np
+import pandas as pd
 import streamlit as st
 
 from src import research as R
@@ -15,6 +16,17 @@ LABELS = {"LTU", "LVA", "POL", "EST", "FIN", "DEU", "NOR", "FRA", "GBR", "ITA", 
 @st.cache_data(show_spinner="Estimating the models (wild cluster bootstrap, 9,999 draws)...")
 def results(version: str) -> dict:
     return R.run(U.cursor())
+
+
+def sc_bullet(sc: dict) -> str:
+    units = sc["units"].values()
+    sig = [u["name"] for u in units if u["placebo_p"] <= 0.05 + 1e-9]
+    nsig = [u["name"] for u in units if u["placebo_p"] > 0.05 + 1e-9]
+    return ("**Synthetic control:** every exposed unit spends more than its distant synthetic comparison after "
+            "2014" if all(u["mean_gap_2022_2025"] > 0 for u in units) else "**Synthetic control:** gaps are mixed") + (
+        f"; the gap is distinguishable from placebos for {', '.join(sig) or 'no unit'}"
+        f" but not for {', '.join(nsig)}, where the pre-2014 fit is weaker or placebos vary more."
+        if nsig else "; every unit ranks first among its placebos.")
 
 
 def _p(p: float) -> str:
@@ -111,6 +123,49 @@ def render() -> None:
         "far behind the front, so it is a broader measure than front-line distance."
     )  # fmt: skip
 
+    st.markdown("#### Inference without large-sample assumptions")
+    pm = r["permutation"]
+    a, b = st.columns(2)
+    a.plotly_chart(V.permutation_hist(pm["null_post2022"], pm["post2022"], "Randomization inference: post-2022 gradient"),
+                   width="stretch")  # fmt: skip
+    b.plotly_chart(V.permutation_hist(pm["null_post2014"], pm["post2014"], "Randomization inference: post-2014 gradient"),
+                   width="stretch")  # fmt: skip
+    st.markdown(
+        f"Distances re-assigned at random across the {r['sample']['n_countries']} countries "
+        f"{pm['draws']:,} times. Permutation p-values: **{_p(pm['p_perm_post2014'])}** (2014) and "
+        f"**{_p(pm['p_perm_post2022'])}** (2022)"
+        + (" — no random assignment produced a post-2022 gradient as strong as the observed one."
+           if pm["p_perm_post2022"] <= 1 / (pm["draws"] + 1) + 1e-12 else ".")
+    )  # fmt: skip
+
+    st.markdown("#### Synthetic control: the most exposed countries")
+    sc = r["synthetic_control"]
+    units = sc["units"]
+    pick = st.selectbox("Treated unit", list(units), format_func=lambda k: units[k]["name"], key="sc_unit")
+    u = units[pick]
+    st.plotly_chart(V.synth_chart(u["years"], u["actual"], u["synthetic"], u["name"]), width="stretch")
+    k = st.columns(4)
+    k[0].metric("Mean gap 2014–2021", f"{u['mean_gap_2014_2021']:+.2f} pp")
+    k[1].metric("Mean gap 2022–2025", f"{u['mean_gap_2022_2025']:+.2f} pp")
+    k[2].metric("Pre-2014 fit (RMSPE)", f"{u['pre_rmspe']:.2f} pp",
+                help="Root mean squared gap 2005–2013. A poor pre-fit makes post-2014 gaps less informative.")  # fmt: skip
+    k[3].metric("Placebo rank", f"{u['placebo_rank']} of {u['placebo_units']}",
+                help=f"Post/pre RMSPE ratio ranked against every donor treated as a placebo. p = {u['placebo_p']:.3f}; "
+                f"the smallest attainable p is {1 / u['placebo_units']:.3f}.")  # fmt: skip
+    st.caption(
+        "Synthetic weights: " + ", ".join(f"{n} {w:.2f}" for n, w in u["weights"].items())
+        + f". Donors: countries more than {sc['donor_min_km']:,} km from Russia with complete data ({len(sc['donors'])}). "
+        f"Placebo-in-time (fake 2009 treatment): mean gap {u['placebo_in_time_gap']:+.2f} pp. All of Europe responded "
+        "to 2014 and 2022, so distant donors are not untreated: the gap is the *excess* response over a distant "
+        "comparison."
+    )
+    tab = pd.DataFrame([{"unit": x["name"], "gap 2014–21": x["mean_gap_2014_2021"], "gap 2022–25": x["mean_gap_2022_2025"],
+                         "pre-fit RMSPE": x["pre_rmspe"], "placebo rank": f"{x['placebo_rank']}/{x['placebo_units']}",
+                         "placebo p": x["placebo_p"]} for x in units.values()])  # fmt: skip
+    st.dataframe(tab, hide_index=True, width="stretch", column_config={
+        "gap 2014–21": st.column_config.NumberColumn(format="%+.2f"), "gap 2022–25": st.column_config.NumberColumn(format="%+.2f"),
+        "pre-fit RMSPE": st.column_config.NumberColumn(format="%.2f"), "placebo p": st.column_config.NumberColumn(format="%.3f")})  # fmt: skip
+
     st.markdown("#### What this does and does not show")
     robust_tail = (
         ", and the post-2022 estimate is significant (bootstrap p < 0.05) in every pre-specified robustness check."
@@ -126,7 +181,9 @@ def render() -> None:
         f"**The post-2014 result is less secure:** including the South Caucasus moves it to "
         f"{cau['post2014']:+.2f} (bootstrap p {_p(cau['p_boot_post2014'])}), and the pre-trend test {pre_clean}. "
         "The post-2022 gradient is the more robust finding.",
-        f"**Few clusters:** {r['sample']['n_countries']} countries. Inference uses a wild cluster bootstrap for this reason.",
+        f"**Few clusters:** {r['sample']['n_countries']} countries, so the main p-values come from a wild cluster "
+        f"bootstrap and are confirmed by randomization inference (post-2022 p {_p(r['permutation']['p_perm_post2022'])}).",
+        sc_bullet(r["synthetic_control"]),
     ]
     st.markdown("\n".join(f"- {b}" for b in bullets))
     with st.expander("Sample notes"):

@@ -342,3 +342,32 @@ def active_area_chart(ma: pd.DataFrame, synthetic: bool) -> go.Figure:
                       hovermode="closest")  # fmt: skip
     fig.update_yaxes(rangemode="tozero")
     return _finish(fig, synthetic, height=340)
+
+
+def permutation_hist(null: list[float], observed: float, title: str) -> go.Figure:
+    fig = go.Figure(go.Histogram(x=null, nbinsx=60, marker=dict(color=OTHER, line=dict(color="white", width=1)),
+                                 hovertemplate="%{x:.3f}: %{y} permutations<extra></extra>"))  # fmt: skip
+    fig.add_vline(x=observed, line=dict(color=SERIES[7], width=2))
+    fig.add_annotation(x=observed, y=1, yref="paper", text=f"observed {observed:+.2f}", showarrow=False,
+                       xanchor="left", xshift=6, font=dict(color=INK_2, size=12))  # fmt: skip
+    lo, hi = min(min(null), observed), max(max(null), observed)
+    pad = (hi - lo) * 0.06
+    fig.update_xaxes(range=[lo - pad, hi + pad])
+    fig.update_layout(title=title, xaxis_title="Gradient under random assignment of distances (pp per 1,000 km)",
+                      yaxis_title="Permutations", hovermode="closest", bargap=0.02)  # fmt: skip
+    return _finish(fig, False, height=320)
+
+
+def synth_chart(years: list[int], actual: list[float], synthetic: list[float], name: str) -> go.Figure:
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=years, y=actual, name=name, mode="lines", line=dict(width=2, color=SERIES[0]),
+                             hovertemplate="%{x}: %{y:.2f}%<extra>" + name + "</extra>"))  # fmt: skip
+    fig.add_trace(go.Scatter(x=years, y=synthetic, name=f"Synthetic {name}", mode="lines",
+                             line=dict(width=2, color=MUTED, dash="dash"),
+                             hovertemplate="%{x}: %{y:.2f}%<extra>synthetic</extra>"))  # fmt: skip
+    for x in (2014, 2022):
+        fig.add_vline(x=x - 0.5, line=dict(color=MUTED, width=1, dash="dot"))
+    fig.update_layout(title=f"{name}: actual vs synthetic military burden", yaxis_title="% of GDP",
+                      hovermode="x unified")  # fmt: skip
+    fig.update_yaxes(rangemode="tozero")
+    return _finish(fig, False, height=360)

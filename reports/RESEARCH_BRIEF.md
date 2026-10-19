@@ -1,6 +1,6 @@
 # European Conflict & Security Intelligence: research brief
 
-*Generated 2026-10-19 12:02 UTC by `python -m src.pipeline report`. Every figure in this document is
+*Generated 2026-10-19 12:10 UTC by `python -m src.pipeline report`. Every figure in this document is
 computed from the processed database; no number is typed by hand.*
 
 
@@ -184,7 +184,8 @@ some national budget lines and differs from NATO's.
 
 ## 5. Research extension: does proximity to Russia predict military burden?
 
-Design fixed in writing before estimation: [`docs/RESEARCH_DESIGN.md`](../docs/RESEARCH_DESIGN.md).
+Design fixed in writing before estimation: [`docs/RESEARCH_DESIGN.md`](../docs/RESEARCH_DESIGN.md)
+(§9 records the additional inference added after the first results, specified before it was run).
 Two-way fixed-effects event study, 37 European countries, 2005–2025
 (774 country-years). Exposure: distance from the capital to Russia's
 internationally recognised territory, in 1,000 km. Russia, Ukraine, Belarus and Iceland are excluded,
@@ -221,10 +222,43 @@ but the post-2014 estimate should not be read as a clean break.
 | Control: NATO membership | -0.189 (0.074) | 0.002 | -0.445 (0.100) | 0.001 | 37 |
 | Excluding Baltic states | -0.096 (0.047) | 0.011 | -0.345 (0.100) | 0.006 | 34 |
 | Log real exp., GDP per capita control | -0.146 (0.056) | 0.002 | -0.196 (0.043) | < 0.001 | 37 |
+| Excluding SIPRI-estimated country-years | -0.189 (0.076) | 0.004 | -0.440 (0.100) | < 0.001 | 37 |
+| Excluding countries with any SIPRI estimate | -0.197 (0.080) | 0.007 | -0.450 (0.109) | 0.003 | 32 |
 
 Leave-one-out range for the post-2022 estimate: -0.50 to -0.40
 (most influential country: Spain). Placebo treatment in 2009:
 +0.064, bootstrap p 0.356.
+
+**Randomization inference** (distances permuted across countries, 9,999 draws):
+p = 0.004 for the post-2014 gradient and p < 0.001 for the
+post-2022 gradient (no permutation produced a gradient as strong). This needs no large-sample approximation, which matters with 37 countries.
+
+![Permutation distribution](figures/research_permutation.png)
+
+**Synthetic control** (donors: 20 countries more than 1,000 km from Russia;
+weights fitted on 2005–2013; inference by placebo-in-space):
+
+| Unit | Mean gap 2014–21 (pp) | Mean gap 2022–25 (pp) | Pre-fit RMSPE | Placebo rank | p |
+|---|---|---|---|---|---|
+| Baltic states (average) | +0.64 | +1.50 | 0.03 | 1/21 | 0.048 |
+| Estonia | +0.54 | +1.32 | 0.13 | 7/21 | 0.333 |
+| Latvia | +0.63 | +1.48 | 0.11 | 7/21 | 0.333 |
+| Lithuania | +0.94 | +1.98 | 0.04 | 1/21 | 0.048 |
+| Poland | +0.23 | +1.32 | 0.06 | 5/21 | 0.238 |
+
+![Synthetic control, Baltic average](figures/research_synthetic_baltic.png)
+
+All exposed units spend more than their distant synthetic comparison after 2014, and the gap widens
+after 2022. Against placebos, the Baltic average and Lithuania rank first
+(p = 0.048, the smallest attainable with these donors). Estonia, Latvia, Poland do not. For them the
+pre-2014 fit is weaker or some placebo countries move as much, so their individual gaps cannot be
+distinguished from noise. Distant donors also raised spending after 2014 and 2022, so the gaps are
+*excess* responses over a distant comparison. Relative to a world without the war, they understate
+the effect.
+
+**SIPRI estimates.** Dropping estimated country-years leaves the post-2022 estimate at
+-0.44, and dropping every country with an estimate leaves it at
+-0.45 (main: -0.44).
 
 **Interpretation.** The post-2022 gradient is the robust finding: it holds in levels and in shares,
 with either exposure measure, with a NATO control, and without the Baltic states. The post-2014
