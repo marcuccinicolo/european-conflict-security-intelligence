@@ -166,6 +166,51 @@ scope by design.
     return md, facts
 
 
+# --------------------------------------------------- provisional 2026 data
+
+
+def candidate_section(con) -> str:
+    reg = Q.datasets(con)
+    if "ucdp_candidate" not in set(reg["source"]):
+        return ""
+    ev = Q.events(con, "ucdp_candidate")
+    row = reg.set_index("source").loc["ucdp_candidate"]
+    m = ev.assign(month=ev["event_date"].dt.to_period("M").dt.start_time)
+    t = m.groupby("month").agg(events=("event_id", "size"),
+                               clear=("code_status", lambda s: (s == "Clear").mean()),
+                               best=("fatalities", "sum")).reset_index()  # fmt: skip
+    rows = "\n".join(f"| {r.month:%Y-%m} | {r.events:,} | {r.clear * 100:.0f}% | {r.best:,.0f} |" for r in t.itertuples())
+    ukr = (ev["country"] == "Ukraine").mean()
+    ged = Q.events(con, "ucdp_ged")
+    last_year = int(ged["event_date"].dt.year.max())
+    ged_monthly = (ged["event_date"].dt.year == last_year).sum() / 12
+    cand_monthly = t["events"].mean()
+    comparison = (
+        f"Candidate months average {cand_monthly:,.0f} events, against {ged_monthly:,.0f} per month in the final "
+        f"GED for {last_year}. "
+        + ("That gap reflects a provisional, still-incomplete collection, not a measured fall in violence."
+           if cand_monthly < ged_monthly else
+           "Part of the difference comes from the relaxed threshold, so it is not a measured rise in violence.")
+    )  # fmt: skip
+    return f"""
+### A5. Provisional data for {ev['event_date'].dt.year.min()}: UCDP Candidate Events
+
+Releases used: {row['input_file']} (retrieved {str(row['retrieved_at_utc'])[:10]}). These data are
+**provisional**. Candidate releases relax the 25-death annual threshold, and events are revised, added
+or removed in the next annual GED. **They are not comparable with the GED series above and are
+never pooled with it.** They are shown so that the platform covers the current year, with that
+caveat attached.
+
+| Month | Recorded events | 'Clear' status | Best-estimate fatalities |
+|---|---|---|---|
+{rows}
+
+{ukr * 100:.0f}% of these events are located in Ukraine. {comparison} The most recent months are likely
+the least complete. 'Check' events (deaths, dyad, type of violence,
+geography) are the most likely to change; the dashboard can exclude them.
+"""
+
+
 # --------------------------------------------------------------- hot spots
 
 
@@ -465,6 +510,7 @@ def build_report() -> list[Path]:
     if {"ucdp_ged", "sipri_milex"} <= real:
         c_md, _ = conflict_section(con, False, "ucdp_ged")
         c_md += hotspot_section(con)
+        c_md += candidate_section(con)
         d_md, _ = defence_section(con, False, "sipri_milex")
         body = _real_brief(reg[reg["domain"].isin(["conflict", "defence"])], c_md, d_md, now)
         body = body.replace("## 5. Data-quality and reporting limitations", research_section(con)

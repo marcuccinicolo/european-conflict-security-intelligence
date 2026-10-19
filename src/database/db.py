@@ -30,7 +30,7 @@ from src.config import DB_PATH
 
 # Bump whenever the set of tables or their meaning changes: an app finding an older
 # database (e.g. a persisted file on a hosting platform) rebuilds it automatically.
-SCHEMA_VERSION = 2
+SCHEMA_VERSION = 3  # 3: conflict_events.code_status; ucdp_candidate source
 
 DDL = """
 CREATE TABLE datasets (

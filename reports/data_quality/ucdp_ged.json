@@ -72,7 +72,7 @@
       "status": "pass",
       "affected_rows": 0,
       "total_rows": 58016,
-      "detail": "Expected 1989-01-01 to 2026-10-17.",
+      "detail": "Expected 1989-01-01 to 2026-10-19.",
       "action": "none",
       "share": 0.0
     },
@@ -189,7 +189,7 @@
     ],
     "events": 58016
   },
-  "generated_at": "2026-10-17T14:01:22+00:00",
+  "generated_at": "2026-10-19T12:19:11+00:00",
   "summary": {
     "pass": 12,
     "warn": 3,

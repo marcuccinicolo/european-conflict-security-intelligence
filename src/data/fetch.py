@@ -94,6 +94,71 @@ def fetch_boundaries(force: bool = False) -> Path:
     return download(NATURAL_EARTH_URL, BOUNDARIES_ZIP, force)
 
 
+# ------------------------------------------------- UCDP Candidate (provisional)
+
+CANDIDATE_BASE = "https://ucdp.uu.se/downloads/candidateged/"
+
+
+def candidate_release_names(year: int) -> tuple[list[str], list[str]]:
+    """File names UCDP uses for a year: cumulative quarterly and monthly releases.
+
+    Naming per the codebook: monthly ``YY.0.M`` (file GEDEvent_vYY_0_M.csv) and
+    cumulative quarterly ``YY.01.YY.MM`` (GEDEvent_vYY_01_YY_MM.csv).
+    """
+    yy = year % 100
+    quarterly = [f"GEDEvent_v{yy}_01_{yy}_{m:02d}.csv" for m in (12, 9, 6, 3)]
+    monthly = [f"GEDEvent_v{yy}_0_{m}.csv" for m in range(1, 13)]
+    return quarterly, monthly
+
+
+def _exists(url: str, session) -> bool:
+    try:
+        r = session.head(url, timeout=60, allow_redirects=True, headers={"User-Agent": USER_AGENT})
+        return r.status_code == 200
+    except requests.RequestException:
+        return False
+
+
+def discover_candidate(year: int, session=None) -> list[str]:
+    """Smallest set of releases covering the year so far: the latest cumulative
+    quarterly file, then every monthly file after it (oldest first)."""
+    session = session or requests.Session()
+    quarterly, monthly = candidate_release_names(year)
+    base_month, chosen = 0, []
+    for name in quarterly:  # latest quarter first
+        if _exists(CANDIDATE_BASE + name, session):
+            chosen.append(name)
+            base_month = int(name.rsplit("_", 1)[1][:2])
+            break
+    for name in monthly[base_month:]:
+        if _exists(CANDIDATE_BASE + name, session):
+            chosen.append(name)
+        else:
+            break  # releases are consecutive; the first gap is the newest month not yet out
+    return chosen
+
+
+def fetch_candidate(year: int, force: bool = False, session=None) -> list[Path]:
+    """Download the releases for ``year``; superseded files are removed."""
+    spec = SOURCES["ucdp_candidate"]
+    names = discover_candidate(year, session)
+    out = [download(CANDIDATE_BASE + n, spec.raw_dir / n, force) for n in names]
+    keep = {p.name for p in out}
+    for old in spec.raw_dir.glob("GEDEvent_v*.csv"):
+        if old.name not in keep:  # e.g. monthly files folded into a newer quarterly release
+            old.unlink()
+            Path(f"{old}.provenance.json").unlink(missing_ok=True)
+    return out
+
+
+def release_sort_key(path: Path) -> tuple[int, int]:
+    """Order releases oldest first: (last month covered, 0 for quarterly / 1 for monthly)."""
+    parts = Path(path).stem.split("_")  # GEDEvent, vYY, 0|01, M|YY, [MM]
+    if parts[2] == "0":
+        return int(parts[3]), 1
+    return int(parts[4]), 0
+
+
 # ---------------------------------------------------------------- ACLED (optional)
 
 ACLED_TOKEN_URL = "https://acleddata.com/oauth/token"

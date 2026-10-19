@@ -26,6 +26,8 @@ from src.config import (
     SOURCES,
     SYNTHETIC_EVENTS_CSV,
     SYNTHETIC_MILEX_CSV,
+    CANDIDATE_PUBLIC_META,
+    CANDIDATE_PUBLIC_PARQUET,
     EXPOSURE_PUBLIC_CSV,
     UCDP_PUBLIC_META,
     UCDP_PUBLIC_PARQUET,
@@ -36,7 +38,7 @@ from src.data import worldbank
 from src.data import fetch as fetch_mod
 from src.data.acled import acled_files, load_acled_dir, load_acled_csv
 from src.data.sipri import load_milex_csv, load_sipri
-from src.data.ucdp import load_ucdp
+from src.data.ucdp import load_candidate, load_ucdp
 from src.data.schema import EVENT_COLUMNS, conform
 from src.data.validation import QualityReport
 from src.database.db import build_database
@@ -98,34 +100,68 @@ def _checks(report) -> list[dict]:
     ]
 
 
-def export_public_ucdp(df, report, raw_file: Path) -> None:
-    """Write the validated European subset (CC BY 4.0 permits redistribution).
+def export_public_events(df, report, raw_files: list[Path], key: str, parquet: Path, meta_path: Path) -> None:
+    """Write a validated European subset (CC BY 4.0 permits redistribution).
 
-    The sidecar keeps the ORIGINAL file's provenance and the full quality report,
+    The sidecar keeps the ORIGINAL files' provenance and the full quality report,
     so a deployment built from the subset shows the same lineage and checks.
     """
-    UCDP_PUBLIC_PARQUET.parent.mkdir(parents=True, exist_ok=True)
-    df.to_parquet(UCDP_PUBLIC_PARQUET, index=False)
+    parquet.parent.mkdir(parents=True, exist_ok=True)
+    df.to_parquet(parquet, index=False)
     meta = {
-        "description": "Validated European subset of UCDP GED, produced by `python -m src.pipeline build`.",
-        "licence": "CC BY 4.0 - " + SOURCES["ucdp_ged"].citation,
-        "source_provenance": fetch_mod.read_provenance(raw_file),
+        "description": f"Validated European subset of {SOURCES[key].name}, produced by `python -m src.pipeline build`.",
+        "licence": "CC BY 4.0 - " + SOURCES[key].citation,
+        "source_provenance": [fetch_mod.read_provenance(f) for f in raw_files],
         "quality_report": report.to_dict(),
     }
-    UCDP_PUBLIC_META.write_text(json.dumps(meta, indent=2, default=str))
+    meta_path.write_text(json.dumps(meta, indent=2, default=str))
+
+
+def export_public_ucdp(df, report, raw_file: Path) -> None:
+    export_public_events(df, report, [raw_file], "ucdp_ged", UCDP_PUBLIC_PARQUET, UCDP_PUBLIC_META)
+
+
+def load_public_events(parquet: Path, meta_path: Path):
+    meta = json.loads(meta_path.read_text())
+    df = conform(pd.read_parquet(parquet), EVENT_COLUMNS)
+    report = QualityReport.from_dict(meta["quality_report"])
+    report.transformations.append(
+        f"Loaded from the committed validated subset {parquet.name} (raw files not present in this environment)."
+    )
+    provs = meta["source_provenance"]
+    provs = provs if isinstance(provs, list) else [provs]
+    out = []
+    for prov in provs:
+        prov = dict(prov)
+        prov["method"] = f"{prov['method']} (via committed subset {parquet.name})"
+        out.append(prov)
+    return df, report, out
 
 
 def load_public_ucdp():
-    meta = json.loads(UCDP_PUBLIC_META.read_text())
-    df = conform(pd.read_parquet(UCDP_PUBLIC_PARQUET), EVENT_COLUMNS)
-    report = QualityReport.from_dict(meta["quality_report"])
-    report.transformations.append(
-        f"Loaded from the committed validated subset {UCDP_PUBLIC_PARQUET.name} "
-        "(raw GED file not present in this environment)."
-    )
-    prov = dict(meta["source_provenance"])
-    prov["method"] = f"{prov['method']} (via committed subset {UCDP_PUBLIC_PARQUET.name})"
-    return df, report, [prov]
+    return load_public_events(UCDP_PUBLIC_PARQUET, UCDP_PUBLIC_META)
+
+
+def candidate_year() -> int:
+    """The year after the latest annual GED: what the Candidate releases cover."""
+    if UCDP_PUBLIC_META.exists():
+        cov = json.loads(UCDP_PUBLIC_META.read_text())["quality_report"]["coverage"]
+        return int(str(cov["date_max"])[:4]) + 1
+    return datetime.now(timezone.utc).year
+
+
+def build_or_load_candidate():
+    spec = SOURCES["ucdp_candidate"]
+    raw = sorted(spec.raw_dir.glob("GEDEvent_v*.csv"), key=fetch_mod.release_sort_key)
+    if raw:
+        df, rep = load_candidate(raw, candidate_year())
+        export_public_events(df, rep, raw, "ucdp_candidate", CANDIDATE_PUBLIC_PARQUET, CANDIDATE_PUBLIC_META)
+        return df, rep, raw, None
+    if CANDIDATE_PUBLIC_PARQUET.exists():
+        df, rep, prov = load_public_events(CANDIDATE_PUBLIC_PARQUET, CANDIDATE_PUBLIC_META)
+        return df, rep, [], prov
+    print("  ucdp_candidate    not found - run `python -m src.pipeline fetch`")
+    return None, None, None, None
 
 
 def build_or_load_exposure(ucdp_df):
@@ -183,6 +219,10 @@ def cmd_fetch(args) -> None:
     fetch_mod.fetch_sipri(force=args.force)
     fetch_mod.fetch_boundaries(force=args.force)
     fetch_mod.download(exposure_mod.PLACES_URL, exposure_mod.PLACES_ZIP, args.force)
+    year = candidate_year()
+    print(f"  UCDP Candidate releases for {year}")
+    for f in fetch_mod.fetch_candidate(year, force=args.force):
+        print(f"    {f.name}")
     if args.force or not worldbank.RAW_JSON.exists():
         print("  downloading World Bank WDI (API)")
         worldbank.fetch_wdi()
@@ -226,6 +266,11 @@ def cmd_build(args=None) -> Path:
     else:
         print("  ucdp_ged          not found - run `python -m src.pipeline fetch`")
 
+    cdf, crep, cfiles, cprov = build_or_load_candidate()
+    if cdf is not None:
+        events.append(cdf)
+        record("ucdp_candidate", "conflict", "real", cdf, crep, cfiles, cprov)
+
     acled_dir = SOURCES["acled"].raw_dir
     if acled_files(acled_dir):
         df, rep = load_acled_dir(acled_dir)
@@ -267,6 +312,40 @@ def cmd_build(args=None) -> Path:
     return path
 
 
+def cmd_refresh(args=None) -> Path:
+    """Monthly refresh used by CI: new Candidate releases -> build -> brief -> summary.
+
+    Writes reports/refresh_summary.md, used as the pull-request description.
+    """
+    before = _candidate_state()
+    year = candidate_year()
+    fetch_mod.fetch_sipri()  # needed for the brief; never committed
+    files = fetch_mod.fetch_candidate(year)
+    cmd_build()
+    cmd_report()
+    after = _candidate_state()
+    lines = [f"## Monthly data refresh ({datetime.now(timezone.utc).date()})", "",
+             f"UCDP Candidate releases for {year}: " + ", ".join(f"`{f.name}`" for f in files), "",
+             "| | Before | After |", "|---|---|---|"]  # fmt: skip
+    for k in ("events", "date_max", "share_clear"):
+        lines.append(f"| {k} | {before.get(k, '—')} | {after.get(k, '—')} |")
+    lines += ["", "Candidate data are **provisional**: not comparable with UCDP GED and revised in the next "
+              "annual release. Check `reports/data_quality/ucdp_candidate.json` before merging."]  # fmt: skip
+    path = QUALITY_DIR.parents[0] / "refresh_summary.md"
+    path.write_text("\n".join(lines) + "\n")
+    print(path.read_text())
+    return path
+
+
+def _candidate_state() -> dict:
+    if not CANDIDATE_PUBLIC_META.exists():
+        return {}
+    q = json.loads(CANDIDATE_PUBLIC_META.read_text())["quality_report"]
+    clear = next((c for c in q["checks"] if c["name"] == "code_status[Clear]"), None)
+    return {"events": q["coverage"].get("events"), "date_max": q["coverage"].get("date_max"),
+            "share_clear": f"{clear['affected_rows'] / clear['total_rows']:.1%}" if clear else "—"}  # fmt: skip
+
+
 def cmd_report(args=None) -> None:
     from src.report import build_report
 
@@ -285,6 +364,7 @@ def main(argv: list[str] | None = None) -> int:
         p.add_argument("--acled-start", default="2018-01-01")
     sub.add_parser("build")
     sub.add_parser("report")
+    sub.add_parser("refresh", help="monthly CI refresh: Candidate data, build, report, summary")
     args = ap.parse_args(argv)
     if args.cmd == "fetch":
         cmd_fetch(args)
@@ -292,6 +372,8 @@ def main(argv: list[str] | None = None) -> int:
         cmd_build(args)
     elif args.cmd == "report":
         cmd_report(args)
+    elif args.cmd == "refresh":
+        cmd_refresh(args)
     elif args.cmd == "all":
         cmd_fetch(args)
         cmd_build(args)

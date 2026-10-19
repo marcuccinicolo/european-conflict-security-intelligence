@@ -41,12 +41,19 @@ def render() -> None:
                                    placeholder="All event types")  # fmt: skip
     freq = st.sidebar.radio("Time aggregation", ["Month", "Quarter", "Year"], horizontal=True,
                             key="conflict_freq")  # fmt: skip
+    clear_only = False
+    if src.name == "ucdp_candidate":
+        clear_only = st.sidebar.toggle("'Clear' events only", value=False, key="cand_clear",
+                                       help="Exclude events UCDP flags for checking (deaths, dyad, type of "
+                                       "violence, geography, ...), which are the most likely to be revised.")  # fmt: skip
 
     U.page_header("Area A · Conflict patterns", "Conflict events in Europe",
                   "Where and when organised violence is recorded, and how complete the records are.")  # fmt: skip
     U.status_banner(src)
 
     df = U.events(v, src.name, start, end, tuple(countries), tuple(types))
+    if clear_only:
+        df = df[df["code_status"] == "Clear"]
     if df.empty:
         st.warning("No events match the current filters.")
         return
@@ -133,7 +140,7 @@ def render() -> None:
                                         "standard_distance_km": st.column_config.NumberColumn("std. distance (km)", format="%.0f")})  # fmt: skip
 
     with t_hot:
-        render_hotspots(v, src.name, start, end, tuple(countries), tuple(types), syn)
+        render_hotspots(v, src.name, start, end, tuple(countries), tuple(types), syn, clear_only)
 
     with t_cat:
         cs = C.country_summary(df)
@@ -217,10 +224,12 @@ one period of stable coverage.
 
 
 @st.cache_data(show_spinner="Computing Getis-Ord Gi* on the equal-area grid...")
-def _hotspot_results(v, source, start, end, countries, types, cell_km, precise):
+def _hotspot_results(v, source, start, end, countries, types, cell_km, precise, clear_only=False):
     from src.analysis import hotspots as H
 
     df = U.events(v, source, start, end, countries, types)
+    if clear_only:
+        df = df[df["code_status"] == "Clear"]
     cells, summary = H.hotspots(df, cell_km, precise)
     years = df["event_date"].dt.year.nunique()
     trend = H.hotspot_trend(df, cell_km, precise) if years >= 2 else None
@@ -228,7 +237,7 @@ def _hotspot_results(v, source, start, end, countries, types, cell_km, precise):
     return cells, summary, trend, active
 
 
-def render_hotspots(v, source, start, end, countries, types, syn) -> None:
+def render_hotspots(v, source, start, end, countries, types, syn, clear_only=False) -> None:
     c1, c2, _ = st.columns([1, 1, 2])
     cell_km = c1.select_slider("Cell size", options=[10, 25, 50], value=25, format_func=lambda k: f"{k} km",
                                key="hot_cell", help="Equal-area square cells (EPSG:3035). Results depend on "
@@ -237,7 +246,8 @@ def render_hotspots(v, source, start, end, countries, types, syn) -> None:
                         help="Exclude events located only to a region or country, which UCDP places at "
                         "centroids and which would create artificial hot spots.")  # fmt: skip
     try:
-        cells, s, trend, active = _hotspot_results(v, source, start, end, countries, types, cell_km, precise)
+        cells, s, trend, active = _hotspot_results(v, source, start, end, countries, types, cell_km, precise,
+                                                   clear_only)  # fmt: skip
     except (ValueError, RuntimeError) as exc:
         st.info(str(exc))
         return

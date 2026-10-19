@@ -145,7 +145,11 @@ def source_label(row: pd.Series) -> str:
 def pick_source(domain: str, key: str, label: str, container=st.sidebar) -> pd.Series:
     """Source selector that never mixes sources; defaults to real data when present."""
     reg = registry(db_version())
-    reg = reg[reg["domain"] == domain].sort_values("data_status")  # real < synthetic
+    # Default = final real data; provisional and synthetic sources come later in the list.
+    priority = {"ucdp_ged": 0, "acled": 1, "sipri_milex": 0, "ucdp_candidate": 5}
+    reg = reg[reg["domain"] == domain]
+    reg = reg.assign(_p=[priority.get(k, 9 if s == "synthetic" else 3) for k, s in zip(reg["source"], reg["data_status"])])
+    reg = reg.sort_values("_p", kind="stable").drop(columns="_p")
     options = reg["source"].tolist()
     labels = dict(zip(reg["source"], reg.apply(source_label, axis=1)))
     choice = container.selectbox(label, options, format_func=labels.get, key=key,
@@ -160,6 +164,15 @@ def status_banner(row: pd.Series) -> None:
             "to demonstrate the pipeline. They are not real events or real expenditure figures "
             "and support no conclusion about actual conditions.",
             icon=":material/science:",
+        )
+    elif row.name == "ucdp_candidate":
+        cov = row["coverage"] or {}
+        st.warning(
+            f"**Provisional data: {row['name']}.** Coverage {cov.get('date_min')} to {cov.get('date_max')}. "
+            "Monthly releases relax UCDP's 25-death threshold and will be revised, added to or removed in the "
+            "next annual GED. **Counts are not comparable with UCDP GED** and recent months are incomplete. "
+            f"Licence: {row['licence']}. Retrieved {str(row['retrieved_at_utc'])[:10]}.",
+            icon=":material/schedule:",
         )
     else:
         cov = row["coverage"] or {}

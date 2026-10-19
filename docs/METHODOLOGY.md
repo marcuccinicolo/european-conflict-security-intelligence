@@ -40,6 +40,12 @@ Principles applied in code (not only in prose):
 
 **Empty periods.** A month with no records shows 0 events: "no recorded events", which is not the same as "no events".
 
+### Provisional current-year data (UCDP Candidate)
+
+The source selector offers UCDP Candidate events for the year after the latest annual GED. They are
+shown with a provisional banner and are never pooled with GED, because the inclusion threshold differs
+and the events will be revised. A sidebar switch keeps only events with `code_status` = Clear.
+
 ### Hot-spot analysis (Conflict page, *Hot spots* tab; brief §A4)
 
 | Element | Choice | Why |

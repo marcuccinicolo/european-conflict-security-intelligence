@@ -54,7 +54,7 @@
       "status": "pass",
       "affected_rows": 0,
       "total_rows": 3990,
-      "detail": "Expected 1997-01-01 to 2026-10-17.",
+      "detail": "Expected 1997-01-01 to 2026-10-19.",
       "action": "none",
       "share": 0.0
     },
@@ -158,7 +158,7 @@
     ],
     "events": 3985
   },
-  "generated_at": "2026-10-17T14:01:22+00:00",
+  "generated_at": "2026-10-19T12:19:11+00:00",
   "summary": {
     "pass": 3,
     "warn": 8,

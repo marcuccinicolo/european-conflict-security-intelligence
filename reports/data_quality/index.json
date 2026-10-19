@@ -1,6 +1,6 @@
 {
-  "generated_at_utc": "2026-10-17T14:01:26+00:00",
-  "database": "security-20261017T140126-36ed31bd.duckdb",
+  "generated_at_utc": "2026-10-19T12:19:15+00:00",
+  "database": "security-20261019T121915-9d01e283.duckdb",
   "sources": {
     "synthetic_events": {
       "rows_out": 3985,
@@ -19,6 +19,15 @@
       "info": 1,
       "not_run": 0,
       "report": "reports/data_quality/ucdp_ged.json"
+    },
+    "ucdp_candidate": {
+      "rows_out": 2317,
+      "pass": 16,
+      "warn": 3,
+      "fail": 0,
+      "info": 8,
+      "not_run": 0,
+      "report": "reports/data_quality/ucdp_candidate.json"
     },
     "synthetic_milex": {
       "rows_out": 624,

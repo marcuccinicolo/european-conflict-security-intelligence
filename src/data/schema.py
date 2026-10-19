@@ -32,6 +32,7 @@ EVENT_COLUMNS: dict[str, str] = {
     "fatalities_high": "Float64",
     "fatalities_kind": "string",  # estimate | reported
     "n_sources": "Int64",  # number of source reports (UCDP only)
+    "code_status": "string",  # UCDP: Clear | Check ... (uncertainty flag; key for Candidate data)
 }
 
 MILEX_COLUMNS: dict[str, str] = {

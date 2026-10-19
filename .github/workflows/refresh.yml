@@ -1,0 +1,42 @@
+name: monthly data refresh
+
+# UCDP extracts Candidate data on the 20th of each month and publishes shortly
+# after; run on the 25th. The job downloads any new release, rebuilds and
+# validates everything, regenerates the brief, runs the full test suite, and
+# opens a pull request with a summary. Nothing reaches main without review.
+on:
+  schedule:
+    - cron: "0 6 25 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    env:
+      ECSI_AUTO_FETCH: "0"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements-dev.txt
+      - name: Fetch new releases, build, regenerate brief
+        run: python -m src.pipeline refresh
+      - name: Test the refreshed data
+        run: pytest
+      - name: Open pull request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: data-refresh
+          delete-branch: true
+          commit-message: "Monthly data refresh (UCDP Candidate)"
+          title: "Monthly data refresh: UCDP Candidate events"
+          body-path: reports/refresh_summary.md
+          add-paths: |
+            data/public
+            reports

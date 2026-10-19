@@ -20,6 +20,10 @@ separately analysed views of Europe's security environment side by side:
   event study testing whether European countries closer to Russia raised military spending (% of
   GDP) more after 2014 and 2022, with wild cluster bootstrap inference and seven robustness checks.
 
+- **Current-year data, refreshed monthly.** Provisional UCDP Candidate events for 2026 (a separate,
+  clearly flagged source), updated each month by a GitHub Action that rebuilds, tests and opens a
+  pull request for review.
+
 It is designed around one rule: **every number shown is traceable to a licensed source file, a
 documented transformation, and a stated denominator.**
 
@@ -52,6 +56,7 @@ download. To rebuild everything from the original raw files (~41 MB, no account 
 python -m src.pipeline fetch    # UCDP GED 26.1, SIPRI Milex 2025 v1.2, Natural Earth borders
 python -m src.pipeline build    # validate -> data/processed/security.duckdb + quality reports
 python -m src.pipeline report   # regenerate reports/RESEARCH_BRIEF.md and figures
+python -m src.pipeline refresh  # monthly: new UCDP Candidate releases + build + report + summary
 streamlit run app.py
 ```
 
@@ -65,9 +70,9 @@ pip install -r requirements-dev.txt   # adds the reference libraries used in tes
 pytest
 ```
 
-79 tests: validation primitives, each source adapter, aggregation logic, SQL-versus-pandas
+83 tests: validation primitives, each source adapter, aggregation logic, SQL-versus-pandas
 consistency, SQL injection safety, synthetic-defect detection, the mocked ACLED API client, and a
-headless render of every dashboard page, and for the research module: agreement with statsmodels,
+headless render of every dashboard page, Candidate release discovery and de-duplication, and for the research module: agreement with statsmodels,
 recovery of a known effect, bootstrap size under the null, and the Crimea geometry; for hot spots:
 Gi* against PySAL to 1e-10, FDR against statsmodels, detection of a planted cluster, few false hot
 spots under spatial randomness, and the study-area rules. Reference libraries used only in tests
@@ -143,8 +148,10 @@ src/
   report.py                 research brief + figures (computed from the DB)
   research.py               runs the pre-specified proximity analysis (used by app + report)
   data/
-    fetch.py                documented downloads, provenance sidecars, ACLED OAuth client
-    ucdp.py · acled.py · sipri.py    source adapters -> canonical schemas
+    fetch.py                documented downloads, provenance sidecars, UCDP Candidate release
+                            discovery, ACLED OAuth client
+    ucdp.py · acled.py · sipri.py    source adapters -> canonical schemas (ucdp.py also reads
+                                     the provisional Candidate releases)
     events.py               shared event validation/enrichment
     validation.py           checks + machine-readable QualityReport
     boundaries.py           Natural Earth point-in-country check (GeoPandas, EPSG:3035)
@@ -251,7 +258,7 @@ domain. See [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md).
 - **Analytical communication:** a reproducible research brief that separates findings,
   limitations and non-conclusions, and an accessible dashboard design (CVD-validated palette,
   units always visible, no dual axes).
-- **Software practice:** modular architecture, 79 automated tests (including UI smoke tests) run in
+- **Software practice:** modular architecture, 83 automated tests (including UI smoke tests) run in
   CI, and secrets kept in environment variables only.
 
 ## Licence

@@ -11,7 +11,7 @@ from src.data import fetch as F
 from src.data.acled import load_acled_csv
 from src.data.sipri import load_milex_csv
 from src.database import queries as Q
-from src.database.db import build_database, connect, resolve, schema_version
+from src.database.db import SCHEMA_VERSION, build_database, connect, resolve, schema_version
 
 # scripts/ is not a package; import the generator by path.
 import importlib.util
@@ -226,7 +226,7 @@ def test_rebuild_is_visible_to_a_process_holding_the_old_database(tmp_path, synt
     held = duckdb.connect(str(path), read_only=True)  # the app's cached connection
     try:
         build_database([ev], [mx], [], [], path=path)
-        assert schema_version(path) == 2
+        assert schema_version(path) == SCHEMA_VERSION
         assert connect(path).execute("SELECT count(*) FROM conflict_events").fetchone()[0] == len(ev)
     finally:
         held.close()
