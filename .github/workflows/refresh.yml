@@ -4,6 +4,7 @@ name: monthly data refresh
 # after; run on the 25th. The job downloads any new release, rebuilds and
 # validates everything, regenerates the brief, runs the full test suite, and
 # opens a pull request with a summary. Nothing reaches main without review.
+# Months without a new release end after the download step, with no PR.
 on:
   schedule:
     - cron: "0 6 25 * *"
@@ -26,10 +27,13 @@ jobs:
           cache: pip
       - run: pip install -r requirements-dev.txt
       - name: Fetch new releases, build, regenerate brief
+        id: refresh
         run: python -m src.pipeline refresh
       - name: Test the refreshed data
+        if: steps.refresh.outputs.changed == 'true'
         run: pytest
       - name: Open pull request
+        if: steps.refresh.outputs.changed == 'true'
         uses: peter-evans/create-pull-request@v7
         with:
           branch: data-refresh

@@ -60,3 +60,19 @@ def test_overlapping_releases_keep_latest_revision(tmp_path):
     assert checks["duplicate_ids_across_releases"] == 1
     assert checks["outside_candidate_year"] == 1
     assert any("not comparable with UCDP GED" in t for t in rep.transformations)
+
+
+def test_refresh_skips_when_release_files_unchanged(monkeypatch, tmp_path):
+    """No new UCDP release -> no rebuild and no pull request (changed=false)."""
+    import src.pipeline as P
+
+    f = tmp_path / "GEDEvent_v26_0_8.csv"
+    f.write_text("same bytes")
+    out = tmp_path / "gh_output"
+    monkeypatch.setenv("GITHUB_OUTPUT", str(out))
+    monkeypatch.setattr(P, "_candidate_state", lambda: {"release_sha256": [F.sha256(f)]})
+    monkeypatch.setattr(P.fetch_mod, "fetch_sipri", lambda: None)
+    monkeypatch.setattr(P.fetch_mod, "fetch_candidate", lambda year: [f])
+    monkeypatch.setattr(P, "cmd_build", lambda: (_ for _ in ()).throw(AssertionError("must not rebuild")))
+    assert P.cmd_refresh() is None
+    assert out.read_text().strip() == "changed=false"

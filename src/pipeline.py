@@ -321,13 +321,19 @@ def cmd_refresh(args=None) -> Path:
     year = candidate_year()
     fetch_mod.fetch_sipri()  # needed for the brief; never committed
     files = fetch_mod.fetch_candidate(year)
+    new_hashes = sorted(fetch_mod.sha256(f) for f in files)
+    changed = new_hashes != before.get("release_sha256")
+    _github_output("changed", "true" if changed else "false")
+    if not changed:
+        print(f"No new UCDP Candidate data for {year} (release files unchanged); nothing to propose.")
+        return None
     cmd_build()
     cmd_report()
     after = _candidate_state()
     lines = [f"## Monthly data refresh ({datetime.now(timezone.utc).date()})", "",
              f"UCDP Candidate releases for {year}: " + ", ".join(f"`{f.name}`" for f in files), "",
              "| | Before | After |", "|---|---|---|"]  # fmt: skip
-    for k in ("events", "date_max", "share_clear"):
+    for k in ("events", "date_max", "share_clear"):  # release_sha256 is for change detection only
         lines.append(f"| {k} | {before.get(k, '—')} | {after.get(k, '—')} |")
     lines += ["", "Candidate data are **provisional**: not comparable with UCDP GED and revised in the next "
               "annual release. Check `reports/data_quality/ucdp_candidate.json` before merging."]  # fmt: skip
@@ -337,13 +343,26 @@ def cmd_refresh(args=None) -> Path:
     return path
 
 
+def _github_output(key: str, value: str) -> None:
+    """Expose a step output when running inside GitHub Actions."""
+    import os
+
+    if os.getenv("GITHUB_OUTPUT"):
+        with open(os.environ["GITHUB_OUTPUT"], "a") as fh:
+            fh.write(f"{key}={value}\n")
+
+
 def _candidate_state() -> dict:
     if not CANDIDATE_PUBLIC_META.exists():
         return {}
-    q = json.loads(CANDIDATE_PUBLIC_META.read_text())["quality_report"]
+    meta = json.loads(CANDIDATE_PUBLIC_META.read_text())
+    q = meta["quality_report"]
     clear = next((c for c in q["checks"] if c["name"] == "code_status[Clear]"), None)
+    provs = meta["source_provenance"]
+    provs = provs if isinstance(provs, list) else [provs]
     return {"events": q["coverage"].get("events"), "date_max": q["coverage"].get("date_max"),
-            "share_clear": f"{clear['affected_rows'] / clear['total_rows']:.1%}" if clear else "—"}  # fmt: skip
+            "share_clear": f"{clear['affected_rows'] / clear['total_rows']:.1%}" if clear else "—",
+            "release_sha256": sorted(p["sha256"] for p in provs)}  # fmt: skip
 
 
 def cmd_report(args=None) -> None:

@@ -70,7 +70,7 @@ pip install -r requirements-dev.txt   # adds the reference libraries used in tes
 pytest
 ```
 
-83 tests: validation primitives, each source adapter, aggregation logic, SQL-versus-pandas
+84 tests: validation primitives, each source adapter, aggregation logic, SQL-versus-pandas
 consistency, SQL injection safety, synthetic-defect detection, the mocked ACLED API client, and a
 headless render of every dashboard page, Candidate release discovery and de-duplication, and for the research module: agreement with statsmodels,
 recovery of a known effect, bootstrap size under the null, and the Crimea geometry; for hot spots:
@@ -258,7 +258,7 @@ domain. See [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md).
 - **Analytical communication:** a reproducible research brief that separates findings,
   limitations and non-conclusions, and an accessible dashboard design (CVD-validated palette,
   units always visible, no dual axes).
-- **Software practice:** modular architecture, 83 automated tests (including UI smoke tests) run in
+- **Software practice:** modular architecture, 84 automated tests (including UI smoke tests) run in
   CI, and secrets kept in environment variables only.
 
 ## Licence

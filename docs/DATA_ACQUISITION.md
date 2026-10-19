@@ -31,7 +31,8 @@ It runs `python -m src.pipeline refresh`, which:
 4. writes `reports/refresh_summary.md` (events before and after, latest date, share of 'Clear' events).
 
 The workflow then runs the full test suite and opens a pull request (branch `data-refresh`) with that
-summary as its description. **Nothing reaches `main` without review.** Merging the PR updates the live
+summary as its description, but only when the release files changed (compared by SHA-256), so a month
+with no new UCDP release produces no PR. **Nothing reaches `main` without review.** Merging the PR updates the live
 app.
 
 One-time repository setting: *Settings → Actions → General → Workflow permissions → Allow GitHub
