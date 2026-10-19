@@ -166,6 +166,83 @@ scope by design.
     return md, facts
 
 
+# --------------------------------------------------------------- hot spots
+
+
+def hotspot_section(con, start: str = "2022-01-01") -> str:
+    from src.analysis import hotspots as H
+
+    ev = Q.events(con, "ucdp_ged", start=pd.Timestamp(start).date())
+    sens = []
+    for k in (10, 25, 50):
+        cells, s = H.hotspots(ev, k)
+        sens.append(s)
+        if k == 25:
+            main_cells, main = cells, s
+    tcells, per_year = H.hotspot_trend(ev, 25)
+    active = H.monthly_active_area(ev, 25)
+    p1 = _save(V.hotspot_map(main_cells, False), "hotspots_gi_star_2022_2025", width=1000, height=640)
+    p2 = _save(V.trend_map(tcells, False), "hotspots_trend_2022_2025", width=1000, height=640)
+    p3 = _save(V.active_area_chart(active, False), "hotspots_active_area")
+    tc = tcells["trend"].value_counts()
+    a = active.assign(year=active["month"].dt.year).groupby("year")["active_area_km2"].median()
+    srows = "\n".join(
+        f"| {s['cell_km']} km | {s['cells']:,} | {s['study_area_km2'] / 1000:,.0f}k | {s['hot_cells']} | "
+        f"{s['hot_area_km2'] / 1000:,.1f}k | {s['share_events_in_hot_cells'] * 100:.0f}% |"
+        for s in sens
+    )
+    yrows = "\n".join(f"| {int(r.year)} | {int(r.hot_cells)} | {r.hot_area_km2 / 1000:,.1f}k |" for r in per_year.itertuples())
+    return f"""
+### A4. Where recorded violence clusters: hot spots, 2022–2025
+
+Getis-Ord Gi* on counts of precisely located UCDP events per cell of an **equal-area grid**
+(EPSG:3035), with the 8 neighbouring cells plus the cell itself. The study area is land within
+100 km of any recorded event, and **cells with no events are included**. P-values are adjusted for
+the thousands of simultaneous tests with the Benjamini–Hochberg false discovery rate. Validated
+against PySAL's `esda.G_Local` to 1e-10. {main['events_excluded_imprecise']:,} events located only
+to a region or country are excluded, because UCDP places them at centroids, which would create
+artificial hot spots.
+
+![Gi* hot spots]({p1})
+
+- At 25 km, **{main['hot_cells']} cells ({main['hot_area_km2'] / 1000:,.0f}k km², {main['hot_area_km2'] / main['study_area_km2'] * 100:.1f}% of the study area) hold
+  {main['share_events_in_hot_cells'] * 100:.0f}% of the {main['events_used']:,} located events.** Recorded violence is
+  overwhelmingly concentrated along a narrow band, not spread across the country.
+- **The result depends on the cell size (MAUP), so it is reported for three sizes:**
+
+| Cell | Cells | Study area (km²) | Hot cells | Hot area (km²) | Events in hot cells |
+|---|---|---|---|---|---|
+{srows}
+
+  Finer cells find smaller, more numerous hot spots. The concentration finding holds at every size.
+
+- **Year by year, on a fixed grid** (hot at FDR 5%):
+
+| Year | Hot cells | Hot area (km²) |
+|---|---|---|
+{yrows}
+
+  Of the cells that were ever hot: {tc.get('Persistent', 0)} persistent (hot every year), {tc.get('Intermittent', 0)} intermittent,
+  {tc.get('New', 0)} new in {per_year['year'].max()} and {tc.get('Diminishing', 0)} diminishing (hot earlier, not in {per_year['year'].max()}).
+  The hot-spot geography shifts over time rather than staying fixed. The {per_year['year'].max()} figure should be
+  read alongside the coding change noted in A3: fewer, more aggregated events in the latest year
+  change what each cell's count means.
+
+![Hot-spot history]({p2})
+
+- **Monthly area with recorded events** (25 km cells): median {a.iloc[0] / 1000:,.0f}k km² per month in
+  {a.index[0]} and {a.iloc[-1] / 1000:,.0f}k km² in {a.index[-1]}. This measures the *spread of recorded activity*,
+  not the front line or territorial control, and it moves with reporting as well as with fighting.
+
+![Active area]({p3})
+
+**Limitations.** Hot spots are clusters of *recorded* events and inherit UCDP's reporting coverage.
+Areas with little access or media presence can look quiet. Cold spots almost never occur with counts
+dominated by zeros, so their absence is not a finding. The statistic is computed on event counts, not
+fatalities, so a hot spot describes how often violence is recorded, not how lethal it is.
+"""
+
+
 # ---------------------------------------------------------------- defence part
 
 
@@ -348,6 +425,7 @@ def build_report() -> list[Path]:
     now = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     if {"ucdp_ged", "sipri_milex"} <= real:
         c_md, _ = conflict_section(con, False, "ucdp_ged")
+        c_md += hotspot_section(con)
         d_md, _ = defence_section(con, False, "sipri_milex")
         body = _real_brief(reg[reg["domain"].isin(["conflict", "defence"])], c_md, d_md, now)
         body = body.replace("## 5. Data-quality and reporting limitations", research_section(con)

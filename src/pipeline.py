@@ -203,6 +203,9 @@ def cmd_build(args=None) -> Path:
         print(f"  {key:<17} {report.rows_out:>7} rows  {report.to_dict()['summary']}")
 
     print("Building analytical database")
+    from src.data.boundaries import export_public_boundaries
+
+    export_public_boundaries()
     df, rep = load_acled_csv(SYNTHETIC_EVENTS_CSV, source="synthetic_events")
     events.append(df)
     record("synthetic_events", "conflict", "synthetic", df, rep, [SYNTHETIC_EVENTS_CSV])

@@ -72,8 +72,8 @@ def render() -> None:
                 help="UCDP where_prec 1-2 (exact or within ~25 km); ACLED geo_precision 1.")  # fmt: skip
     st.caption(NOT_ALL)
 
-    t_trend, t_geo, t_cat, t_rep, t_dl = st.tabs(
-        ["Trends", "Map", "Countries & categories", "Reporting & completeness", "Data & download"]
+    t_trend, t_geo, t_hot, t_cat, t_rep, t_dl = st.tabs(
+        ["Trends", "Map", "Hot spots", "Countries & categories", "Reporting & completeness", "Data & download"]
     )
 
     with t_trend:
@@ -131,6 +131,9 @@ def render() -> None:
                          column_config={"lat": st.column_config.NumberColumn(format="%.2f"),
                                         "lon": st.column_config.NumberColumn(format="%.2f"),
                                         "standard_distance_km": st.column_config.NumberColumn("std. distance (km)", format="%.0f")})  # fmt: skip
+
+    with t_hot:
+        render_hotspots(v, src.name, start, end, tuple(countries), tuple(types), syn)
 
     with t_cat:
         cs = C.country_summary(df)
@@ -211,3 +214,74 @@ one period of stable coverage.
                 f"permit redistribution. {src['redistribution']}",
                 icon=":material/lock:",
             )
+
+
+@st.cache_data(show_spinner="Computing Getis-Ord Gi* on the equal-area grid...")
+def _hotspot_results(v, source, start, end, countries, types, cell_km, precise):
+    from src.analysis import hotspots as H
+
+    df = U.events(v, source, start, end, countries, types)
+    cells, summary = H.hotspots(df, cell_km, precise)
+    years = df["event_date"].dt.year.nunique()
+    trend = H.hotspot_trend(df, cell_km, precise) if years >= 2 else None
+    active = H.monthly_active_area(df, cell_km, precise)
+    return cells, summary, trend, active
+
+
+def render_hotspots(v, source, start, end, countries, types, syn) -> None:
+    c1, c2, _ = st.columns([1, 1, 2])
+    cell_km = c1.select_slider("Cell size", options=[10, 25, 50], value=25, format_func=lambda k: f"{k} km",
+                               key="hot_cell", help="Equal-area square cells (EPSG:3035). Results depend on "
+                               "cell size: compare sizes before reading any single map.")  # fmt: skip
+    precise = c2.toggle("Precise locations only", value=True, key="hot_precise",
+                        help="Exclude events located only to a region or country, which UCDP places at "
+                        "centroids and which would create artificial hot spots.")  # fmt: skip
+    try:
+        cells, s, trend, active = _hotspot_results(v, source, start, end, countries, types, cell_km, precise)
+    except (ValueError, RuntimeError) as exc:
+        st.info(str(exc))
+        return
+    k = st.columns(4)
+    k[0].metric("Hot-spot area", f"{s['hot_area_km2'] / 1000:,.0f}k km²",
+                help=f"{s['hot_cells']} cells significant at FDR 10% or stricter.")  # fmt: skip
+    k[1].metric("Share of the study area", U.fmt_pct(s["hot_area_km2"] / s["study_area_km2"], 1),
+                help=f"Study area: {s['study_area_km2'] / 1000:,.0f}k km² in {s['cells']:,} cells, "
+                "including cells with no events.")  # fmt: skip
+    k[2].metric("Events inside hot spots", U.fmt_pct(s["share_events_in_hot_cells"]),
+                help=f"Of {s['events_used']:,} events used.")  # fmt: skip
+    k[3].metric("Events excluded (imprecise)", U.fmt_int(s["events_excluded_imprecise"]),
+                help="Located only to a region or country.")  # fmt: skip
+    st.plotly_chart(V.hotspot_map(cells, syn), width="stretch")
+    st.caption(
+        "Getis-Ord Gi* on counts of recorded events per cell, with the 8 neighbouring cells and the "
+        "cell itself; p-values adjusted for thousands of simultaneous tests (Benjamini-Hochberg FDR). "
+        "Grey: cells with events that are not significant. The outline marks the study area (land "
+        "within 100 km of any event). Cold spots almost never appear with counts dominated by zeros, "
+        "so their absence is not a finding."
+    )
+    if trend is not None:
+        tcells, per_year = trend
+        a, b = st.columns([3, 2])
+        with a:
+            st.plotly_chart(V.trend_map(tcells, syn), width="stretch")
+        with b:
+            st.markdown("##### Hot-spot history")
+            counts = tcells["trend"].value_counts()
+            st.dataframe(pd.DataFrame({"category": ["Persistent", "Intermittent", "New", "Diminishing"],
+                                       "cells": [int(counts.get(c, 0)) for c in
+                                                 ["Persistent", "Intermittent", "New", "Diminishing"]]}),
+                         hide_index=True, width="stretch")  # fmt: skip
+            st.dataframe(per_year.assign(hot_area_km2=per_year["hot_area_km2"].round(0)), hide_index=True,
+                         width="stretch")  # fmt: skip
+            st.caption(
+                "One Gi* map per calendar year on the same grid (hot at FDR 5%). **Persistent**: hot every "
+                "year. **Intermittent**: hot in the last year and some earlier ones. **New**: hot only in the "
+                "last year. **Diminishing**: hot earlier, not in the last year. A partial first or last year "
+                "has fewer events and fewer hot spots."
+            )
+    st.plotly_chart(V.active_area_chart(active, syn), width="stretch")
+    st.caption(
+        f"Area of {cell_km} km cells with at least one recorded event in the month. It tracks the "
+        "*geographic spread of recorded activity*, not the front line or territorial control, and it "
+        "rises when reporting improves."
+    )

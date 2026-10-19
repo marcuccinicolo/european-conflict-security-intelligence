@@ -1,6 +1,6 @@
 # European Conflict & Security Intelligence: research brief
 
-*Generated 2026-10-17 13:29 UTC by `python -m src.pipeline report`. Every figure in this document is
+*Generated 2026-10-19 12:02 UTC by `python -m src.pipeline report`. Every figure in this document is
 computed from the processed database; no number is typed by hand.*
 
 
@@ -88,6 +88,59 @@ scope by design.
   coding system, not an error, but it matters for any present-day country filter.
 
 ![Record completeness](figures/conflict_completeness.png)
+
+### A4. Where recorded violence clusters: hot spots, 2022–2025
+
+Getis-Ord Gi* on counts of precisely located UCDP events per cell of an **equal-area grid**
+(EPSG:3035), with the 8 neighbouring cells plus the cell itself. The study area is land within
+100 km of any recorded event, and **cells with no events are included**. P-values are adjusted for
+the thousands of simultaneous tests with the Benjamini–Hochberg false discovery rate. Validated
+against PySAL's `esda.G_Local` to 1e-10. 10,052 events located only
+to a region or country are excluded, because UCDP places them at centroids, which would create
+artificial hot spots.
+
+![Gi* hot spots](figures/hotspots_gi_star_2022_2025.png)
+
+- At 25 km, **75 cells (47k km², 2.8% of the study area) hold
+  82% of the 28,293 located events.** Recorded violence is
+  overwhelmingly concentrated along a narrow band, not spread across the country.
+- **The result depends on the cell size (MAUP), so it is reported for three sizes:**
+
+| Cell | Cells | Study area (km²) | Hot cells | Hot area (km²) | Events in hot cells |
+|---|---|---|---|---|---|
+| 10 km | 16,443 | 1,644k | 274 | 27.4k | 82% |
+| 25 km | 2,651 | 1,657k | 75 | 46.9k | 82% |
+| 50 km | 668 | 1,670k | 21 | 52.5k | 70% |
+
+  Finer cells find smaller, more numerous hot spots. The concentration finding holds at every size.
+
+- **Year by year, on a fixed grid** (hot at FDR 5%):
+
+| Year | Hot cells | Hot area (km²) |
+|---|---|---|
+| 2022 | 53 | 33.1k |
+| 2023 | 60 | 37.5k |
+| 2024 | 65 | 40.6k |
+| 2025 | 81 | 50.6k |
+
+  Of the cells that were ever hot: 24 persistent (hot every year), 39 intermittent,
+  18 new in 2025 and 29 diminishing (hot earlier, not in 2025).
+  The hot-spot geography shifts over time rather than staying fixed. The 2025 figure should be
+  read alongside the coding change noted in A3: fewer, more aggregated events in the latest year
+  change what each cell's count means.
+
+![Hot-spot history](figures/hotspots_trend_2022_2025.png)
+
+- **Monthly area with recorded events** (25 km cells): median 54k km² per month in
+  2022 and 59k km² in 2025. This measures the *spread of recorded activity*,
+  not the front line or territorial control, and it moves with reporting as well as with fighting.
+
+![Active area](figures/hotspots_active_area.png)
+
+**Limitations.** Hot spots are clusters of *recorded* events and inherit UCDP's reporting coverage.
+Areas with little access or media presence can look quiet. Cold spots almost never occur with counts
+dominated by zeros, so their absence is not a finding. The statistic is computed on event counts, not
+fatalities, so a hot spot describes how often violence is recorded, not how lethal it is.
 
 ## 4. Area B: European defence trends (SIPRI)
 

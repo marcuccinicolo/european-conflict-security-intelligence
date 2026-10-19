@@ -257,3 +257,88 @@ def distance_scatter(raw: pd.DataFrame, label_iso: set[str]) -> go.Figure:
                       xaxis_title="Distance from capital to Russia (km, Crimea excluded)",
                       yaxis_title="Change (percentage points)", hovermode="closest")  # fmt: skip
     return _finish(fig, False, height=440)
+
+
+# ------------------------------------------------------------- hot-spot maps
+
+HOTSPOT_COLORS = {
+    "Hot spot (FDR 1%)": "#b42318",
+    "Hot spot (FDR 5%)": "#e34948",
+    "Hot spot (FDR 10%)": "#f4a3a2",
+    "Cold spot (FDR 1%)": "#104281",
+    "Cold spot (FDR 5%)": "#3987e5",
+    "Cold spot (FDR 10%)": "#9ec5f4",
+    "Not significant, with events": "#c3c2b7",
+}
+TREND_COLORS = {"Persistent": "#b42318", "Intermittent": "#eb6834", "New": "#6250d6",
+                "Diminishing": "#2a78d6"}  # fmt: skip
+
+
+def _focus(cells, quantile: float = 0.05) -> tuple[dict, float]:
+    """Centre and zoom on the bulk of the drawn cells (5th-95th percentile extent),
+    so a few isolated cells far away do not pull the view off the main cluster."""
+    import numpy as np
+
+    if cells.empty:
+        return dict(lon=20.0, lat=50.0), 3.5
+    c = cells.to_crs("EPSG:3035").geometry.centroid.to_crs("EPSG:4326")
+    lo_x, hi_x = np.quantile(c.x, [quantile, 1 - quantile])
+    lo_y, hi_y = np.quantile(c.y, [quantile, 1 - quantile])
+    span = max(hi_x - lo_x, (hi_y - lo_y) * 1.6, 1.5)
+    zoom = float(np.clip(np.log2(360 / span) - 0.6, 3, 9))
+    return dict(lon=float((lo_x + hi_x) / 2), lat=float((lo_y + hi_y) / 2)), zoom
+
+
+def _cell_map(cells, color_col: str, cmap: dict, hover: list[str], synthetic: bool,
+              outline=None) -> go.Figure:  # fmt: skip
+    cells = cells.reset_index(drop=True)
+    center, zoom = _focus(cells)
+    fig = px.choropleth_map(
+        cells, geojson=cells.geometry.__geo_interface__, locations=cells.index, color=color_col,
+        color_discrete_map=cmap, category_orders={color_col: list(cmap)}, map_style="carto-positron",
+        center=center, zoom=zoom, opacity=0.8, hover_data={h: True for h in hover},
+    )  # fmt: skip
+    fig.update_traces(marker_line_width=0)
+    if outline is not None:
+        for poly in getattr(outline, "geoms", [outline]):
+            for ring in [poly.exterior]:
+                xs, ys = ring.xy
+                fig.add_trace(go.Scattermap(lon=list(xs), lat=list(ys), mode="lines", hoverinfo="skip",
+                                            line=dict(width=1, color=MUTED), showlegend=False))  # fmt: skip
+    fig.update_layout(margin=dict(l=0, r=0, t=0, b=0), hovermode="closest",
+                      legend=dict(y=0.02, x=0.01, bgcolor="rgba(255,255,255,0.88)", title=None))  # fmt: skip
+    return _finish(fig, synthetic, height=560)
+
+
+def hotspot_map(cells, synthetic: bool) -> go.Figure:
+    """Gi* classes. Zero-count non-significant cells are not drawn; the study area is outlined."""
+    import shapely
+
+    show = cells[cells["cls"] != "Not significant"].copy()
+    rest = cells[(cells["cls"] == "Not significant") & (cells["events"] > 0)].copy()
+    rest["cls"] = "Not significant, with events"
+    d = pd.concat([show, rest])
+    d["events"] = d["events"].astype(int)
+    d["z"] = d["z"].round(2)
+    d["p_fdr"] = d["p_fdr"].round(4)
+    outline = shapely.union_all(cells.geometry.values).simplify(0.02)
+    return _cell_map(d, "cls", HOTSPOT_COLORS, ["events", "z", "p_fdr"], synthetic, outline)
+
+
+def trend_map(cells, synthetic: bool) -> go.Figure:
+    import shapely
+
+    d = cells[cells["trend"] != "Never hot"].copy()
+    outline = shapely.union_all(cells.geometry.values).simplify(0.02)
+    return _cell_map(d, "trend", TREND_COLORS, ["years_hot"], synthetic, outline)
+
+
+def active_area_chart(ma: pd.DataFrame, synthetic: bool) -> go.Figure:
+    fig = go.Figure(go.Scatter(x=ma["month"], y=ma["active_area_km2"] / 1000, mode="lines",
+                               line=dict(width=2, color=SERIES[0]), customdata=ma[["events", "active_cells"]],
+                               hovertemplate="%{x|%b %Y}: %{y:,.1f}k km²<br>%{customdata[1]} cells, "
+                               "%{customdata[0]:,} events<extra></extra>"))  # fmt: skip
+    fig.update_layout(title="Area with recorded events, per month", yaxis_title="Thousand km²",
+                      hovermode="closest")  # fmt: skip
+    fig.update_yaxes(rangemode="tozero")
+    return _finish(fig, synthetic, height=340)
