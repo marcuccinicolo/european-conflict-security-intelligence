@@ -7,6 +7,7 @@ Investigated on 2026-10-17. Terms change, so check the linked pages before any r
 | Source | Used for | Access | Format | Licence / terms | Committed to Git? | Dashboard export |
 |---|---|---|---|---|---|---|
 | **UCDP GED v26.1** | Area A (default) | Free download, no account | CSV in ZIP (39 MB → 274 MB) | **CC BY 4.0**, citation required | Raw file no (size); the validated European subset yes (`data/public/`, with attribution and lineage) | Yes, filtered rows + aggregates, with citation |
+| **UCDP Candidate Events** (monthly) | Area A, current year (provisional) | Free download, no account | CSV per release | **CC BY 4.0** | Validated European subset yes (`data/public/`) | Yes |
 | **SIPRI Milex 1949–2025 v1.2** | Area B | Free download, no account | XLSX, one sheet per indicator | SIPRI T&C: free non-commercial use with attribution; reproducing >10% of a dataset needs permission | **No** | **No**: charts only, with credit line |
 | **ACLED** | Area A (optional) | myACLED account; OAuth API or export tool | CSV/JSON | ACLED EULA: non-commercial, **no redistribution of raw data**, derived outputs must be transformative | **Never** | **Never** |
 | **Natural Earth 1:50m admin-0** | Coordinate check, hot-spot study area | Free download | Shapefile in ZIP | Public domain | European subset yes (`data/public/boundaries_europe.parquet`) | n/a |
@@ -27,6 +28,19 @@ Investigated on 2026-10-17. Terms change, so check the linked pages before any r
 - Why it is the default: event-level, georeferenced, fatality estimates with uncertainty bounds,
   open licence, no credentials. Its 25-death inclusion threshold is a scope limitation, documented
   in `METHODOLOGY.md`.
+
+## UCDP Candidate Events (provisional)
+
+- Releases: <https://ucdp.uu.se/downloads/candidateged/>. Monthly files `GEDEvent_vYY_0_M.csv`, plus
+  cumulative quarterly files `GEDEvent_vYY_01_YY_MM.csv`. Codebook v1.5. Data are extracted on the 20th of
+  every month.
+- Differences from GED, per the codebook: the 25-death annual threshold is relaxed, and events may be
+  revised, added or removed in the next annual GED. `code_status` flags events still being checked.
+  A monthly release contains every event whose start **or** end date falls in that month, so releases
+  overlap.
+- Handling here: a separate source (`ucdp_candidate`) that is never pooled with GED, restricted to the
+  year after the latest GED, de-duplicated on the persistent `id` (latest release wins), and shown
+  with a "provisional" banner. Cite Hegre, Croicu, Eck & Högbladh (2020), *Research & Politics*.
 
 ## SIPRI Military Expenditure Database
 

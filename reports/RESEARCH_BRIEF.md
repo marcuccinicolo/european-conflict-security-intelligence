@@ -1,6 +1,6 @@
 # European Conflict & Security Intelligence: research brief
 
-*Generated 2026-10-19 12:10 UTC by `python -m src.pipeline report`. Every figure in this document is
+*Generated 2026-10-19 12:20 UTC by `python -m src.pipeline report`. Every figure in this document is
 computed from the processed database; no number is typed by hand.*
 
 
@@ -15,6 +15,7 @@ computed from the processed database; no number is typed by hand.*
 
 | Dataset | Status | Coverage | Retrieved | Licence |
 |---|---|---|---|---|
+| UCDP Candidate Events (provisional monthly releases) | real | 2026-01-01 – 2026-08-31 | 2026-10-19 | CC BY 4.0 |
 | UCDP Georeferenced Event Dataset (GED) Global v26.1 | real | 1989-01-01 – 2025-12-31 | 2026-10-17 | CC BY 4.0 |
 | SIPRI Military Expenditure Database 1949-2025 (v1.2) | real | 1949 – 2025 | 2026-10-17 | SIPRI Terms and Conditions (free non-commercial use with attribution) |
 
@@ -141,6 +142,29 @@ artificial hot spots.
 Areas with little access or media presence can look quiet. Cold spots almost never occur with counts
 dominated by zeros, so their absence is not a finding. The statistic is computed on event counts, not
 fatalities, so a hot spot describes how often violence is recorded, not how lethal it is.
+
+### A5. Provisional data for 2026: UCDP Candidate Events
+
+Releases used: GEDEvent_v26_01_26_06.csv, GEDEvent_v26_0_7.csv, GEDEvent_v26_0_8.csv (retrieved 2026-10-19). These data are
+**provisional**. Candidate releases relax the 25-death annual threshold, and events are revised, added
+or removed in the next annual GED. **They are not comparable with the GED series above and are
+never pooled with it.** They are shown so that the platform covers the current year, with that
+caveat attached.
+
+| Month | Recorded events | 'Clear' status | Best-estimate fatalities |
+|---|---|---|---|
+| 2026-01 | 246 | 98% | 13,401 |
+| 2026-02 | 182 | 95% | 7,494 |
+| 2026-03 | 321 | 98% | 7,894 |
+| 2026-04 | 309 | 97% | 7,035 |
+| 2026-05 | 282 | 98% | 6,733 |
+| 2026-06 | 320 | 97% | 4,759 |
+| 2026-07 | 338 | 95% | 4,894 |
+| 2026-08 | 319 | 95% | 5,706 |
+
+93% of these events are located in Ukraine. Candidate months average 290 events, against 670 per month in the final GED for 2025. That gap reflects a provisional, still-incomplete collection, not a measured fall in violence. The most recent months are likely
+the least complete. 'Check' events (deaths, dyad, type of violence,
+geography) are the most likely to change; the dashboard can exclude them.
 
 ## 4. Area B: European defence trends (SIPRI)
 

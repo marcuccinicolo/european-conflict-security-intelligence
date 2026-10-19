@@ -51,3 +51,9 @@ def test_stale_project_modules_are_reloaded():
     assert not at.exception
     assert not hasattr(sys.modules["src.ui.common"], "_stale_marker")
     assert sys.modules["src"].LOADED_FOR != "some-older-commit"
+
+
+def test_default_conflict_source_is_final_ged():
+    at = AppTest.from_function(_page, args=("conflict", str(ROOT)), default_timeout=180)
+    at.run()
+    assert at.sidebar.selectbox(key="conflict_source").value in {"ucdp_ged", "synthetic_events"}

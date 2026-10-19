@@ -1,14 +1,16 @@
 {
-  "description": "Validated European subset of UCDP GED, produced by `python -m src.pipeline build`.",
+  "description": "Validated European subset of UCDP Georeferenced Event Dataset (GED) Global v26.1, produced by `python -m src.pipeline build`.",
   "licence": "CC BY 4.0 - Davies, Shawn, Ther\u00e9se Pettersson & Magnus \u00d6berg (2026). Organized violence 1989-2025. Journal of Peace Research; Sundberg, Ralph & Erik Melander (2013). Introducing the UCDP Georeferenced Event Dataset. Journal of Peace Research 50(4).",
-  "source_provenance": {
-    "file": "ged261-csv.zip",
-    "url": "https://ucdp.uu.se/downloads/ged/ged261-csv.zip",
-    "method": "download",
-    "retrieved_at_utc": "2026-10-17T10:45:27+00:00",
-    "bytes": 39122522,
-    "sha256": "8c941d84954e555ee2e54f40fa04d9203bf1e2f962203d0a9930966c4947c667"
-  },
+  "source_provenance": [
+    {
+      "file": "ged261-csv.zip",
+      "url": "https://ucdp.uu.se/downloads/ged/ged261-csv.zip",
+      "method": "download",
+      "retrieved_at_utc": "2026-10-17T10:45:27+00:00",
+      "bytes": 39122522,
+      "sha256": "8c941d84954e555ee2e54f40fa04d9203bf1e2f962203d0a9930966c4947c667"
+    }
+  ],
   "quality_report": {
     "source": "ucdp_ged",
     "input_file": "ged261-csv.zip",
@@ -83,7 +85,7 @@
         "status": "pass",
         "affected_rows": 0,
         "total_rows": 58016,
-        "detail": "Expected 1989-01-01 to 2026-10-17.",
+        "detail": "Expected 1989-01-01 to 2026-10-19.",
         "action": "none",
         "share": 0.0
       },
@@ -200,7 +202,7 @@
       ],
       "events": 58016
     },
-    "generated_at": "2026-10-17T14:01:22+00:00",
+    "generated_at": "2026-10-19T12:19:11+00:00",
     "summary": {
       "pass": 12,
       "warn": 3,

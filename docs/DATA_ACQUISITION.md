@@ -19,6 +19,27 @@ SIPRI parser reads the base year from the sheet name, e.g. "Constant (2025) US$"
 `fetch --force`, `build` and `report`. The report warns that its commentary needs review, because
 the file hash will have changed.
 
+## Monthly refresh (automatic)
+
+`.github/workflows/refresh.yml` runs on the 25th of every month (and on demand from the Actions tab).
+It runs `python -m src.pipeline refresh`, which:
+
+1. finds the newest UCDP Candidate releases for the year after the latest GED (the latest cumulative
+   quarterly file, then each later monthly file) and downloads them, removing superseded files;
+2. downloads the SIPRI workbook for the build (never committed);
+3. rebuilds and validates every source, then regenerates the brief and figures;
+4. writes `reports/refresh_summary.md` (events before and after, latest date, share of 'Clear' events).
+
+The workflow then runs the full test suite and opens a pull request (branch `data-refresh`) with that
+summary as its description. **Nothing reaches `main` without review.** Merging the PR updates the live
+app.
+
+One-time repository setting: *Settings → Actions → General → Workflow permissions → Allow GitHub
+Actions to create and approve pull requests* must be enabled, or the last step fails.
+
+When UCDP publishes the next annual GED (usually mid-year), update `download_url` for `ucdp_ged` in
+`src/config.py`. The Candidate year then moves forward automatically.
+
 ## 2. Manual placement (any source, offline)
 
 Download the files in a browser and put them where `data/raw/README.md` says. `build` picks up:

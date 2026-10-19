@@ -29,6 +29,8 @@ SYNTHETIC_MILEX_CSV = SAMPLE_DIR / "SYNTHETIC_demo_milex.csv"
 # Validated European UCDP subset (CC BY 4.0), committed so deployments start with real data.
 UCDP_PUBLIC_PARQUET = PUBLIC_DIR / "ucdp_ged_europe.parquet"
 UCDP_PUBLIC_META = PUBLIC_DIR / "ucdp_ged_europe.meta.json"
+CANDIDATE_PUBLIC_PARQUET = PUBLIC_DIR / "ucdp_candidate_europe.parquet"
+CANDIDATE_PUBLIC_META = PUBLIC_DIR / "ucdp_candidate_europe.meta.json"
 EXPOSURE_PUBLIC_CSV = PUBLIC_DIR / "exposure.csv"
 WDI_PUBLIC_CSV = PUBLIC_DIR / "wdi_gdp_per_capita.csv"
 RESEARCH_DIR = REPORTS_DIR / "research"
@@ -73,6 +75,27 @@ SOURCES: dict[str, SourceSpec] = {
             "battle-related deaths in a calendar year are included; every event has "
             "at least one estimated death.",
             "Fatalities are estimates (best / low / high), not exact counts.",
+        ],
+    ),
+    "ucdp_candidate": SourceSpec(
+        key="ucdp_candidate",
+        name="UCDP Candidate Events (provisional monthly releases)",
+        publisher="Uppsala Conflict Data Program, Uppsala University",
+        url="https://ucdp.uu.se/downloads/",
+        download_url="https://ucdp.uu.se/downloads/candidateged/",
+        licence="CC BY 4.0",
+        licence_url="https://creativecommons.org/licenses/by/4.0/",
+        citation=(
+            "Hegre, Håvard, Mihai Croicu, Kristine Eck & Stina Högbladh (2020). Introducing the UCDP "
+            "Candidate Events Dataset. Research & Politics; Högbladh, Stina (2026). UCDP Candidate "
+            "Events Dataset Codebook v1.5."
+        ),
+        raw_dir=RAW_DIR / "ucdp_candidate",
+        redistribution="Redistribution and derived works permitted with attribution (CC BY 4.0).",
+        notes=[
+            "PROVISIONAL. Candidate events relax the 25-death annual threshold and are revised, added or "
+            "removed in the next annual GED. Counts are not comparable with UCDP GED.",
+            "code_status flags events with higher uncertainty (Check deaths, Check dyad, ...).",
         ],
     ),
     "acled": SourceSpec(
@@ -167,7 +190,7 @@ SOURCES: dict[str, SourceSpec] = {
 }
 
 # Sources whose row-level data may be exported from the dashboard.
-EXPORTABLE_SOURCES = {"ucdp_ged", "synthetic_events", "synthetic_milex", "world_bank_wdi", "exposure"}
+EXPORTABLE_SOURCES = {"ucdp_ged", "ucdp_candidate", "synthetic_events", "synthetic_milex", "world_bank_wdi", "exposure"}
 
 
 def acled_credentials() -> tuple[str, str] | None:
