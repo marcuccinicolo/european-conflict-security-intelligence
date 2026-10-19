@@ -105,3 +105,38 @@ response to 2014.
   nearest recorded war event". UCDP's Russia–Ukraine events include missile and drone strikes far
   behind the front (e.g. near Odesa, 105 km from Chișinău), so "front line" would overstate what
   it measures. The measure itself was not changed.
+
+## 9. Additional inference (added 2026-10-19, after the §5–6 results were known)
+
+These analyses were added after the main estimates had been seen. They do not change the main
+specification; they test how far its conclusions depend on the inference method, on the most
+exposed countries, and on SIPRI's estimated values. They were written down here **before being
+run**, and are reported whatever they show.
+
+**9.1 Randomization inference.** Distance is a fixed country attribute, so under the sharp null of
+no distance gradient any assignment of the 37 observed distances to the 37 countries is equally
+likely. Draw 9,999 random permutations of the country→distance mapping (seed 20261019), re-estimate
+the §5 difference-in-differences model each time, and report the two-sided p-value
+p = (1 + #{|β*| ≥ |β̂|}) / (1 + 9,999) for the post-2014 and post-2022 coefficients. Unlike the
+cluster bootstrap, this needs no large-sample approximation.
+
+**9.2 Synthetic control** (Abadie, Diamond & Hainmueller 2010). Outcome: military expenditure as %
+of GDP.
+- Treated units, each estimated separately: Estonia, Latvia, Lithuania, Poland, and the unweighted
+  average of the three Baltic states.
+- Donor pool: main-sample countries more than **1,000 km** from Russia, with a SIPRI value in every
+  year 2005–2025. Nearer countries are excluded because they may have responded to the same shock.
+- Weights: non-negative, summing to one, chosen to minimise the squared gap over **2005–2013**
+  (all pre-treatment years; no covariates).
+- Effect: actual minus synthetic, by year. The summary is the mean gap in 2014–2021 and in
+  2022–2025.
+- Inference: placebo-in-space. Re-run the method treating each donor as if it were treated, and
+  rank the treated unit's post/pre RMSPE ratio among all units. p = rank / (number of donors + 1).
+  Placebo-in-time (a fake 2009 treatment, 2005–2013 only) is reported as a check.
+- Limitation stated in advance: with all of Europe responding to 2014 and 2022, distant donors are
+  not untreated. The estimate is the *excess* response of the treated unit over a distant
+  comparison, not an effect against a world without the war.
+
+**9.3 Sensitivity to SIPRI estimates.** Re-estimate the §5 model (a) dropping every country-year
+whose %-of-GDP value SIPRI marks as an estimate or highly uncertain, and (b) dropping every country
+with any such value in 2005–2025.

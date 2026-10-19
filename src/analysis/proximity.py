@@ -34,7 +34,10 @@ def build_panel(
     include_caucasus: bool = False,
 ) -> pd.DataFrame:
     """Country-year panel. Rows with a missing outcome are dropped later, per model."""
-    g = share_gdp[["iso3", "country", "year", "value"]].rename(columns={"value": "share_gdp"})
+    if "value_flag" not in share_gdp:
+        share_gdp = share_gdp.assign(value_flag="reported")
+    g = share_gdp[["iso3", "country", "year", "value", "value_flag"]].rename(
+        columns={"value": "share_gdp", "value_flag": "share_flag"})
     k = milex_real[["iso3", "year", "value"]].rename(columns={"value": "milex_real"})
     d = g.merge(k, on=["iso3", "year"], how="outer")
     d["country"] = d.groupby("iso3")["country"].transform("first")
@@ -236,6 +239,60 @@ def robustness(main: pd.DataFrame, with_caucasus: pd.DataFrame, draws: int = 999
             "n_obs": f.n_obs, "countries": f.n_clusters,
         })  # fmt: skip
     return pd.DataFrame(rows)
+
+
+# ------------------------------------------------- randomization inference
+
+
+def permutation_test(df: pd.DataFrame, y: str = "share_gdp", draws: int = 9999,
+                     seed: int = 20261019, keep: int = 4000) -> dict:  # fmt: skip
+    """Randomization inference for the DiD gradients (RESEARCH_DESIGN.md §9.1).
+
+    Permutes the country -> distance mapping. Fixed effects are projected out once
+    (Frisch-Waugh-Lovell), so each permutation is a 2-column regression.
+    """
+    d = df.dropna(subset=[y, "dist"]).reset_index(drop=True)
+    F = np.column_stack([
+        np.ones(len(d)),
+        pd.get_dummies(d["iso3"], drop_first=True, dtype=float).to_numpy(),
+        pd.get_dummies(d["year"], drop_first=True, dtype=float).to_numpy(),
+    ])  # fmt: skip
+    Q, _ = np.linalg.qr(F)
+    resid = lambda M: M - Q @ (Q.T @ M)  # noqa: E731
+    yt = resid(d[y].to_numpy(float))
+    codes, uniq = pd.factorize(d["iso3"])
+    dist_c = d.groupby("iso3")["dist"].first().reindex(uniq).to_numpy()
+    post = np.column_stack([(d["year"] >= 2014).to_numpy(float), (d["year"] >= 2022).to_numpy(float)])
+
+    def coefs(dvec):
+        X = resid(dvec[codes][:, None] * post)
+        return np.linalg.lstsq(X, yt, rcond=None)[0]
+
+    obs = coefs(dist_c)
+    rng = np.random.default_rng(seed)
+    null = np.array([coefs(rng.permutation(dist_c)) for _ in range(draws)])
+    p = [(1 + int((np.abs(null[:, k]) >= abs(obs[k])).sum())) / (draws + 1) for k in range(2)]
+    return {
+        "post2014": float(obs[0]), "post2022": float(obs[1]),
+        "p_perm_post2014": p[0], "p_perm_post2022": p[1], "draws": draws, "seed": seed,
+        "null_post2014": null[:keep, 0].tolist(), "null_post2022": null[:keep, 1].tolist(),
+    }  # fmt: skip
+
+
+# ----------------------------------------------------- estimate sensitivity
+
+ESTIMATED = {"estimate", "highly_uncertain"}
+
+
+def drop_estimated_years(df: pd.DataFrame) -> pd.DataFrame:
+    """§9.3(a): drop country-years whose %-of-GDP value SIPRI marks as estimated."""
+    return df[~df["share_flag"].isin(ESTIMATED)]
+
+
+def drop_estimated_countries(df: pd.DataFrame) -> pd.DataFrame:
+    """§9.3(b): drop every country with any estimated %-of-GDP value in the sample."""
+    bad = df.loc[df["share_flag"].isin(ESTIMATED), "iso3"].unique()
+    return df[~df["iso3"].isin(bad)]
 
 
 def raw_change(df: pd.DataFrame, y0: int = BASE_YEAR, y1: int = 2025) -> pd.DataFrame:

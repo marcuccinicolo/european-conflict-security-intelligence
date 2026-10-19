@@ -109,3 +109,61 @@ def test_distance_units():
     # A box starting 1 degree of longitude east: ~71.5 km at 50N.
     d = distance_to_geometry_km(caps, box(21.0, 49.0, 22.0, 51.0)).iloc[0]
     assert 65 < d < 78
+
+
+# ------------------------------------------------ additional inference (§9)
+
+
+def test_permutation_matches_did_and_detects_effect():
+    df = synthetic_panel(effect2022=-0.5)
+    pt = P.permutation_test(df, draws=999)
+    f = P.did(df, draws=0)
+    assert pt["post2022"] == pytest.approx(f.coef["exp_x_post2022"], rel=1e-8)  # FWL = full OLS
+    assert pt["p_perm_post2022"] <= 0.002
+
+
+def test_permutation_is_calibrated_under_null():
+    ps = [P.permutation_test(synthetic_panel(effect2022=0.0, seed=s), draws=199)["p_perm_post2022"]
+          for s in range(20)]  # fmt: skip
+    assert sum(p < 0.05 for p in ps) <= 4
+    assert min(ps) >= 1 / 200
+
+
+def test_synthetic_control_recovers_convex_combination():
+    from src.analysis import synthetic_control as SC
+
+    rng = np.random.default_rng(0)
+    years = list(range(2005, 2026))
+    donors = pd.DataFrame(rng.uniform(0.5, 3.0, (len(years), 6)).cumsum(axis=0) / 10,
+                          index=years, columns=[f"D{i}" for i in range(6)])  # fmt: skip
+    w_true = np.array([0.6, 0.4, 0, 0, 0, 0])
+    donors["T"] = donors.iloc[:, :6].to_numpy() @ w_true
+    donors.loc[2014:, "T"] += 1.0  # a 1 pp excess response from 2014
+    r = SC.synth(donors, "T", [f"D{i}" for i in range(6)])
+    assert r["weights"].sum() == pytest.approx(1)
+    assert (r["weights"] >= 0).all()
+    assert r["weights"]["D0"] == pytest.approx(0.6, abs=0.02)
+    assert r["gap"].loc[2014:].mean() == pytest.approx(1.0, abs=0.05)
+    assert r["pre_rmspe"] < 0.01
+
+
+def test_placebo_rank_counts_treated_unit():
+    from src.analysis import synthetic_control as SC
+
+    rng = np.random.default_rng(3)
+    years = list(range(2005, 2026))
+    w = pd.DataFrame(1 + rng.normal(0, 0.05, (len(years), 8)), index=years, columns=[f"D{i}" for i in range(8)])
+    w["T"] = w.iloc[:, :8].mean(axis=1)
+    w.loc[2014:, "T"] += 2.0
+    donors = [f"D{i}" for i in range(8)]
+    res = SC.synth(w, "T", donors)
+    pl = SC.placebo_p(w, "T", donors, res)
+    assert pl["units"] == 9 and pl["rank"] == 1 and pl["p"] == pytest.approx(1 / 9)
+
+
+def test_estimate_sensitivity_filters():
+    df = synthetic_panel()
+    df["share_flag"] = "reported"
+    df.loc[(df["iso3"] == "C00") & (df["year"] == 2020), "share_flag"] = "estimate"
+    assert len(P.drop_estimated_years(df)) == len(df) - 1
+    assert "C00" not in set(P.drop_estimated_countries(df)["iso3"])

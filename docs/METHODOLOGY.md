@@ -113,6 +113,9 @@ Each adapter produces a JSON report (`reports/data_quality/<source>.json`) and w
 The proximity event study (dashboard *Research* page, brief section 5) follows its own written
 design in [RESEARCH_DESIGN.md](RESEARCH_DESIGN.md). Gradients are in percentage points of GDP per
 1,000 km. Negative values mean that countries closer to Russia increased their burden more.
+Inference combines a wild cluster bootstrap, randomization inference over distances, and a synthetic
+control for the Baltic states and Poland (§9 of the design, added after the first results and
+specified before being run).
 
 ## 8. What can and cannot be concluded
 

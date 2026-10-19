@@ -65,7 +65,7 @@ pip install -r requirements-dev.txt   # adds the reference libraries used in tes
 pytest
 ```
 
-74 tests: validation primitives, each source adapter, aggregation logic, SQL-versus-pandas
+79 tests: validation primitives, each source adapter, aggregation logic, SQL-versus-pandas
 consistency, SQL injection safety, synthetic-defect detection, the mocked ACLED API client, and a
 headless render of every dashboard page, and for the research module: agreement with statsmodels,
 recovery of a known effect, bootstrap size under the null, and the Crimea geometry; for hot spots:
@@ -122,8 +122,12 @@ files, and the brief prints a warning when the data change. Examples of what the
 
 Among 37 European countries (2005–2025), the **post-2022 rise in military burden is steeper the
 closer a country is to Russia**: an additional −0.44 pp of GDP per 1,000 km farther away (wild
-cluster bootstrap p < 0.001). The result holds in all seven robustness checks and when any single
-country is dropped. The post-2014 gradient (−0.19 pp) is weaker. It vanishes when the South Caucasus
+cluster bootstrap p < 0.001). It holds in all nine robustness checks, including both SIPRI-estimate
+exclusions, and when any single country is dropped. **Randomization inference** (distances permuted
+across countries, 9,999 draws) gives p < 0.001 without large-sample assumptions. A **synthetic
+control** finds the Baltic states' burden 1.5 pp of GDP above a distant-country comparison in
+2022–25, ranking first among 21 placebos. Individually, Lithuania ranks first, while Estonia, Latvia
+and Poland cannot be separated from placebo noise. The post-2014 gradient (−0.19 pp) is weaker. It vanishes when the South Caucasus
 is included, and the pre-trend test rejects at 5%. The brief reports this rather than hiding it.
 The design describes a gradient in budgets, not a causal effect of distance.
 
@@ -156,7 +160,9 @@ src/
     spatial.py              grid counts, concentration, mean centre, standard distance
     defence.py              growth, change, index, balanced totals, thresholds (unit-guarded)
     quality.py              missingness diagnostics
-    proximity.py            panel, TWFE OLS, CR1 cluster SEs, wild cluster bootstrap, event study
+    proximity.py            panel, TWFE OLS, CR1 cluster SEs, wild cluster bootstrap, event study,
+                            randomization inference (FWL), SIPRI-estimate sensitivity
+    synthetic_control.py    convex-weight synthetic control, placebo-in-space and -in-time
     hotspots.py             equal-area grid, study area, Getis-Ord Gi*, BH-FDR, hot-spot trends
   visualization/
     theme.py · charts.py    Plotly template, CVD-checked palette, synthetic watermark
@@ -238,13 +244,14 @@ domain. See [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md).
   study-area and MAUP handling, mean centre and standard distance, interactive MapLibre maps.
 - **Conflict and security research:** UCDP and ACLED coding rules, reporting bias, historical
   state coding, fatality uncertainty, and SIPRI price bases, denominators and estimate flags.
-- **Econometrics:** pre-registered-style design, two-way fixed effects, event study with pre-trend
-  test, cluster-robust and wild cluster bootstrap inference for few clusters, placebo and
-  leave-one-out checks, and explicit separation of what is and is not identified.
+- **Econometrics:** pre-registered-style design (with later additions logged), two-way fixed effects,
+  event study with pre-trend test, wild cluster bootstrap and randomization inference for few
+  clusters, synthetic control with placebo-in-space and placebo-in-time, leave-one-out, and explicit
+  separation of what is and is not identified.
 - **Analytical communication:** a reproducible research brief that separates findings,
   limitations and non-conclusions, and an accessible dashboard design (CVD-validated palette,
   units always visible, no dual axes).
-- **Software practice:** modular architecture, 74 automated tests (including UI smoke tests) run in
+- **Software practice:** modular architecture, 79 automated tests (including UI smoke tests) run in
   CI, and secrets kept in environment variables only.
 
 ## Licence
