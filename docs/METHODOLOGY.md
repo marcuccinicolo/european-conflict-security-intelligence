@@ -40,6 +40,23 @@ Principles applied in code (not only in prose):
 
 **Empty periods.** A month with no records shows 0 events: "no recorded events", which is not the same as "no events".
 
+### Hot-spot analysis (Conflict page, *Hot spots* tab; brief §A4)
+
+| Element | Choice | Why |
+|---|---|---|
+| Unit | Square cells of 10, 25 or 50 km in EPSG:3035 | Equal area, so cell counts are comparable |
+| Study area | Cells containing an event, plus cells whose centre is on the land of the selected countries within 100 km of an event | Follows the theatre of activity and its quiet margins, without the empty space a convex hull adds between distant events |
+| Zero-event cells | **Kept** | Dropping them makes busy cells look ordinary; a common error |
+| Events | Precise locations only by default (UCDP `where_prec` 1–2) | Region- or country-level events sit at centroids and create false clusters |
+| Statistic | Getis-Ord Gi*, binary queen weights including the cell itself, analytic z-scores | Standard local clustering statistic; validated against PySAL `esda.G_Local` |
+| Multiple testing | Benjamini–Hochberg FDR at 1%, 5%, 10% | Thousands of cells are tested at once |
+| Trends | One Gi* per calendar year on a fixed grid: Persistent / Intermittent / New / Diminishing | Comparable maps across years |
+| Active area | km² of cells with ≥1 recorded event per month | Spread of recorded activity, **not** front line or control |
+
+Caveats: results change with cell size (the modifiable areal unit problem), so the dashboard offers
+three sizes and the brief reports all three. Cold spots are almost impossible with zero-dominated
+counts. Hot spots describe the frequency of *recorded* events, not lethality and not true incidence.
+
 ### What an "event" means differs by source
 
 - **UCDP GED** includes only events within conflicts, dyads or actors that reach **25 battle-related deaths in a calendar year**, and every event has at least one death. Protests, riots and non-lethal incidents are out of scope. A drop in UCDP events can mean a conflict fell below the threshold.

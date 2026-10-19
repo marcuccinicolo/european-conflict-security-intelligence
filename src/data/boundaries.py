@@ -16,7 +16,11 @@ from pathlib import Path
 import geopandas as gpd
 import pandas as pd
 
-from src.config import BOUNDARIES_ZIP
+from src.config import BOUNDARIES_ZIP, PUBLIC_DIR
+
+# Public-domain copy of the European countries, committed so deployments without
+# the raw Natural Earth download can still run spatial checks and hot spots.
+BOUNDARIES_PUBLIC = PUBLIC_DIR / "boundaries_europe.parquet"
 
 # Natural Earth ADM0_A3 codes that differ from the ISO3 codes we use.
 _NE_TO_ISO3 = {"KOS": "XKX", "ALD": "FIN", "JEY": "GBR", "GGY": "GBR", "IMN": "GBR"}
@@ -27,13 +31,29 @@ TOLERANCE_M = 10_000
 
 @lru_cache(maxsize=2)
 def load_boundaries(path: Path = BOUNDARIES_ZIP) -> gpd.GeoDataFrame | None:
-    """Return country polygons with an ``iso3`` column, or None if the file is absent."""
-    if not Path(path).exists():
+    """Country polygons with an ``iso3`` column: raw Natural Earth zip if present,
+    else the committed European copy, else None."""
+    if Path(path).exists():
+        g = gpd.read_file(f"zip://{path}")[["ADM0_A3", "NAME", "geometry"]]
+        g["iso3"] = g["ADM0_A3"].replace(_NE_TO_ISO3)
+        g = g.dissolve(by="iso3", as_index=False)[["iso3", "geometry"]]
+        return g.to_crs("EPSG:4326")
+    if BOUNDARIES_PUBLIC.exists():
+        return gpd.read_parquet(BOUNDARIES_PUBLIC)
+    return None
+
+
+def export_public_boundaries() -> Path | None:
+    """Write the European subset (public domain) used when the raw zip is absent."""
+    from src.data.countries import EUROPE, HISTORICAL
+
+    if not BOUNDARIES_ZIP.exists():
         return None
-    g = gpd.read_file(f"zip://{path}")[["ADM0_A3", "NAME", "geometry"]]
-    g["iso3"] = g["ADM0_A3"].replace(_NE_TO_ISO3)
-    g = g.dissolve(by="iso3", as_index=False)[["iso3", "geometry"]]
-    return g.to_crs("EPSG:4326")
+    g = load_boundaries(BOUNDARIES_ZIP)
+    g = g[g["iso3"].isin([k for k in EUROPE if k not in HISTORICAL])].reset_index(drop=True)
+    BOUNDARIES_PUBLIC.parent.mkdir(parents=True, exist_ok=True)
+    g.to_parquet(BOUNDARIES_PUBLIC, index=False)
+    return BOUNDARIES_PUBLIC
 
 
 def check_points_in_country(

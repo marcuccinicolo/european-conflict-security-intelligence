@@ -9,7 +9,9 @@ separately analysed views of Europe's security environment side by side:
 
 - **Area A: Conflict patterns.** Organised violence *recorded* in the UCDP Georeferenced Event
   Dataset (58,016 European events, 1989–2025): trends, event types, geography, fatality estimates
-  with uncertainty ranges, and diagnostics of how complete the record is.
+  with uncertainty ranges, diagnostics of how complete the record is, and **Getis-Ord Gi\* hot
+  spots on an equal-area grid** with FDR correction, year-by-year hot-spot history and the monthly
+  area of recorded activity.
 - **Area B: European defence trends.** SIPRI military expenditure for 44 European countries
   (1949–2025): constant-price levels, % of GDP, change over time, with units, price bases and
   SIPRI's estimate flags kept explicit.
@@ -59,13 +61,17 @@ covered in [docs/DATA_ACQUISITION.md](docs/DATA_ACQUISITION.md).
 ### Tests
 
 ```bash
+pip install -r requirements-dev.txt   # adds the reference libraries used in tests
 pytest
 ```
 
-62 tests: validation primitives, each source adapter, aggregation logic, SQL-versus-pandas
+74 tests: validation primitives, each source adapter, aggregation logic, SQL-versus-pandas
 consistency, SQL injection safety, synthetic-defect detection, the mocked ACLED API client, and a
 headless render of every dashboard page, and for the research module: agreement with statsmodels,
-recovery of a known effect, bootstrap size under the null, and the Crimea geometry. Without the Natural Earth file, the boundary-dependent
+recovery of a known effect, bootstrap size under the null, and the Crimea geometry; for hot spots:
+Gi* against PySAL to 1e-10, FDR against statsmodels, detection of a planted cluster, few false hot
+spots under spatial randomness, and the study-area rules. Reference libraries used only in tests
+are in `requirements-dev.txt` (`pip install -r requirements-dev.txt` to run everything). Without the Natural Earth file, the boundary-dependent
 test is skipped. GitHub Actions runs the suite on every push (`.github/workflows/tests.yml`).
 
 ### Deploying (Streamlit Community Cloud)
@@ -86,7 +92,7 @@ test is skipped. GitHub Actions runs the suite on every push (`.github/workflows
 | Page | Content |
 |---|---|
 | **Overview** | Project framing; dataset cards (source, coverage, licence, retrieval date, REAL/SYNTHETIC tag); a side-by-side country view with **two separate charts** (recorded events; % of GDP); responsible-use statement |
-| **Conflict patterns** | Filters for dataset, dates, countries, event types and aggregation. KPIs, each with its denominator. Tabs: trends (events; fatalities with low–high band) · map (points/density, precise-only toggle, point-in-country rate, grid concentration, annual mean centre and standard distance) · countries & categories (incl. equal-length period comparison with a minimum-base rule) · reporting & completeness · download (licence permitting) |
+| **Conflict patterns** | Filters for dataset, dates, countries, event types and aggregation. KPIs, each with its denominator. Tabs: trends (events; fatalities with low–high band) · map (points/density, precise-only toggle, point-in-country rate, grid concentration, annual mean centre and standard distance) · hot spots (Gi* with FDR on 10/25/50 km equal-area cells, hot-spot history map, monthly active area) · countries & categories (incl. equal-length period comparison with a minimum-base rule) · reporting & completeness · download (licence permitting) |
 | **Defence trends** | Indicator selector with unit, price basis and definition always displayed. Trends (level or index base-year = 100), country comparison (estimates hatched), change (percent for constant prices, percentage points for shares; refused for current prices), ≥ X% of GDP counts with denominators, coverage and flags |
 | **Research** | Pre-specified event study on proximity to Russia: raw scatter, main estimates with wild-bootstrap p-values, event-study chart with pre-trend test, robustness table, leave-one-out and placebo, and a plain statement of what is and is not identified |
 | **Data quality** | Every validation check per dataset, with status, affected rows, action taken; provenance (URL, SHA-256, retrieval time); transformations; column missingness; JSON report download |
@@ -106,6 +112,8 @@ files, and the brief prints a warning when the data change. Examples of what the
 - 1.2k events fall outside their stated country's present-day border. Almost all are UCDP's
   historical coding ("Serbia (Yugoslavia)", "Russia (Soviet Union)"), found by a GeoPandas
   point-in-polygon check.
+- Since 2022, 82% of precisely located events fall in hot-spot cells covering under 3% of the
+  study area (Gi*, 25 km cells, FDR 10%); the finding holds at 10 and 50 km.
 - European real military expenditure (balanced panel of 41 countries) rose 113% between 2014 and
   2025, or 86% excluding Russia and Ukraine. Countries at or above 2% of GDP went from 7 to 27
   of 44.
@@ -149,12 +157,14 @@ src/
     defence.py              growth, change, index, balanced totals, thresholds (unit-guarded)
     quality.py              missingness diagnostics
     proximity.py            panel, TWFE OLS, CR1 cluster SEs, wild cluster bootstrap, event study
+    hotspots.py             equal-area grid, study area, Getis-Ord Gi*, BH-FDR, hot-spot trends
   visualization/
     theme.py · charts.py    Plotly template, CVD-checked palette, synthetic watermark
   ui/                       one module per page + shared helpers
 scripts/generate_synthetic_data.py   seeded demo data with deliberately injected defects
 data/sample/                SYNTHETIC demo CSVs (committed)
-data/public/                committed open data: UCDP Europe subset, exposure distances, WDI GDP pc
+data/public/                committed open data: UCDP Europe subset, exposure distances, WDI GDP pc,
+                            European country boundaries (Natural Earth, public domain)
 data/reference/             hand-coded NATO accession table (with source)
 data/raw/ data/processed/   git-ignored (licences + size)
 reports/                    RESEARCH_BRIEF.md, figures/, data_quality/*.json
@@ -224,8 +234,8 @@ domain. See [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md).
 - **Data quality:** a validation framework with machine-readable reports, defect injection for
   testing, explicit handling of missingness, duplicates, dates and coordinates.
 - **Geospatial analysis:** GeoPandas spatial joins against national borders, equal-area projection
-  (EPSG:3035) for distances, grid aggregation, mean centre and standard distance, interactive
-  MapLibre maps.
+  (EPSG:3035), local spatial statistics (Getis-Ord Gi* with FDR, validated against PySAL), explicit
+  study-area and MAUP handling, mean centre and standard distance, interactive MapLibre maps.
 - **Conflict and security research:** UCDP and ACLED coding rules, reporting bias, historical
   state coding, fatality uncertainty, and SIPRI price bases, denominators and estimate flags.
 - **Econometrics:** pre-registered-style design, two-way fixed effects, event study with pre-trend
@@ -234,7 +244,7 @@ domain. See [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md).
 - **Analytical communication:** a reproducible research brief that separates findings,
   limitations and non-conclusions, and an accessible dashboard design (CVD-validated palette,
   units always visible, no dual axes).
-- **Software practice:** modular architecture, 62 automated tests (including UI smoke tests) run in
+- **Software practice:** modular architecture, 74 automated tests (including UI smoke tests) run in
   CI, and secrets kept in environment variables only.
 
 ## Licence
