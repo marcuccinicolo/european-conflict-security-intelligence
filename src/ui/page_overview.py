@@ -19,7 +19,7 @@ def _source_card(col, row: pd.Series, area: str) -> None:
         f"""<div class="ecsi-card">
         <div class="ecsi-muted">{area}</div>
         <h4>{row['name']}</h4>
-        {U.tag(row['data_status'])}
+        {U.tag(row['data_status'], row['source'])}
         <p class="ecsi-muted" style="margin-top:.5rem">{row['publisher']}<br>
         Coverage: {span} · {int(row['rows_out']):,} rows<br>
         Licence: {row['licence']}<br>
@@ -52,7 +52,7 @@ responds to conflict.
     )
 
     reg = U.registry(v)
-    reg = reg[reg["domain"].isin(["conflict", "defence"])]
+    reg = U.ordered(reg[reg["domain"].isin(["conflict", "defence"])])
     st.markdown("#### Datasets loaded")
     rows = list(reg.iterrows())
     for i in range(0, len(rows), 2):  # two cards per row stay readable on narrow screens

@@ -138,7 +138,8 @@ def milex_indicators(version: str, source: str) -> list[str]:
 
 
 def source_label(row: pd.Series) -> str:
-    tag = "SYNTHETIC demo" if row["data_status"] == "synthetic" else "real data"
+    tag = ("provisional" if row["source"] == "ucdp_candidate"
+           else "SYNTHETIC demo" if row["data_status"] == "synthetic" else "real data")  # fmt: skip
     return f"{row['name']}  ·  {tag}"
 
 
@@ -146,10 +147,7 @@ def pick_source(domain: str, key: str, label: str, container=st.sidebar) -> pd.S
     """Source selector that never mixes sources; defaults to real data when present."""
     reg = registry(db_version())
     # Default = final real data; provisional and synthetic sources come later in the list.
-    priority = {"ucdp_ged": 0, "acled": 1, "sipri_milex": 0, "ucdp_candidate": 5}
-    reg = reg[reg["domain"] == domain]
-    reg = reg.assign(_p=[priority.get(k, 9 if s == "synthetic" else 3) for k, s in zip(reg["source"], reg["data_status"])])
-    reg = reg.sort_values("_p", kind="stable").drop(columns="_p")
+    reg = ordered(reg[reg["domain"] == domain])
     options = reg["source"].tolist()
     labels = dict(zip(reg["source"], reg.apply(source_label, axis=1)))
     choice = container.selectbox(label, options, format_func=labels.get, key=key,
@@ -214,13 +212,25 @@ CSS = """
              padding: 0.1rem 0.45rem; border-radius: 4px; margin-right: 0.3rem;}
   .ecsi-real {background: #e7f3e7; color: #006300;}
   .ecsi-syn {background: #fbe9e9; color: #a32727;}
+  .ecsi-prov {background: #fdf3dc; color: #8a5a00;}
   [data-testid="stMetricValue"] {font-size: 1.6rem;}
   [data-testid="stMetricLabel"] p {font-size: 0.85rem; color: #52514e;}
 </style>
 """
 
 
-def tag(status: str) -> str:
+SOURCE_PRIORITY = {"ucdp_ged": 0, "sipri_milex": 0, "acled": 1, "ucdp_candidate": 5}
+
+
+def ordered(reg):
+    """Final real sources first, then provisional, then synthetic (stable within a group)."""
+    keys = [SOURCE_PRIORITY.get(k, 9 if st_ == "synthetic" else 3) for k, st_ in zip(reg["source"], reg["data_status"])]
+    return reg.assign(_p=keys).sort_values("_p", kind="stable").drop(columns="_p")
+
+
+def tag(status: str, source: str = "") -> str:
+    if source == "ucdp_candidate":
+        return '<span class="ecsi-tag ecsi-prov">◷ PROVISIONAL</span>'
     if status == "synthetic":
         return '<span class="ecsi-tag ecsi-syn">▲ SYNTHETIC</span>'
     return '<span class="ecsi-tag ecsi-real">● REAL DATA</span>'

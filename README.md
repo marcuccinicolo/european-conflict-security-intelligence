@@ -32,6 +32,8 @@ documented transformation, and a stated denominator.**
 | Conflict patterns (UCDP GED, 2014–2025) | Defence trends (SIPRI, constant 2024 US$) |
 |---|---|
 | ![Conflict](docs/img/dashboard_conflict.jpg) | ![Defence](docs/img/dashboard_defence.jpg) |
+| **Research: proximity to Russia** | |
+| ![Research](docs/img/dashboard_research.jpg) | |
 
 ---
 
