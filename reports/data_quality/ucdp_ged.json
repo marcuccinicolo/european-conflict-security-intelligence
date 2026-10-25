@@ -155,7 +155,8 @@
     "date_uncertain = date_prec > 1 (date known only to a range of days or wider).",
     "location_precise = where_prec in {1, 2} (exact place or within ~25 km).",
     "event_type = UCDP type_of_violence label; fatalities = UCDP 'best' estimate.",
-    "Country names mapped to ISO3 (e.g. 'Russia (Soviet Union)' -> RUS)."
+    "Country names mapped to ISO3 (e.g. 'Russia (Soviet Union)' -> RUS).",
+    "Loaded from the committed validated subset ucdp_ged_europe.parquet (raw files not present in this environment)."
   ],
   "coverage": {
     "date_min": "1989-01-01",
